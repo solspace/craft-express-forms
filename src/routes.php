@@ -7,6 +7,7 @@ return [
     'express-forms/forms/new'                            => 'express-forms/forms/create',
     'express-forms/forms/save'                           => 'express-forms/forms/save',
     'express-forms/forms/sort'                           => 'express-forms/forms/sort',
+    'express-forms/forms/reset-spam'                     => 'express-forms/forms/reset-spam',
     'express-forms/forms/delete'                         => 'express-forms/forms/delete',
     'express-forms/forms/duplicate'                      => 'express-forms/forms/duplicate',
     'express-forms/forms/<handle:(?:[^\/]*)>'            => 'express-forms/forms/edit',

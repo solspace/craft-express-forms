@@ -4,6 +4,7 @@ namespace Solspace\ExpressForms\fields;
 
 use craft\base\Field;
 use craft\base\PreviewableFieldInterface;
+use craft\validators\HandleValidator;
 use Solspace\ExpressForms\events\fields\FieldSetValueEvent;
 use yii\base\Event;
 use yii\db\Schema;
@@ -209,5 +210,27 @@ abstract class BaseField extends Field implements FieldInterface, PreviewableFie
         }
 
         return $items;
+    }
+
+    /**
+     * Returns the validators applicable to the current [[scenario]].
+     *
+     * @param string $attribute the name of the attribute whose applicable validators should be returned.
+     *                          If this is null, the validators for ALL attributes in the model will be returned.
+     *
+     * @return \yii\validators\Validator[] the validators applicable to the current [[scenario]].
+     */
+    public function getActiveValidators($attribute = null)
+    {
+        $validators = parent::getActiveValidators($attribute);
+
+        foreach ($validators as $validator) {
+            if ($validator instanceof HandleValidator) {
+                $validator::$baseReservedWords = [];
+                $validator->reservedWords = [];
+            }
+        }
+
+        return $validators;
     }
 }

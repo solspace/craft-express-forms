@@ -241,6 +241,29 @@ class Submission extends Element
     }
 
     /**
+     * @inheritdoc
+     */
+    public static function defaultTableAttributes(string $source): array
+    {
+        if (!preg_match('/form:(\d+)$/', $source, $matches)) {
+            return parent::defaultTableAttributes($source);
+        }
+
+        $attributes = [];
+
+        $form = ExpressForms::getInstance()->forms->getFormById($matches[1]);
+        if (!$form) {
+            return $attributes;
+        }
+
+        foreach ($form->getFields() as $field) {
+            $attributes[] = 'field:' . $field->getId();
+        }
+
+        return $attributes;
+    }
+
+    /**
      * @param string|null $source
      *
      * @return array

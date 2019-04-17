@@ -10,7 +10,7 @@ class OverviewStatsWidgetBundle extends BaseExpressFormsBundle
     public function getScripts(): array
     {
         return [
-            'js/lib/chart/chart.bundle.min.js',
+            'lib/chart/chart.bundle.min.js',
         ];
     }
 }

@@ -5,7 +5,7 @@ Express Forms is an intuitive and lightweight form builder that gets the job don
 
 - [Overview](#overview)
 - [Key Features](#key-features)
-- [Pricing & Support](#pricing-support)
+- [Pricing & Support](#pricing--support)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Documentation](#documentation)
@@ -16,7 +16,7 @@ Express Forms is a reliable form building plugin for Craft CMS. It contains ever
 ## Key Features
 Compare the key features for Express Forms between *Lite* and *Pro* editions. The *Lite* edition includes all the essentials for creating and managing forms for most websites. Upgrade to *Pro* edition if you need additional functionality for your forms.
 
-For a full feature comparison to **Freeform** and the native Craft **Contact Form** plugin, [check out the Compare page](http://craft.express/forms/compare.html)!
+For a full feature comparison to **Freeform** and the native Craft **Contact Form** plugin, [check out the Compare page](http://craft.express/forms/v1/compare.html)!
 
 | Feature | Description | **Lite** | **Pro** |
 | :--- | :--- | :---: | :---: |

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use craft\base\Widget;
 use craft\db\Query;
 use craft\db\Table;
+use craft\helpers\UrlHelper;
 use Solspace\Commons\Dto\Charts\LinearChartData;
 use Solspace\Commons\Dto\Charts\LinearItem;
 use Solspace\Commons\Helpers\ColorHelper;
@@ -106,6 +107,13 @@ class OverviewStatsWidget extends Widget
      */
     public function getBodyHtml(): string
     {
+        if (!ExpressForms::getInstance()->isPro()) {
+            return ExpressForms::t(
+                "Requires <a href='{link}'>Pro</a> edition",
+                ['link' => UrlHelper::cpUrl('express-forms/resources/explore')]
+            );
+        }
+
         \Craft::$app->view->registerAssetBundle(OverviewStatsWidgetBundle::class);
         $data = $this->getChartData();
 
@@ -246,7 +254,14 @@ class OverviewStatsWidget extends Widget
                 ->from(Submission::TABLE)
                 ->groupBy(['dt']);
 
-            $query->where(['between', "$submissions.[[dateCreated]]", $rangeStart->toDateTimeString(), $rangeEnd->toDateTimeString()]);
+            $query->where(
+                [
+                    'between',
+                    "$submissions.[[dateCreated]]",
+                    $rangeStart->toDateTimeString(),
+                    $rangeEnd->toDateTimeString(),
+                ]
+            );
 
             $form = null;
             if ($aggregate) {

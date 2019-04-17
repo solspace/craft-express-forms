@@ -4,8 +4,11 @@ namespace Solspace\ExpressForms\controllers;
 
 use craft\web\Controller;
 use Ramsey\Uuid\Uuid;
+use Solspace\Commons\Helpers\PermissionHelper;
+use Solspace\Commons\Loggers\Readers\LineLogReader;
 use Solspace\ExpressForms\exceptions\Form\FormsNotFoundException;
 use Solspace\ExpressForms\ExpressForms;
+use Solspace\ExpressForms\loggers\ExpressFormsLogger;
 use Solspace\ExpressForms\models\Form;
 use Solspace\ExpressForms\objects\Collections\FieldCollection;
 use Solspace\ExpressForms\objects\Collections\IntegrationMappingCollection;
@@ -18,6 +21,16 @@ use yii\web\Response;
 class FormsController extends Controller
 {
     /**
+     * Initializes the object.
+     * This method is invoked at the end of the constructor after the object is initialized with the
+     * given configuration.
+     */
+    public function init()
+    {
+        PermissionHelper::requirePermission(ExpressForms::PERMISSION_FORMS);
+    }
+
+    /**
      * @return Response
      */
     public function actionIndex(): Response
@@ -27,11 +40,18 @@ class FormsController extends Controller
         $forms       = ExpressForms::getInstance()->forms->getAllForms();
         $exportTypes = ExpressForms::getInstance()->export->getExportTypes();
 
+        $errorLogCount = null;
+        if (ExpressForms::getInstance()->getSettings()->showErrorLogBanner) {
+            $logReader     = new LineLogReader(ExpressFormsLogger::getLogfilePath());
+            $errorLogCount = $logReader->count();
+        }
+
         return $this->renderTemplate(
             'express-forms/forms/index',
             [
-                'forms'       => $forms,
-                'exportTypes' => $exportTypes,
+                'forms'         => $forms,
+                'exportTypes'   => $exportTypes,
+                'errorLogCount' => $errorLogCount,
             ]
         );
     }
@@ -152,6 +172,35 @@ class FormsController extends Controller
             }
 
             return $this->asErrorJson(ExpressForms::t('Could not find form'));
+        }
+
+        throw new NotFoundHttpException();
+    }
+
+    /**
+     * @return Response
+     * @throws NotFoundHttpException
+     * @throws \yii\db\Exception
+     * @throws \yii\web\BadRequestHttpException
+     */
+    public function actionResetSpam(): Response
+    {
+        $this->requirePostRequest();
+
+        if (\Craft::$app->request->isAjax) {
+            $uuid = \Craft::$app->request->post('uuid');
+            if ($uuid) {
+                \Craft::$app->db
+                    ->createCommand()
+                    ->update(
+                        FormRecord::TABLE,
+                        ['spamCount' => 0],
+                        ['uuid' => $uuid]
+                    )
+                    ->execute();
+            }
+
+            return $this->asJson(['success' => true]);
         }
 
         throw new NotFoundHttpException();

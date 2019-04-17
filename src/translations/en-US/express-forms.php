@@ -278,6 +278,9 @@ return [
     'Everything appears to be okay right now! No errors were found.' => 'Everything appears to be okay right now! No errors were found.',
     'Are you sure you want to clear error logs?' => 'Are you sure you want to clear error logs?',
     'Clear' => 'Clear',
+    'There are currently <a href="{link}">{count} logged errors</a> in the Express Forms error log.' => 'There are currently <a href="{link}">{count} logged errors</a> in the Express Forms error log.',
+    'Show Error Log alert banner on Forms page' => 'Show Error Log alert banner on Forms page',
+    'When enabled, an alert banner will show at the top of the Forms list page if there are any logged Express Forms errors. Helpful for quickly catching and identifying issues.' => 'When enabled, an alert banner will show at the top of the Forms list page if there are any logged Express Forms errors. Helpful for quickly catching and identifying issues.',
 
     // Widgets
     'Overview Stats' => 'Overview Stats',
@@ -288,5 +291,5 @@ return [
     'Last 30 days' => 'Last 30 days',
     'Last 60 days' => 'Last 60 days',
     'Last 90 days' => 'Last 90 days',
-
+    "Requires <a href='{link}'>Pro</a> edition" => "Requires <a href='{link}'>Pro</a> edition",
 ];

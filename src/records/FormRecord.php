@@ -110,6 +110,24 @@ class FormRecord extends ActiveRecord
         ];
     }
 
+    public function beforeDelete()
+    {
+        $query = (new Query())
+            ->select(['id'])
+            ->from(Submission::TABLE)
+            ->where(['formId' => $this->id]);
+
+        /** @var Submission $submission */
+        foreach ($query->each() as $result) {
+            $element = Craft::$app->getElements()->getElementById($result['id']);
+            if ($element) {
+                Craft::$app->getElements()->deleteElement($element);
+            }
+        }
+
+        return parent::beforeDelete();
+    }
+
     public function afterDelete()
     {
         $fields = \Craft::$app->getFields();

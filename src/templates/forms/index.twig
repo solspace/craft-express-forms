@@ -16,121 +16,143 @@
 {% block content %}
 
     <style>
-        #form-cards {
+        #form-cards, .error-log-banner {
             display: none;
         }
     </style>
 
-{% if forms|length %}
+    {% if errorLogCount %}
+        <div class="error-log-banner">
+            <p>
+                {{ 'There are currently <a href="{link}">{count} logged errors</a> in the Express Forms error log.'|t("express-forms", {
+                    count: errorLogCount,
+                    link: url("express-forms/settings/error-log"),
+                })|raw }}
+            </p>
+        </div>
+    {% endif %}
 
-    <ul id="form-cards">
-        {% for form in forms %}
-            <li data-id="{{ form.id }}">
-                <div class="card-body">
-                    <div class="corner" style="border-left-color: {{ form.color }}; border-top-color: {{ form.color }}"></div>
-                    <div class="card-info">
-                        <a class="form-name" href="{{ cpUrl("express-forms/forms/" ~ form.handle) }}">
-                            {{ form.name }}
-                        </a>
-                        <div class="form-handle" title="{{ "Handle for this Form"|t("express-forms") }}">{{ form.handle }}</div>
+    {% if forms|length %}
 
-                        <p class="form-description">
-                            {{ form.description ?? "No description"|t("express-forms") }}
-                        </p>
+        <ul id="form-cards">
+            {% for form in forms %}
+                <li data-id="{{ form.id }}">
+                    <div class="card-body">
+                        <div class="corner"
+                             style="border-left-color: {{ form.color }}; border-top-color: {{ form.color }}"></div>
+                        <div class="card-info">
+                            <a class="form-name" href="{{ cpUrl("express-forms/forms/" ~ form.handle) }}">
+                                {{ form.name }}
+                            </a>
+                            <div class="form-handle"
+                                 title="{{ "Handle for this Form"|t("express-forms") }}">{{ form.handle }}</div>
+
+                            <p class="form-description">
+                                {{ form.description ?? "No description"|t("express-forms") }}
+                            </p>
+                        </div>
+
+                        <ul class="card-actions">
+                            <li>
+                                <a class="delete-form"
+                                   data-icon="remove"
+                                   data-id="{{ form.id }}"
+                                   data-message="{{ "Are you sure you want to delete this form?"|t("express-forms") }}"
+                                   title="{{ "Delete this Form"|t("express-forms") }}"></a>
+                            </li>
+                            <li>
+                                <a class="duplicate-form icon-docs"
+                                   data-uuid="{{ form.uuid }}"
+                                   data-message="{{ "Are you sure you want to duplicate this form?"|t("express-forms") }}"
+                                   title="{{ "Duplicate this Form"|t("express-forms") }}"></a>
+                            </li>
+                            <li>
+                                <a class="icon-menu drag-handle"
+                                   title="{{ "Rearrange this Form"|t("express-forms") }}"></a>
+                            </li>
+                        </ul>
+
+                        <ul class="integrations">
+                            {% if form.integrations.mailingListMappings|length %}
+                                <li title="{{ "Mailing List integration for this Form"|t("express-forms") }}"><span
+                                            class="icon-email"></span></li>
+                            {% endif %}
+
+                            {% if form.integrations.crmMappings|length %}
+                                <li title="{{ "CRM integration for this Form"|t("express-forms") }}"><span
+                                            class="icon-upload-cloud"></span></li>
+                            {% endif %}
+                        </ul>
                     </div>
 
-                    <ul class="card-actions">
-                        <li>
-                            <a class="delete-form"
-                               data-icon="remove"
-                               data-id="{{ form.id }}"
-                               data-message="{{ "Are you sure you want to delete this form?"|t("express-forms") }}"
-                               title="{{ "Delete this Form"|t("express-forms") }}"></a>
-                        </li>
-                        <li>
-                            <a class="duplicate-form icon-docs"
-                               data-uuid="{{ form.uuid }}"
-                               data-message="{{ "Are you sure you want to duplicate this form?"|t("express-forms") }}"
-                               title="{{ "Duplicate this Form"|t("express-forms") }}"></a>
-                        </li>
-                        <li>
-                            <a class="icon-menu drag-handle"
-                               title="{{ "Rearrange this Form"|t("express-forms") }}"></a>
-                        </li>
-                    </ul>
-
-                    <ul class="integrations">
-                        {% if form.integrations.mailingListMappings|length %}
-                            <li title="{{ "Mailing List integration for this Form"|t("express-forms") }}"><span class="icon-email"></span></li>
+                    <div class="card-footer">
+                        {% if form.saveSubmissions %}
+                            <a class="submissions" href="{{ url('express-forms/submissions/' ~ form.handle) }}">
+                                <div>{{ form.submissionCount }}</div>
+                                {{ "Submissions"|t("express-forms") }}
+                            </a>
+                        {% else %}
+                            <div class="submissions-not-stored">
+                                {{ "Submissions not stored"|t("express-forms") }}
+                            </div>
                         {% endif %}
 
-                        {% if form.integrations.crmMappings|length %}
-                            <li title="{{ "CRM integration for this Form"|t("express-forms") }}"><span class="icon-upload-cloud"></span></li>
-                        {% endif %}
-                    </ul>
-                </div>
-
-                <div class="card-footer">
-                    {% if form.saveSubmissions %}
-                        <a class="submissions" href="{{ url('express-forms/submissions/' ~ form.handle) }}">
-                            <div>{{ form.submissionCount }}</div>
-                            {{ "Submissions"|t("express-forms") }}
-                        </a>
-                    {% else %}
-                        <div class="submissions-not-stored">
-                            {{ "Submissions not stored"|t("express-forms") }}
+                        <div class="spam"
+                             title="{{ "Submissions blocked by Honeypot Spam Protection"|t("express-forms") }}">
+                            <div>
+                            <span>
+                                <span class="counter">{{ form.spamCount }}</span>
+                                <a class="icon-cw btn reset-spam"
+                                   data-uuid="{{ form.uuid }}"
+                                   data-message="{{ 'Are you sure you want to reset the spam count for this form?' }}"
+                                   title="{{ "Reset count"|t("express-forms") }}"></a>
+                            </span>
+                            </div>
+                            {{ "Blocked"|t("express-forms") }}
                         </div>
-                    {% endif %}
 
-                    <div class="spam" title="{{ "Submissions blocked by Honeypot Spam Protection"|t("express-forms") }}">
-                        <div>
-                            <span>{{ form.spamCount }} <a class="icon-cw btn" title="{{ "Reset count"|t("express-forms") }}"></a></span>
-                        </div>
-                        {{ "Blocked"|t("express-forms") }}
-                    </div>
+                        <div class="export">
+                            <div class="select">
+                                <form method="post">
+                                    {{ csrfInput() }}
+                                    <input type="hidden" name="action" value="express-forms/export" />
+                                    <input type="hidden" name="id" value="{{ form.uuid }}" />
 
-                    <div class="export">
-                        <div class="select">
-                            <form method="post">
-                                {{ csrfInput() }}
-                                <input type="hidden" name="action" value="express-forms/export" />
-                                <input type="hidden" name="id" value="{{ form.uuid }}" />
-
-                                <select class="exporter" name="type">
-                                    <option value="">{{ "Export..."|t("express-forms") }}</option>
-                                    <optgroup label="-------------">
-                                        {% for handle, name in exportTypes %}
-                                            <option value="{{ handle }}">{{ name }}</option>
-                                        {% endfor %}
-                                    </optgroup>
-                                </select>
-                            </form>
+                                    <select class="exporter" name="type">
+                                        <option value="">{{ "Export..."|t("express-forms") }}</option>
+                                        <optgroup label="-------------">
+                                            {% for handle, name in exportTypes %}
+                                                <option value="{{ handle }}">{{ name }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    </select>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+
+        <p>
+            {{ "You haven't created any forms yet..."|t("express-forms") }}
+        </p>
+        <ul class="form-helper-list">
+            <li>
+                <a href="{{ url('express-forms/forms/new/') }}">
+                    {{ "Create a New Form now"|t("express-forms") }}
+                </a>
             </li>
-        {% endfor %}
-    </ul>
-
-{% else %}
-
-    <p>
-        {{ "You haven't created any forms yet..."|t("express-forms") }}
-    </p>
-    <ul class="form-helper-list">
-        <li>
-            <a href="{{ url('express-forms/forms/new/') }}">
-                {{ "Create a New Form now"|t("express-forms") }}
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('express-forms/settings/demo/') }}">
-                {{ "Install the Demo to get a quick start"|t("express-forms") }}
-            </a>
-        </li>
-    </ul>
+            <li>
+                <a href="{{ url('express-forms/settings/demo/') }}">
+                    {{ "Install the Demo to get a quick start"|t("express-forms") }}
+                </a>
+            </li>
+        </ul>
 
 
-{% endif %}
+    {% endif %}
 
 {% endblock %}

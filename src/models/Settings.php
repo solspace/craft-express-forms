@@ -11,6 +11,7 @@ class Settings extends Model
 
     public $name;
     public $enhancedUI = true;
+    public $showErrorLogBanner = true;
 
     public $honeypotEnabled   = false;
     public $honeypotBehaviour = Honeypot::BEHAVIOUR_SIMULATE_SUCCESS;

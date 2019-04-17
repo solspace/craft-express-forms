@@ -1,0 +1,9 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.lightswitchField({
+    label: "Show Error Log alert banner on Forms page"|t("express-forms"),
+    instructions: "When enabled, an alert banner will show at the top of the Forms list page if there are any logged Express Forms errors. Helpful for quickly catching and identifying issues."|t("express-forms"),
+    name: "general[showErrorLogBanner]",
+    on: settings.showErrorLogBanner,
+    errors: settings.errors("showErrorLogBanner"),
+}) }}
