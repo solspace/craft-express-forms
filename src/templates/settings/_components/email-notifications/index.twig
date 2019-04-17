@@ -1,0 +1,90 @@
+{% import "_includes/forms" as forms %}
+
+<div>
+    <h2>{{ "Email Notifications"|t("express-forms") }}</h2>
+
+    {% set input %}
+        <table class="fullwidth">
+            <tbody>
+            <tr>
+                <td>
+                    <input type="text"
+                           class="text fullwidth"
+                           name="emailNotifications[directoryPath]"
+                           placeholder="form-notifications/"
+                           value="{{ settings.emailNotificationsDirectoryPath }}" />
+                </td>
+                <td style="width: 50px;">
+                    <input type="submit" class="btn submit" value="{{ "Update"|t("express-forms") }}" />
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    {% endset %}
+
+    {{ forms.field({
+        label: "Template Directory Path"|t("express-forms"),
+        instructions: "Provide a path relative to the Craft Templates folder where your email templates directory is. The directory must be writeable to allow Express Forms to create and edit existing templates."|t("express-forms"),
+        name: "emailNotifications[directoryPath]",
+        placeholder: "form-notifications/",
+        errors: settings.errors("emailNotificationsDirectoryPath"),
+    }, input) }}
+
+    {% if path %}
+
+        <hr>
+
+        <h2>{{ "Templates"|t("express-forms") }}</h2>
+        <div class="instructions">
+            {{ "Express Forms uses the above path to locate and read the available notification template files in your Craft Templates directory on your server and populates a list of them here. Be sure to have proper file permissions set. Editing of notification templates can be done directly inside the file as well."|t("express-forms") }}
+        </div>
+
+        {% set smallStyle = "width: 25%; white-space: nowrap;" %}
+
+        <div style="margin-top: 30px;">
+            {% if notifications|length %}
+
+                <table class="data fullwidth">
+                    <thead>
+                    <tr>
+                        <th style="{{ smallStyle }}">{{ "Name"|t('express-forms') }}</th>
+                        <th style="{{ smallStyle }}">{{ "File Name"|t('express-forms') }}</th>
+                        <th>{{ "Description"|t('express-forms') }}</th>
+                        <td class="thin"></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for notification in notifications %}
+                        <tr>
+                            <td style="{{ smallStyle }}">
+                                <a href="{{ url('express-forms/settings/email-notifications/' ~ notification.getFileName()) }}"
+                                   style="font-weight: bold;">
+                                    {{ notification.name }}
+                                </a>
+                            </td>
+                            <td class="code" style="{{ smallStyle }}">{{ notification.getFileName() }}</td>
+                            <td>{{ notification.getDescription() }}</td>
+                            <td class="thin">
+                                <div class="action-buttons">
+                                    {% if currentUser.can("express-forms-settings") %}
+                                        <a class="delete icon"
+                                           data-notification="{{ notification.getFileName() }}"
+                                           data-msg="{{ 'Are you sure you want to delete this email notification?'|t("express-forms") }}"
+                                           title="{{ 'Delete'|t('express-forms') }}" role="button"></a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+
+                {{ "There are no templates in this folder yet."|t("express-forms") }}
+
+            {% endif %}
+        </div>
+
+    {% endif %}
+</div>

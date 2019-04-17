@@ -1,0 +1,24 @@
+{% extends "_layouts/cp" %}
+
+{% set title = form.name ?? "New Form"|t("express-forms") %}
+{% set selectedSubnavItem = "forms" %}
+
+{% set crumbs = [
+    { label: craft.expressforms.name, url: url("express-forms") },
+    { label: "Forms"|t("express-forms"), url: url("express-forms/forms") },
+] %}
+
+{% block content %}
+
+    <script>
+        var expressForm = {{ formJson|raw }};
+        var fileKinds = {{ fileKinds|json_encode|raw }};
+        var volumes = {{ volumes|json_encode|raw }};
+        var notifications = {{ notifications|json_encode|raw }};
+        var integrations = {{ integrations|json_encode|raw }};
+        var enhancedUi = {{ enhancedUi ? "true" : "false" }};
+        var isPro = {{ craft.expressforms.isPro ? "true" : "false" }};
+    </script>
+    <div id="builder-app"></div>
+
+{% endblock %}

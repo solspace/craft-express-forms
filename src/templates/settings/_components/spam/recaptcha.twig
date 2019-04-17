@@ -1,0 +1,38 @@
+{% import "_includes/forms" as forms %}
+
+<div>
+    {{ forms.lightswitchField({
+        label: "reCAPTCHA"|t("express-forms"),
+        instructions: "Enable this setting if you wish to use reCAPTCHA v2 Checkbox for your forms. To add to your forms, insert {{ form.recaptcha.render }} into your form template where you'd like it to show."|t("express-forms"),
+        name: "recaptcha[enabled]",
+        on: settings.recaptchaEnabled,
+        errors: settings.errors("recaptchaEnabled"),
+        toggle: "recaptchaKeys"
+    }) }}
+
+    <div id="recaptchaKeys" class="{{ not settings.recaptchaEnabled ? 'hidden' }}">
+        {{ forms.lightswitchField({
+            label: "Load Script"|t("express-forms"),
+            instructions: "Enable this to have Express Forms automatically load the reCAPTCHA script tag after the form closing tag. Disable if you wish to load manually yourself."|t("express-forms"),
+            name: "recaptcha[loadScript]",
+            on: settings.recaptchaLoadScript,
+            errors: settings.errors("recaptchaLoadScript"),
+        }) }}
+
+        {{ forms.textField({
+            label: "Site Key"|t('express-forms'),
+            instructions: "Enter the Site Key from the Google reCAPTCHA website in order for it to work correctly."|t("express-forms"),
+            name: "recaptcha[siteKey]",
+            value: settings.recaptchaSiteKey,
+            errors: settings.getErrors("recaptchaSiteKey"),
+        }) }}
+
+        {{ forms.textField({
+            label: "Secret Key"|t('express-forms'),
+            instructions: "Enter the Secret Key from the Google reCAPTCHA website in order for it to work correctly."|t("express-forms"),
+            name: "recaptcha[secretKey]",
+            value: settings.recaptchaSecretKey,
+            errors: settings.getErrors("recaptchaSecretKey"),
+        }) }}
+    </div>
+</div>

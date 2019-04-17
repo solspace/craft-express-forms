@@ -1,0 +1,24 @@
+{% extends "_layouts/elementindex" %}
+
+{% set title = "Submissions" %}
+{% set selectedSubnavItem = "submissions" %}
+
+{% set elementType = 'Solspace\\ExpressForms\\Elements\\Submission' %}
+
+{% set extraPageHeaderHtml %}
+
+    {% if currentUser.can("express-forms-forms") %}
+        <div class="buttons">
+            <a class="btn submit add icon" href="{{ url('express-forms/forms/new/') }}">
+                {{ "New Form"|t('expressforms') }}
+            </a>
+        </div>
+    {% endif %}
+
+{% endset %}
+
+{% if selectedFormHandle is defined %}
+    {% js %}
+        window.selectedExpressFormsFormHandle = '{{ selectedFormHandle }}';
+    {% endjs %}
+{% endif %}

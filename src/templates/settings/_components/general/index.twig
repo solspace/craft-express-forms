@@ -1,0 +1,27 @@
+{% import "_includes/forms" as forms %}
+
+<div>
+    <h2>{{ "General Settings"|t("express-forms") }}</h2>
+
+    {% if craft.expressforms.pro %}
+
+        {{ forms.textField({
+            label: "Rename Plugin"|t('express-forms'),
+            instructions: "If you wish to display a different name for the plugin in page headings and navigation, enter one here."|t('express-forms'),
+            placeholder: "Express Forms",
+            name: "general[name]",
+            value: settings.name,
+            errors: settings.getErrors("name"),
+        }) }}
+
+    {% endif %}
+
+    {{ forms.lightswitchField({
+        label: "Enhanced UI in Form Builder"|t("express-forms"),
+        instructions: "When disabled, the field layout column in Form Builder will instead use a regular Craft style select dropdown to choose a field type and regular Craft style inputs for Name and Handle fields."|t("express-forms"),
+        name: "general[enhancedUI]",
+        on: settings.enhancedUI,
+        errors: settings.errors("enhancedUI"),
+    }) }}
+
+</div>

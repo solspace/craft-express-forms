@@ -1,0 +1,32 @@
+{% import "_includes/forms" as forms %}
+
+<h1>
+    {{ "Edit {integration} Integration"|t("express-forms", { integration: integrationType.name }) }}
+</h1>
+
+<div>
+    <input type="hidden" name="integrations[class]" value="{{ integrationType|class }}" />
+
+    {% for setting in integrationType.settingsManifest %}
+        {% set options = {
+            label: setting.label|t("express-forms"),
+            name: "integrations[" ~ setting.handle ~ "]",
+            required: setting.required,
+            value: attribute(integrationType, setting.handle),
+            errors: settings.errors(setting.handle),
+        } %}
+
+        {% if setting.type == "boolean" %}
+
+            {{ forms.lightswitchField(options|merge({
+                on: attribute(integrationType, setting.handle),
+                value: true,
+            })) }}
+
+        {% else %}
+
+            {{ forms.textField(options) }}
+
+        {% endif %}
+    {% endfor %}
+</div>

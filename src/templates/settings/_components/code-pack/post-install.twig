@@ -1,0 +1,24 @@
+{% import "_includes/forms" as forms %}
+
+{% set selectedSubnavItem = "settings" %}
+{% set title = craft.expressforms.name ~ ": " ~ ("Demo"|t('express-forms')) %}
+
+{% block actionButton %}{% endblock %}
+
+{% block content %}
+
+    <h2 style="margin-top: 0;">{{ "Demo"|t('express-forms') }}</h2>
+
+    <div>
+        {% set stats = {
+        templates: codePack.templates.contents.fileCount,
+        assets: codePack.assets.contents.fileCount
+        } %}
+
+        {{ "Successfully created the demo form, demo email notification template, and installed {templates} templates and {assets} assets."|t('express-forms', stats)|raw }}
+    </div>
+    <div>
+        {{ "You can view the templates <a href='{link}'>here</a>"|t('express-forms', {link: (siteUrl ~ prefix ~ '/')})|raw }}
+    </div>
+
+{% endblock %}

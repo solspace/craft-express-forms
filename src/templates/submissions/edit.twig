@@ -1,0 +1,203 @@
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+
+{% set title = submission.title %}
+{% set selectedSubnavItem = "submissions" %}
+
+
+{% set crumbs = [
+    { label: craft.expressforms.name, url: url('express-forms') },
+    { label: "Forms"|t("express-forms"), url: url('express-forms/forms/') },
+    { label: form.name, url: url('express-forms/forms/' ~ form.handle) },
+    { label: "Submissions"|t('express-forms'), url: url('express-forms/submissions/' ~ form.handle) },
+] %}
+
+
+{% set saveShortcutRedirect = 'express-forms/submissions/{id}' %}
+{% set actionUrl = 'express-forms/submissions/save' %}
+{% set fullPageForm = true %}
+
+
+{#===========================================#}
+{#                  Content                  #}
+{#===========================================#}
+
+{% block content %}
+
+    <input type="hidden" name="action" value="express-forms/submissions/save">
+    <input type="hidden" name="id" value="{{ submission.id }}">
+    {{ redirectInput('express-forms/submissions') }}
+    {{ csrfInput() }}
+
+
+    <div class="fields">
+
+        {% for field in form.fields %}
+
+            {% set submissionValue = submission[field.handle] %}
+
+            {% set options = {
+                label: field.name,
+                name: field.handle,
+                id: field.handle,
+                value: submissionValue,
+                required: field.required,
+                first: loop.index0 == 0,
+            } %}
+
+            {% if field.type in ["text", "email", "hidden"] %}
+
+                {{ forms.textField(options) }}
+
+            {% elseif field.type == "textarea" %}
+
+                {{ forms.textareaField(options|merge({ rows: 4 })) }}
+
+            {% elseif field.type == "checkbox" %}
+
+                {{ forms.checkboxField(options|merge({
+                    value: 1,
+                    checked: submissionValue,
+                })) }}
+
+            {% elseif field.type == "options" %}
+
+                {{ forms.checkboxGroupField(options|merge({
+                    values: submissionValue,
+                    options: field.getValueDictionaryFromValues(submissionValue),
+                })) }}
+
+            {% elseif field.type == "file" %}
+
+                <div class="field">
+                    <div class="heading">
+                        <label>{{ field.label }}</label>
+                    </div>
+                    <div class="file-preview">
+                        {% for asset in craft.assets.id(submissionValue).all if submissionValue %}
+                            {% set thumbSizes = [30, 60, 100, 200] %}
+                            {% set srcset = "" %}
+                            {%- for size in thumbSizes -%}
+                                {% set srcset = srcset ~ ", " ~ asset.thumbUrl(size) ~ " " ~ size ~ "w" %}
+                            {%- endfor -%}
+                            {% set srcset = srcset|trim(", ") %}
+
+                            <div class="element small hasthumb">
+                                <input type="hidden" name="{{ field.handle }}[]" value="{{ asset.id }}">
+                                <div class="elementthumb">
+                                    <img sizes="30px" srcset="{{ srcset }}" alt="">
+                                </div>
+                                <label>
+                                    <a href="javascript:;" data-asset-id="{{ asset.id }}">
+                                        {{ asset.title }}
+                                    </a>
+                                </label>
+                            </div>
+                        {% else %}
+                            {{ "No files uploaded"|t('express-forms') }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+
+{#===========================================#}
+{#                  Details                  #}
+{#===========================================#}
+
+
+{% block details %}
+
+    <div id="settings" class="meta">
+
+        {{ forms.textField({
+            label: "ID"|t('express-forms'),
+            value: submission.contentId,
+            readonly: true,
+        }) }}
+
+        {{ forms.textField({
+            label: "Element ID"|t('express-forms'),
+            value: submission.id,
+            readonly: true,
+        }) }}
+
+        {{ forms.textField({
+            label: "Form ID"|t('express-forms'),
+            value: submission.formId,
+            readonly: true,
+        }) }}
+
+        {{ forms.textField({
+            label: "Title"|t('express-forms'),
+            name: "title",
+            value: submission.title,
+        }) }}
+
+    </div>
+
+
+    {% if submission.id %}
+
+        <hr>
+
+        <div class="meta read-only">
+            <div class="data">
+                <h5 class="heading">{{ "Date Created"|t('express-forms') }}</h5>
+                <div class="value">{{ submission.dateCreated|date('short') }} {{ submission.dateCreated|time('short') }}</div>
+            </div>
+            <div class="data">
+                <h5 class="heading">{{ "Date Updated"|t('express-forms') }}</h5>
+                <div class="value">{{ submission.dateUpdated|date('short') }} {{ submission.dateUpdated|time('short') }}</div>
+            </div>
+        </div>
+
+        <hr>
+
+    {% endif %}
+
+{% endblock %}
+
+
+{#===========================================#}
+{#                    Misc                   #}
+{#===========================================#}
+
+
+{% block actionButton %}
+    <div class="buttons">
+        <div class="btngroup submit">
+            <input type="submit" class="btn submit" value="{{ 'Save'|t('express-forms') }}">
+
+            <div class="btn submit menubtn"></div>
+            <div class="menu">
+                <ul>
+                    <li>
+                        <a class="formsubmit" data-redirect="{{ saveShortcutRedirect|hash }}">
+                            {{ "Save and continue editing"|t('express-forms') }}
+                            <span class="shortcut">⌘S</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <form method="post"
+          id="asset_download"
+          style="height: 0; width: 0; position: absolute; left: -99999px;">
+        <input type="hidden" name="action" value="assets/download-asset" />
+        <input type="hidden" name="assetId" value="" />
+        {{ csrfInput() }}
+    </form>
+{% endblock %}

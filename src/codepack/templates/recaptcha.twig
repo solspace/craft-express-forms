@@ -1,0 +1,190 @@
+{% extends "demo/_layout" %}
+
+{% set pageTitle = "Form with reCAPTCHA Example" %}
+{% set page = "recaptcha" %}
+
+{% block content %}
+
+    <h1>Form with reCAPTCHA Example</h1>
+    <p class="lead">
+        This template serves as an example of how your form might look and feel when built manually and including
+        reCAPTCHA.
+    </p>
+    <div class="alert alert-warning" role="alert">
+        This template is set up to work with the demo form that the Demo Templates installer generates. You can also use
+        this as a starting point for your own forms.
+    </div>
+    <hr /><br />
+
+    {% set form = craft.expressforms.form("express-forms-demo") %}
+
+    {# Macro for Field Errors #}
+    {% macro renderErrors(field) %}
+        {% if field.hasErrors and field.errors|length %}
+            <ul class="errors">
+                {% for error in field.errors %}
+                    <li>{{ error|t }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endmacro %}
+    {% import _self as forms %}
+
+    {# Flash Success #}
+    {% if form.submittedSuccessfully %}
+        <div class="alert alert-success" role="alert">
+            {{ "Form has been submitted successfully!"|t }}
+        </div>
+    {% endif %}
+
+    {# General Error Handling #}
+    {% if form.hasErrors %}
+        <div class="alert alert-danger has-error" role="alert">
+            {{ "Error! Please review the form and try submitting again."|t }}
+            {{ forms.renderErrors(form) }}
+        </div>
+    {% endif %}
+
+    <h3>{{ form.name }}</h3>
+
+    {# Automatically set Form tags with Return, CSRF and Honeypot (if enabled) #}
+    {{ form.openTag({ return: '?success=1' }) }}
+
+    <div class="form-row">
+        <div class="form-group col-md-6{{ form.fields.firstName.hasErrors ? ' has-error' }}">
+            <label for="firstName"{{ form.fields.firstName.isRequired ? ' class="required"' }}>
+                {{ form.fields.firstName.label }}
+            </label>
+            <input type="text" name="firstName" id="firstName" value="{{ form.fields.firstName.value }}"
+                   class="form-control">
+            {{ forms.renderErrors(form.fields.firstName) }}
+        </div>
+
+        <div class="form-group col-md-6{{ form.fields.lastName.hasErrors ? ' has-error' }}">
+            <label for="lastName"{{ form.fields.lastName.isRequired ? ' class="required"' }}>
+                {{ form.fields.lastName.label }}
+            </label>
+            <input type="text" name="lastName" id="lastName" value="{{ form.fields.lastName.value }}"
+                   class="form-control">
+            {{ forms.renderErrors(form.fields.lastName) }}
+        </div>
+    </div>
+
+    <div class="form-group{{ form.fields.email.hasErrors ? ' has-error' }}">
+        <label for="email"{{ form.fields.email.isRequired ? ' class="required"' }}>
+            Email Address
+        </label>
+        <input type="email" name="email" id="email" placeholder="name@example.com" class="form-control">
+        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+        {{ forms.renderErrors(form.fields.email) }}
+    </div>
+
+    <div class="form-group{{ form.fields.subject.hasErrors ? ' has-error' }}">
+        <label for="subject"{{ form.fields.subject.isRequired ? ' class="required"' }}>
+            Subject
+        </label>
+        <select name="subject" id="subject" class="form-control">
+            <option value="">I need some help with...</option>
+            <option disabled>──────────</option>
+            <option{{ "My homework" in form.fields.subject.value ? " selected" }}>My homework</option>
+            <option{{ "Practicing my hammer dance" in form.fields.subject.value ? " selected" }}>Practicing my hammer
+                dance
+            </option>
+            <option{{ "Finding my belly button" in form.fields.subject.value ? " selected" }}>Finding my belly button
+            </option>
+        </select>
+        {{ forms.renderErrors(form.fields.subject) }}
+    </div>
+
+    <div class="form-group{{ form.fields.message.hasErrors ? ' has-error' }}">
+        <label for="message"{{ form.fields.message.isRequired ? ' class="required"' }}>
+            {{ form.fields.message.label }}
+        </label>
+        <textarea name="message" id="message" rows="3" class="form-control">
+          {{- form.fields.message.value -}}
+        </textarea>
+        {{ forms.renderErrors(form.fields.message) }}
+    </div>
+
+    <div class="form-group{{ form.fields.howHeard.hasErrors ? ' has-error' }}">
+        <label{{ form.fields.howHeard.isRequired ? ' class="required"' }}>
+            {{ form.fields.howHeard.label }}
+        </label>
+        <div class="form-check">
+            <label class="form-check-label" for="how-heard-newspaper">
+                <input type="checkbox"
+                       id="how-heard-newspaper"
+                       name="howHeard[]"
+                       value="newspaper"{{ "newspaper" in form.fields.howHeard.value ? " checked" }}
+                       class="form-check-input"
+                />
+                Newspaper
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label" for="how-heard-radio">
+                <input type="checkbox"
+                       id="how-heard-radio"
+                       name="howHeard[]"
+                       value="radio"{{ "radio" in form.fields.howHeard.value ? " checked" }}
+                       class="form-check-input"
+                />
+                Radio
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label" for="how-heard-friend">
+                <input type="checkbox"
+                       id="how-heard-friend"
+                       name="howHeard[]"
+                       value="friend"{{ "friend" in form.fields.howHeard.value ? " checked" }}
+                       class="form-check-input"
+                />
+                Friend
+            </label>
+        </div>
+        {{ forms.renderErrors(form.fields.howHeard) }}
+    </div>
+
+    <div class="form-group{{ form.fields.attachment.hasErrors ? ' has-error' }}">
+        <label{{ form.fields.attachment.isRequired ? ' class="required"' }}>
+            {{ form.fields.attachment.label }}
+        </label>
+        <div class="alert alert-warning" role="alert">
+            This field won't currently work unless setup correctly in the Express Forms form builder.
+        </div>
+        <div class="custom-file">
+            <input type="file" multiple name="attachment[]" id="attachment" class="custom-file-input">
+            <label for="attachment" class="custom-file-label">{{ "Choose file"|t }}</label>
+        </div>
+        {{ forms.renderErrors(form.fields.attachment) }}
+    </div>
+
+    <div class="form-group{{ form.fields.acceptTerms.hasErrors ? ' has-error' }}">
+        <div class="form-check">
+            <label class="form-check-label{{ form.fields.acceptTerms.isRequired ? ' required' }}" for="accept-terms">
+                <input type="checkbox"
+                       id="accept-terms"
+                       name="acceptTerms"
+                       value="1"{{ form.fields.acceptTerms.value ? " checked" }}
+                       class="form-check-input"
+                />
+                {{ form.fields.acceptTerms.label }}
+            </label>
+        </div>
+        {{ forms.renderErrors(form.fields.acceptTerms) }}
+    </div>
+
+    <div class="form-group{% if form.recaptcha.hasErrors %} has-error{% endif %}">
+        <label class="required">
+            Please confirm you're not a robot...
+        </label>
+        {{ form.recaptcha.render }}
+        {{ forms.renderErrors(form.recaptcha) }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    {{ form.closeTag }}
+
+{% endblock %}

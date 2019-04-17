@@ -1,0 +1,29 @@
+{% set thumbSizes = [30, 60, 100, 200] %}
+{% set srcset = "" %}
+{%- for size in thumbSizes -%}{% set srcset = srcset ~ ", " ~ asset.thumbUrl(size) ~ " " ~ size ~ "w" %}{%- endfor -%}
+{% set srcset = srcset|trim(", ") %}
+
+<div data-editable-image=""
+     data-image-width="{{ asset.width }}"
+     data-image-height="{{ asset.height }}"
+     class="element small hasthumb"
+     data-type="craft\elements\Asset"
+     data-id="{{ asset.id }}"
+     data-site-id="{{ asset.siteId }}"
+     data-status="{{ asset.status }}"
+     data-label="{{ asset.title }}"
+     data-url="{{ asset.url }}"
+     data-level="{{ asset.level }}"
+     data-editable
+>
+    <div class="elementthumb">
+        <img sizes="30px" srcset="{{ srcset }}" alt="">
+    </div>
+    <div class="label">
+        <span class="title">
+            {{ asset.title }}
+        </span>
+    </div>
+</div>
+
+

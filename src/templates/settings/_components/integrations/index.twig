@@ -1,0 +1,44 @@
+<h2 style="margin-top: 0;">{{ "API Integrations"|t("express-forms") }}</h2>
+
+<div>
+    {{ "Virtually any API integration is available with Express Forms. Integrations can be custom built using the Developer Events provided (see documentation), installing third party addon plugins, or purchasing the Pro edition. Only first party integrations from the Pro edition are available for configuration inside the control panel."|t("express-forms") }}
+</div>
+
+<ul id="cards" style="display: none">
+    {% for integration in integrations %}
+        <li data-handle="{{ integration.handle }}" class="{{ integration.enabled ? "checking" : "inactive" }}">
+            <h3 class="centered">{{ integration.name }}</h3>
+            <div class="description">
+                {{ integration.description|t('express-forms') }}
+            </div>
+
+            <div class="button centered">
+                <a href="{{ url('express-forms/settings/api-integrations/'~integration.handle) }}"
+                   class="btn">
+                    {{ (integration.enabled ? "Edit" : "Setup")|t("express-forms") }}
+                </a>
+            </div>
+
+            <div class="card-footer centered">
+                <div class="active">
+                    <span>
+                        <span class="active-icon"></span>
+                        {{ "Active"|t("express-forms") }}
+                    </span>
+                </div>
+                <div class="inactive">{{ "Inactive"|t("express-forms") }}</div>
+                <div class="checking">
+                    <div>
+                        <div class="loader"></div>
+                        {{ "Checking"|t("express-forms") }}
+                    </div>
+                </div>
+                <div class="errors">
+                    <span class="icon-block">
+                        {{ "Error"|t("express-forms") }}
+                    </span>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

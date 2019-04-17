@@ -1,0 +1,38 @@
+{% import "_includes/forms" as forms %}
+
+<div>
+    <h2>{{ "Spam Protection"|t("express-forms") }}</h2>
+
+    {{ forms.lightswitchField({
+        label: "Honeypot"|t("express-forms"),
+        instructions: "Enable this setting to have a spam honeypot field automatically added to your forms."|t("express-forms"),
+        name: "honeypot[enabled]",
+        on: settings.honeypotEnabled,
+        errors: settings.errors("honeypotEnabled"),
+        toggle: "honeypotBehaviour"
+    }) }}
+
+    <div id="honeypotBehaviour" class="{{ not settings.honeypotEnabled ? 'hidden' }}">
+        {{ forms.textField({
+            label: "Honeypot Input Name"|t('express-forms'),
+            instructions: "Specify the input name that should be used for the Honeypot field. This input will only be visible to bots and trigger the honeypot if a different value is filled in. Recommend you use something generic that sounds like a real and important field."|t('express-forms'),
+            placeholder: "form_handler",
+            name: "honeypot[name]",
+            value: settings.honeypotInputName,
+            errors: settings.getErrors("honeypotInputName"),
+        }) }}
+
+        {{ forms.selectField({
+            label: "Behavior"|t('express-forms'),
+            instructions: "Select the behavior you'd like Express Forms to take when it detects a submission as being spam."|t('express-forms'),
+            name: "honeypot[behaviour]",
+            value: settings.honeypotBehaviour,
+            errors: settings.errors("honeypotBehaviour"),
+            options: {
+                "simulate_success": "Simulate successful submission (recommended)"|t("express-forms"),
+                "display_errors": "Display error messages (not recommended)"|t("express-forms"),
+                "reload_form": "Reload form"|t("express-forms"),
+            },
+        }) }}
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<h2 style="margin-top: 0;">{{ "API Integrations"|t("express-forms") }}</h2>
+
+<div>
+    {{ "Virtually any API integration is available with Express Forms. Integrations can be custom built using the Developer Events provided (see documentation), installing third party addon plugins, or purchasing the Pro edition. Only first party integrations from the Pro edition are available for configuration inside the control panel."|t("express-forms") }}
+</div>
+
+<ul id="cards" style="display: none">
+    {% for integration in integrations %}
+        <li class="inactive preview">
+            <h3 class="centered">{{ integration.name }}</h3>
+            <div class="description">
+                {{ integration.description|t('express-forms') }}
+            </div>
+
+            <div class="card-footer centered">
+                <a href="{{ url("express-forms/resources/explore") }}" class="btn submit icon">
+                    <span class="upgrade-icon"></span>
+                    {{ "Get Pro Edition"|t("express-forms") }}
+                </a>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

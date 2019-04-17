@@ -1,0 +1,342 @@
+{% extends "demo/_layout" %}
+
+{% set pageTitle = "AJAX Example" %}
+{% set page = "ajax" %}
+
+{% block content %}
+
+    <h1>AJAX Example</h1>
+    <p class="lead">
+        This template serves as an example of how your form might look and feel when built manually along with AJAX
+        handling.
+    </p>
+    <div class="alert alert-warning" role="alert">
+        This template is set up to work with the demo form that the Demo Templates installer generates. You can also use
+        this as a starting point for your own forms.
+    </div>
+    <hr /><br />
+
+    {% set form = craft.expressforms.form("express-forms-demo") %}
+
+    <h3>{{ form.name }}</h3>
+
+    {# Automatically set Form tags with Return, CSRF and Honeypot (if enabled) #}
+    {{ form.openTag({
+        return: '?success=1',
+        attributes: {
+            id: "ajax-form",
+        },
+    }) }}
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="firstName"{{ form.fields.firstName.isRequired ? ' class="required"' }}>
+                {{ form.fields.firstName.label }}
+            </label>
+            <input type="text" name="firstName" id="firstName" value="{{ form.fields.firstName.value }}"
+                   class="form-control">
+            <ul class="errors"></ul>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="lastName"{{ form.fields.lastName.isRequired ? ' class="required"' }}>{{ form.fields.lastName.label }}</label>
+            <input type="text" name="lastName" id="lastName" value="{{ form.fields.lastName.value }}"
+                   class="form-control">
+            <ul class="errors"></ul>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="email"{{ form.fields.email.isRequired ? ' class="required"' }}>
+            Email Address
+        </label>
+        <input type="email" name="email" id="email" placeholder="name@example.com" value="{{ form.fields.email.value }}"
+               class="form-control">
+        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <ul class="errors"></ul>
+    </div>
+
+    <div class="form-group">
+        <label for="subject"{{ form.fields.subject.isRequired ? ' class="required"' }}>
+            Subject
+        </label>
+        <select name="subject" id="subject" class="form-control">
+            <option value="">I need some help with...</option>
+            <option disabled>──────────</option>
+            <option{{ "My homework" in form.fields.subject.value ? " selected" }}>My homework</option>
+            <option{{ "Practicing my hammer dance" in form.fields.subject.value ? " selected" }}>Practicing my hammer
+                dance
+            </option>
+            <option{{ "Finding my belly button" in form.fields.subject.value ? " selected" }}>Finding my belly button
+            </option>
+        </select>
+        <ul class="errors"></ul>
+    </div>
+
+    <div class="form-group">
+        <label for="message"{{ form.fields.message.isRequired ? ' class="required"' }}>
+            {{ form.fields.message.label }}
+        </label>
+        <textarea name="message" id="message" rows="3" class="form-control">
+        {{- form.fields.message.value -}}
+      </textarea>
+        <ul class="errors"></ul>
+    </div>
+
+    <div class="form-group">
+        <label{{ form.fields.howHeard.isRequired ? ' class="required"' }}>
+            {{ form.fields.howHeard.label }}
+        </label>
+        <div class="form-check">
+            <label class="form-check-label" for="how-heard-newspaper">
+                <input type="checkbox"
+                       id="how-heard-newspaper"
+                       name="howHeard[]"
+                       value="newspaper"{{ "newspaper" in form.fields.howHeard.value ? " checked" }}
+                       class="form-check-input"
+                />
+                Newspaper
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label" for="how-heard-radio">
+                <input type="checkbox"
+                       id="how-heard-radio"
+                       name="howHeard[]"
+                       value="radio"{{ "radio" in form.fields.howHeard.value ? " checked" }}
+                       class="form-check-input"
+                />
+                Radio
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label" for="how-heard-friend">
+                <input type="checkbox"
+                       id="how-heard-friend"
+                       name="howHeard[]"
+                       value="friend"{{ "friend" in form.fields.howHeard.value ? " checked" }}
+                       class="form-check-input"
+                />
+                Friend
+            </label>
+        </div>
+        <ul class="errors"></ul>
+    </div>
+
+    <div class="form-group">
+        <label{{ form.fields.attachment.isRequired ? ' class="required"' }}>
+            {{ form.fields.attachment.label }}
+        </label>
+        <div class="alert alert-warning" role="alert">
+            This field won't currently work unless setup correctly in the Express Forms form builder.
+        </div>
+        <div class="custom-file">
+            <input type="file" multiple name="attachment[]" id="attachment" class="custom-file-input">
+            <label for="attachment" class="custom-file-label">
+                {{ "Choose file"|t }}
+            </label>
+        </div>
+        <ul class="errors"></ul>
+    </div>
+
+    <div class="form-group">
+        <div class="form-check">
+            <label class="form-check-label{{ form.fields.acceptTerms.isRequired ? ' required' }}" for="accept-terms">
+                <input type="checkbox"
+                       id="accept-terms"
+                       name="acceptTerms"
+                       value="1"
+                       class="form-check-input"
+                />
+                {{ form.fields.acceptTerms.label }}
+            </label>
+        </div>
+        <ul class="errors"></ul>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    {{ form.closeTag }}
+
+{% endblock %}
+
+{% block footerJs %}
+
+    <script>
+      var safari = navigator.userAgent.indexOf("Safari") > -1
+
+      function ajaxifyForm(event) {
+        var form = event.target
+        var data = new FormData(form)
+        var request = new XMLHttpRequest()
+
+        if (safari) {
+          for (var i = 0; i < form.elements.length; i++) {
+            if (form.elements[i].type == "file") {
+              if (form.elements[i].value == "") {
+                var elem = form.elements[i]
+                data.delete(elem.name)
+              }
+            }
+          }
+        }
+
+        var method = form.getAttribute("method")
+        var action = form.getAttribute("action")
+
+        request.open(method, action ? action : window.location.href, true)
+        request.setRequestHeader("Cache-Control", "no-cache")
+        request.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+        request.setRequestHeader("HTTP_X_REQUESTED_WITH", "XMLHttpRequest")
+        request.onload = function() {
+          removeMessages(form)
+
+          if (request.status === 200) {
+            var response = JSON.parse(request.response)
+
+            if (response.success) {
+              // Reset the form so that the user may enter fresh information
+              form.reset()
+
+              // ============================================================
+              // Uncomment this to have the form redirect to the success page
+              // ============================================================
+              // if (response.return) {
+              //   window.location.href = response.return;
+              // }
+
+              renderFormSuccess(form)
+
+            } else if (response.errors || response.formErrors) {
+              renderErrors(response.errors, form)
+              renderFormErrors(response.formErrors, form)
+            }
+
+            unlockSubmit(form)
+          } else {
+            console.error(request)
+          }
+
+          unlockSubmit(form)
+        }
+
+        request.send(data)
+        event.preventDefault()
+      }
+
+      /**
+       * Remove the "disabled" state of the submit button upon successful submit
+       *
+       * @property form
+       */
+      function unlockSubmit(form) {
+        form.querySelector("button[type=submit]").removeAttribute("disabled")
+        if (typeof grecaptcha !== "undefined") {
+          grecaptcha.reset()
+        }
+      }
+
+      function removeMessages(form) {
+        // Remove error messages
+        form.querySelectorAll("ul.errors").remove()
+        var fieldsWithErrors = form.querySelectorAll(".has-error")
+        for (var fieldIndex = 0; fieldIndex < fieldsWithErrors.length; fieldIndex++) {
+          fieldsWithErrors[fieldIndex].classList.remove("has-error")
+        }
+
+        // Remove success messages
+        form.querySelectorAll(".form-success").remove()
+        document.getElementsByClassName("form-errors").remove()
+      }
+
+      function renderFormSuccess(form) {
+        var successMessage = document.createElement("div")
+        successMessage.classList.add("alert", "alert-success", "form-success")
+
+        var paragraph = document.createElement("p")
+        paragraph.classList.add("lead")
+        paragraph.appendChild(document.createTextNode("Form submitted successfully"))
+
+        successMessage.appendChild(paragraph)
+
+        form.insertBefore(successMessage, form.childNodes[0])
+      }
+
+      function renderErrors(errors, form) {
+        for (var key in errors) {
+          if (!errors.hasOwnProperty(key) || !key) {
+            continue
+          }
+
+          var messages = errors[key]
+          var errorsList = document.createElement("ul")
+          errorsList.classList.add("errors")
+
+          for (var messageIndex = 0; messageIndex < messages.length; messageIndex++) {
+            var message = messages[messageIndex]
+            var listItem = document.createElement("li")
+            listItem.appendChild(document.createTextNode(message))
+            errorsList.appendChild(listItem)
+          }
+
+          var inputList = form.querySelectorAll("*[name=" + key + "], *[name='" + key + "[]']")
+          for (var inputIndex = 0; inputIndex < inputList.length; inputIndex++) {
+            var input = inputList[inputIndex]
+
+            input.findAncestor("form-group").classList.add("has-error")
+            input.findAncestor("form-group").appendChild(errorsList)
+          }
+        }
+      }
+
+      function renderFormErrors(errors, form) {
+        var errorBlock = document.createElement("div")
+        errorBlock.classList.add("alert", "alert-danger", "form-errors")
+
+        var paragraph = document.createElement("p")
+        paragraph.classList.add("lead")
+        paragraph.appendChild(document.createTextNode("This form has errors"))
+        errorBlock.appendChild(paragraph)
+
+        if (errors.length) {
+          var errorsList = document.createElement("ul")
+          for (var messageIndex = 0; messageIndex < errors.length; messageIndex++) {
+            var message = errors[messageIndex]
+            var listItem = document.createElement("li")
+
+            listItem.appendChild(document.createTextNode(message))
+            errorsList.appendChild(listItem)
+          }
+
+          errorBlock.appendChild(errorsList)
+        }
+
+        form.insertBefore(errorBlock, form.childNodes[0])
+      }
+
+      // Add remove prototypes
+      Element.prototype.remove = function() {
+        this.parentElement.removeChild(this)
+      }
+
+      Element.prototype.findAncestor = function(className) {
+        let el = this
+        while (!el.classList.contains(className)) {
+          el = el.parentElement
+        }
+
+        return el
+      }
+
+      NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+        for (var i = this.length - 1; i >= 0; i--) {
+          if (this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i])
+          }
+        }
+      }
+
+      document.getElementById("ajax-form").addEventListener("submit", ajaxifyForm)
+    </script>
+
+{% endblock %}

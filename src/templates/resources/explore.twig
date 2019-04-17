@@ -1,0 +1,84 @@
+{% extends "express-forms/resources/_layout" %}
+
+{% set title = "Explore"|t("express-forms") %}
+{% set crumbs = [
+    { label: craft.expressforms.name, url: url("express-forms") },
+    { label: "Resources"|t("express-forms"), url: url("express-forms/resources") },
+] %}
+
+{% block content %}
+
+    <h2>{{ "Explore"|t("express-forms") }}</h2>
+    <p>
+        {{ "Explore more options below to go beyond Express Forms or extend the functionality of it by using the documented Developer Events. There may also be third party addons available."|t("express-forms") }}
+    </p>
+
+    {% set items = [
+        {
+            class: isPro ? "active" : "inactive",
+            title: "Pro Edition",
+            description: [
+                "Get more out of Express Forms with the Pro edition! Switch to Pro and get access to popular first party CRM and mailing list API integrations, Excel, XML and JSON exporting, dashboard widgets, and ability to rename the plugin in CP!",
+            ],
+            footer: isPro ? '<span><span class="active-icon"></span> Installed</span>' : '<a href="http://craft.express/forms/v2/" class="btn submit large"><span class="upgrade-icon"></span>Get it</a>',
+            features: [],
+        },
+        {
+            title: "Freeform",
+            class: "inactive",
+            description: [
+                "If you're looking for more convenience and other powerful features, try checking out Freeform. Some of its key features are automation of form building, multi-column layouts, conditional rules logic, spam protection, map to Craft Elements and much more!",
+            ],
+            footer: '<a href="http://docs.solspace.com/craft/freeform/v2/" class="btn submit large icon search">Explore</a>',
+            features: [],
+        },
+        {
+            title: "Developer-friendly",
+            class: "inactive",
+            description: [
+                "Express Forms was developed with a developer-first mentality, so it’s highly extendable. If you want more out of Express Forms, we've done our best to make it as easily extendable as possible for you! Check out the Developer documentation to learn more!",
+            ],
+            footer: '<a href="http://craft.express/redirect/forms/developer" class="btn submit large icon search">Explore</a>',
+            features: [],
+        }
+    ] %}
+
+    <ul class="cards" style="display: none">
+        {% for item in items %}
+            <li class="{{ item.class }}">
+                <div class="explore-card">
+                    <div class="icon" id="{{ item.title|lower|replace(' ', '') }}-icon"></div>
+                    <h1>{{ item.title|t("express-forms") }}</h1>
+                    {% if item.description is iterable %}
+                        {% for description in item.description %}
+                            <p>
+                                {{ description|t("express-forms") }}
+                            </p>
+                        {% endfor %}
+                    {% else %}
+                        <p>
+                            {{ item.description|t("express-forms") }}
+                        </p>
+                    {% endif %}
+
+                    <ul>
+                        {% for feature in item.features %}
+                            <li>
+                                <h4>{{ feature.title|t("express-forms") }}</h4>
+                                {%- if feature.description is defined %}
+                                    {{ feature.description|t("express-forms") }}
+                                {% endif -%}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="card-footer centered">
+                    {{ item.footer|raw }}
+                </div>
+            </li>
+
+        {% endfor %}
+    </ul>
+
+{% endblock %}

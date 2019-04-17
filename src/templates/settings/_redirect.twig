@@ -1,0 +1,6 @@
+{% if currentUser.can('express-forms-settings') %}
+    {% redirect 'express-forms/settings' %}
+{% endif %}
+
+{% extends "403" %}
+{% set message = "You don't have permission to access Express Forms settings"|t('express-forms') %}

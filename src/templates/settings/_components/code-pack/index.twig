@@ -1,0 +1,116 @@
+{% import "_includes/forms" as forms %}
+
+{% set selectedSubnavItem = "settings" %}
+{% set title = craft.expressforms.name ~ ": " ~ ("Demo"|t('express-forms')) %}
+
+{% macro listFiles(file) %}
+    {% import _self as dir %}
+
+    {% set isFolder = file.isFolder %}
+    <li class="{{ isFolder ? 'dir' : 'file' }}">
+        <span>{{ file.name }}</span>
+        {% if isFolder %}
+            <ul>
+                {% for childFile in file.files %}
+                    {{ dir.listFiles(childFile) }}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endmacro %}
+{% import _self as dir %}
+
+<h2 style="margin-top: 0;">{{ "Demo"|t('express-forms') }}</h2>
+
+<p>
+    {{ "To get your site off to a quick start, we include a demo form, notification template and a set of simple demo templates that will help you get acquanted with Express Forms. If this is your first time using this plugin, or if you're experiencing some issues with rendering or submitting forms, we highly recommend you try install the demo as part of the learning and debugging process."|t("express-forms") }}
+</p>
+
+<hr>
+
+
+<table width="100%">
+    <tr>
+        <td width="95%">
+            {{ forms.textField({
+                label: "Install Path"|t('express-forms'),
+                id: 'prefix',
+                name: 'codePack[prefix]',
+                value: prefix,
+                first: true,
+                autofocus: true
+            }) }}
+        </td>
+        <td>
+            <div class="buttons" style="margin: 18px 0 0 15px !important; position: relative; top: 4px;">
+                <input type="submit" class="btn submit" value="{{ "Install"|t }}" />
+            </div>
+        </td>
+    </tr>
+    {% if exceptionMessage is defined %}
+        <tr>
+            <td colspan="2">
+                <div class="error">
+                    {{ exceptionMessage|raw }}
+                </div>
+            </td>
+        </tr>
+    {% endif %}
+</table>
+</form>
+
+<div id="components-wrapper">
+    {% if codePack.templates %}
+        <div>
+            <h3>{{ "Templates"|t('express-forms') }}</h3>
+
+            <ul class="directory-structure">
+                <li class="dir">
+                    <span data-name="/">demo</span>
+                </li>
+                <ul>
+                    {% for file in codePack.templates.contents %}
+                        {{ dir.listFiles(file) }}
+                    {% endfor %}
+                </ul>
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if codePack.assets %}
+        <div>
+            <h3>{{ "Assets"|t('express-forms') }}</h3>
+
+            <ul class="directory-structure">
+                <li class="dir">
+                    <span data-name="/">demo</span>
+                </li>
+                <ul>
+                    {% for file in codePack.assets.contents %}
+                        {{ dir.listFiles(file) }}
+                    {% endfor %}
+                </ul>
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if codePack.routes.data %}
+        <div>
+            <h3>{{ "Routes"|t('express-forms') }}</h3>
+
+            <ul class="directory-structure routes">
+                {% for route in codePack.routes.data %}
+                    <li>
+                        <span class="route" data-name="/{{ route.urlPattern }}">
+                            demo/{{ route.urlPattern }}
+                        </span>
+
+                        <div class="template">
+                            {{ route.template }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>

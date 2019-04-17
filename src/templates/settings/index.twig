@@ -1,0 +1,48 @@
+{% extends "_layouts/cp" %}
+
+{% set title = settingsTitle|t("express-forms") %}
+{% set selectedSubnavItem = "settings" %}
+{% set crumbs = [
+    { label: craft.expressforms.name, url: url("express-forms") },
+    { label: "Settings"|t("express-forms"), url: url("express-forms/settings") },
+] %}
+
+{% set fullPageForm = true %}
+
+{% block actionButton %}
+    {% if actionButton is not null %}
+        {{ actionButton|raw }}
+    {% else %}
+        <div class="buttons">
+            <div class="btngroup submit">
+                <input type="submit" class="btn submit" value="{{ "Save"|t("express-forms") }}">
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    <nav>
+        <ul>
+            {% for handle, name in sidebarItems %}
+                <li>
+                    <a href="{{ url('express-forms/settings/'~handle) }}"
+                       class="{{ handle == selectedHandle ? "sel" }}"
+                    >
+                        {{ name|t('express-forms') }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block content %}
+
+    <input type="hidden" name="action" value="express-forms/settings/save">
+    {{ redirectInput('express-forms/settings/'~selectedHandle) }}
+    {{ csrfInput() }}
+
+    {{ settingsContent ?? "Sorry, there's nothing here."|t("express-forms") }}
+
+{% endblock %}
