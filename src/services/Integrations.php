@@ -120,6 +120,7 @@ class Integrations extends BaseService
                     'handle'   => $field['handle'],
                     'name'     => $field['name'],
                     'type'     => $field['type'],
+                    'required' => (bool) $field['required'],
                     'settings' => \GuzzleHttp\json_decode($field['settings'], true),
                     'category' => $field['category'],
                 ];
@@ -245,7 +246,11 @@ class Integrations extends BaseService
                     $fieldHandles[] = $field->getHandle();
 
                     $fieldRecord = IntegrationResourceFieldRecord::findOne(
-                        ['resourceId' => $resourceRecord->id, 'handle' => $field->getHandle()]
+                        [
+                            'resourceId' => $resourceRecord->id,
+                            'handle'     => $field->getHandle(),
+                            'category'   => $field->getCategory(),
+                        ]
                     );
 
                     if (!$fieldRecord) {
@@ -256,6 +261,7 @@ class Integrations extends BaseService
 
                     $fieldRecord->name      = $field->getName();
                     $fieldRecord->type      = $field->getType();
+                    $fieldRecord->required  = $field->isRequired();
                     $fieldRecord->settings  = $field->getSettings();
                     $fieldRecord->category  = $field->getCategory();
                     $fieldRecord->sortOrder = $fieldOrder++;

@@ -43,7 +43,9 @@ class EmailNotifications extends BaseService
         $finder = new Finder();
 
         /** @var SplFileInfo[] $files */
-        $files = $finder->name(['*.twig', '*.html'])
+        $files = $finder
+            ->name('*.twig')
+            ->name('*.html')
             ->files()
             ->ignoreDotFiles(true)
             ->in($path);

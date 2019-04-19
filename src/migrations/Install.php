@@ -62,7 +62,7 @@ class Install extends StreamlinedInstallMigration
                 ->addField('category', $this->string())
                 ->addField('sortOrder', $this->integer()->notNull()->defaultValue(0))
                 ->addIndex(['sortOrder'])
-                ->addIndex(['resourceId', 'handle'], true)
+                ->addIndex(['resourceId', 'handle', 'category'], true)
                 ->addForeignKey('resourceId', 'expressforms_resources', 'id', ForeignKey::CASCADE),
         ];
     }
