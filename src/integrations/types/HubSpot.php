@@ -30,7 +30,7 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
     public static function getSettingsManifest(): array
     {
         return [
-            new Setting('API Key', 'apiKey', Setting::TYPE_TEXT),
+            new Setting('API Key', 'apiKey'),
         ];
     }
 

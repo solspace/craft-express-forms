@@ -5,6 +5,7 @@ namespace Solspace\ExpressForms\controllers;
 use craft\db\Query;
 use craft\web\Controller;
 use Solspace\ExpressForms\elements\Submission;
+use Solspace\ExpressForms\events\export\BuildExportQueryEvent;
 use Solspace\ExpressForms\events\export\CompileExportableFields;
 use Solspace\ExpressForms\exceptions\Form\FormsNotFoundException;
 use Solspace\ExpressForms\ExpressForms;
@@ -18,6 +19,7 @@ use Solspace\ExpressForms\records\FormRecord;
 class ExportController extends Controller
 {
     const EVENT_COMPILE_EXPORTABLE_FIELDS = 'compileExportableFields';
+    const EVENT_BUILD_QUERY               = 'buildQuery';
 
     /**
      * @return \craft\web\Response|\yii\console\Response
@@ -59,13 +61,17 @@ class ExportController extends Controller
             $select[] = $field->getHandle();
         }
 
-        $result = (new Query())
+        $query = (new Query())
             ->select($select)
             ->from(Submission::TABLE . ' s')
             ->innerJoin(Submission::getContentTableName($form) . 'c', 'c.[[elementId]] = s.[[id]]')
             ->innerJoin(FormRecord::TABLE . ' f', 'f.[[id]] = s.[[formId]]')
-            ->where(['s.[[formId]]' => $form->getId()])
-            ->all();
+            ->where(['s.[[formId]]' => $form->getId()]);
+
+        $event = new BuildExportQueryEvent($query);
+        $this->trigger(self::EVENT_BUILD_QUERY, $event);
+
+        $result = $event->getQuery()->all();
 
         $data = [];
         foreach ($result as $row) {

@@ -4,6 +4,7 @@ namespace Solspace\ExpressForms\models;
 
 use craft\base\Model;
 use Solspace\ExpressForms\services\Honeypot;
+use Solspace\ExpressForms\utilities\Path;
 
 class Settings extends Model
 {
@@ -33,30 +34,6 @@ class Settings extends Model
             return null;
         }
 
-        return $this->getAbsolutePath($this->emailNotificationsDirectoryPath);
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return string
-     */
-    private function getAbsolutePath($path): string
-    {
-        $isAbsolute = $this->isFolderAbsolute($path);
-
-        $path = $isAbsolute ? $path : (\Craft::$app->path->getSiteTemplatesPath() . '/' . $path);
-
-        return rtrim($path, '/');
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return bool
-     */
-    private function isFolderAbsolute($path): bool
-    {
-        return preg_match('/^(?:\/|\\\\|\w\:\\\\).*$/', $path);
+        return Path::getAbsoluteTemplatesPath($this->emailNotificationsDirectoryPath);
     }
 }

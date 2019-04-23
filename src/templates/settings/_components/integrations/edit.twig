@@ -11,6 +11,7 @@
         {% set options = {
             label: setting.label|t("express-forms"),
             name: "integrations[" ~ setting.handle ~ "]",
+            instructions: setting.description,
             required: setting.required,
             value: attribute(integrationType, setting.handle),
             errors: settings.errors(setting.handle),

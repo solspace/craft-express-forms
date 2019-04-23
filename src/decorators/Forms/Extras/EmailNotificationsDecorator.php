@@ -13,6 +13,7 @@ use Solspace\ExpressForms\events\settings\SaveSettingsEvent;
 use Solspace\ExpressForms\ExpressForms;
 use Solspace\ExpressForms\resources\bundles\Settings\EmailNotificationsIndexBundle;
 use Solspace\ExpressForms\services\Settings;
+use Solspace\ExpressForms\utilities\Path;
 
 class EmailNotificationsDecorator extends AbstractDecorator
 {
@@ -89,7 +90,20 @@ class EmailNotificationsDecorator extends AbstractDecorator
         $post = Craft::$app->getRequest()->post('emailNotifications');
 
         if (!empty($post) && is_array($post)) {
-            $event->addData('emailNotificationsDirectoryPath', $post['directoryPath'] ?? null);
+            if (empty($post['directoryPath'])) {
+                $directoryPath = null;
+            } else {
+                $directoryPath = Path::getAbsoluteTemplatesPath($post['directoryPath']);
+            }
+
+            $event->addData('emailNotificationsDirectoryPath', $directoryPath ?? null);
+            if (!empty($directoryPath) && (!file_exists($directoryPath) || !is_dir($directoryPath))) {
+                $event->isValid = false;
+                $event->addError(
+                    'emailNotificationsDirectoryPath',
+                    ExpressForms::t('Folder does not exist.')
+                );
+            }
         }
     }
 

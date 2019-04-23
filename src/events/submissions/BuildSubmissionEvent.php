@@ -17,6 +17,7 @@ class BuildSubmissionEvent extends Event
      * BuildSubmissionEvent constructor.
      *
      * @param Submission $submission
+     * @param array      $postedData
      */
     public function __construct(Submission $submission, array $postedData)
     {
@@ -40,17 +41,5 @@ class BuildSubmissionEvent extends Event
     public function getPostedData(): array
     {
         return $this->postedData;
-    }
-
-    /**
-     * @param array $postedData
-     *
-     * @return BuildSubmissionEvent
-     */
-    public function setPostedData(array $postedData): BuildSubmissionEvent
-    {
-        $this->postedData = $postedData;
-
-        return $this;
     }
 }

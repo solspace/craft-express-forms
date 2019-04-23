@@ -3,6 +3,7 @@
 namespace Solspace\ExpressForms\controllers;
 
 use Craft;
+use craft\helpers\UrlHelper;
 use craft\web\Controller;
 use Solspace\Commons\Helpers\PermissionHelper;
 use Solspace\ExpressForms\events\emailNotifications\SaveEmailNotificationEvent;
@@ -40,11 +41,15 @@ class EmailNotificationsController extends Controller
         PermissionHelper::requirePermission(ExpressForms::PERMISSION_SETTINGS);
 
         $path = ExpressForms::getInstance()->settings->getSettingsModel()->getEmailNotificationsPath();
-        if (!$path) {
-            throw new NotificationTemplateFolderNotSetException('No email notification templates folder set.');
-        }
+        try {
+            $notification = EmailNotification::create($path);
+        } catch (NotificationTemplateFolderNotSetException $exception) {
+            Craft::$app->getSession()->setError(
+                ExpressForms::t('No email notification templates folder set.')
+            );
 
-        $notification = EmailNotification::create($path);
+            return $this->redirect(UrlHelper::cpUrl('express-forms/settings/email-notifications'));
+        }
 
         return $this->renderEditForm($notification, 'Create a new Notification Template');
     }

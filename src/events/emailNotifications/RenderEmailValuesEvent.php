@@ -21,6 +21,9 @@ class RenderEmailValuesEvent extends Event
     /** @var array */
     private $templateVariables;
 
+    /** @var array */
+    private $fieldValues;
+
     /**
      * RenderEmailValuesEvent constructor.
      *
@@ -28,17 +31,20 @@ class RenderEmailValuesEvent extends Event
      * @param Submission        $submission
      * @param EmailNotification $notification
      * @param array             $templateVariables
+     * @param array             $fieldValues
      */
     public function __construct(
         Form $form,
         Submission $submission,
         EmailNotification $notification,
-        array $templateVariables
+        array $templateVariables,
+        array $fieldValues
     ) {
         $this->form              = $form;
         $this->submission        = $submission;
         $this->notification      = $notification;
         $this->templateVariables = $templateVariables;
+        $this->fieldValues       = $fieldValues;
 
         parent::__construct();
     }
@@ -83,6 +89,26 @@ class RenderEmailValuesEvent extends Event
     public function setTemplateVariables(array $templateVariables): RenderEmailValuesEvent
     {
         $this->templateVariables = $templateVariables;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFieldValues(): array
+    {
+        return $this->fieldValues;
+    }
+
+    /**
+     * @param array $fieldValues
+     *
+     * @return RenderEmailValuesEvent
+     */
+    public function setFieldValues(array $fieldValues): RenderEmailValuesEvent
+    {
+        $this->fieldValues = $fieldValues;
 
         return $this;
     }

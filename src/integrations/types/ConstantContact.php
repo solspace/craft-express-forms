@@ -43,8 +43,8 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
     public static function getSettingsManifest(): array
     {
         return [
-            new Setting('API Key', 'apiKey', Setting::TYPE_TEXT),
-            new Setting('Secret', 'secret', Setting::TYPE_TEXT),
+            new Setting('API Key', 'apiKey'),
+            new Setting('Secret', 'secret'),
         ];
     }
 

@@ -34,11 +34,7 @@ class SubmitController extends Controller
 
         if ($form) {
             $postData = Craft::$app->request->post();
-
-            $event = new FormSubmitEvent($form, $postData);
-            $this->trigger(self::EVENT_BEFORE_FORM_SUBMIT, $event);
-
-            $form->submit($event->getSubmittedData());
+            $form->submit($postData);
 
             if ($form->isSuccess()) {
                 $submissionsService = ExpressForms::getInstance()->submissions;

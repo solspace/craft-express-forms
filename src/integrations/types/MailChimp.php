@@ -39,8 +39,8 @@ class MailChimp extends AbstractIntegrationType implements MailingListTypeInterf
     public static function getSettingsManifest(): array
     {
         return [
-            new Setting('API Key', 'apiKey', Setting::TYPE_TEXT),
-            new Setting('Double Opt-In', 'doubleOptIn', Setting::TYPE_BOOLEAN),
+            new Setting('API Key', 'apiKey'),
+            new Setting('Double Opt-In', 'doubleOptIn', 'Toggle on if you\'d like your users to receive a confirmation email to confirm subscription.', Setting::TYPE_BOOLEAN),
         ];
     }
 

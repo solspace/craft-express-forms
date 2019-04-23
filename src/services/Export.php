@@ -6,7 +6,7 @@ use Solspace\ExpressForms\elements\Submission;
 use Solspace\ExpressForms\events\export\ExportSubmissionsEvent;
 use Solspace\ExpressForms\events\export\RegisterExportTypesEvent;
 use Solspace\ExpressForms\models\Form;
-use yii\base\Response;
+use yii\web\Response;
 
 class Export extends BaseService
 {

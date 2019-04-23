@@ -66,13 +66,36 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
     public static function getSettingsManifest(): array
     {
         return [
-            new Setting('Consumer Key', 'consumerKey', Setting::TYPE_TEXT),
-            new Setting('Consumer Secret', 'consumerSecret', Setting::TYPE_TEXT),
-            new Setting('Assign Owner?', 'assignOwner', Setting::TYPE_BOOLEAN),
-            new Setting('Sandbox mode?', 'sandboxMode', Setting::TYPE_BOOLEAN),
-            new Setting('Using custom URL?', 'customUrl', Setting::TYPE_BOOLEAN),
-            new Setting('Close Date (required for Opportunity only)', 'closeDate', Setting::TYPE_TEXT),
-            new Setting('Stage Name (required for Opportunity only)', 'stageName', Setting::TYPE_TEXT),
+            new Setting('Consumer Key', 'consumerKey'),
+            new Setting('Consumer Secret', 'consumerSecret'),
+            new Setting(
+                'Assign Owner?',
+                'assignOwner',
+                'Enabling this will make Salesforce assign a lead owner based on lead owner assignment rules.',
+                Setting::TYPE_BOOLEAN
+            ),
+            new Setting(
+                'Sandbox mode?',
+                'sandboxMode',
+                'Enable this if your Salesforce account is in Sandbox mode (connects to "test.salesforce.com" instead of "login.salesforce.com").',
+                Setting::TYPE_BOOLEAN
+            ),
+            new Setting(
+                'Using custom URL?',
+                'customUrl',
+                'Enable this if you connect to your Salesforce account with a custom company URL (e.g. \'mycompany.my.salesforce.com\').',
+                Setting::TYPE_BOOLEAN
+            ),
+            new Setting(
+                'Close Date (required for Opportunity only)',
+                'closeDate',
+                'Enter a relative textual date string for the Close Date of the newly created Opportunity (e.g. \'7 days\').'
+            ),
+            new Setting(
+                'Stage Name (required for Opportunity only)',
+                'stageName',
+                'Enter the Stage Name the newly created Opportunity should be assigned to (e.g. \'Prospecting\').'
+            ),
         ];
     }
 

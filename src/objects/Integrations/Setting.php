@@ -14,6 +14,9 @@ class Setting
     private $handle;
 
     /** @var string */
+    private $description;
+
+    /** @var string */
     private $type;
 
     /** @var bool */
@@ -22,17 +25,24 @@ class Setting
     /**
      * Setting constructor.
      *
-     * @param string $label
-     * @param string $handle
-     * @param string $type
-     * @param bool   $required
+     * @param string      $label
+     * @param string      $handle
+     * @param string|null $description
+     * @param string      $type
+     * @param bool        $required
      */
-    public function __construct(string $label, string $handle, string $type = self::TYPE_TEXT, bool $required = false)
-    {
-        $this->label    = $label;
-        $this->handle   = $handle;
-        $this->type     = $type;
-        $this->required = $required;
+    public function __construct(
+        string $label,
+        string $handle,
+        string $description = null,
+        string $type = self::TYPE_TEXT,
+        bool $required = false
+    ) {
+        $this->label       = $label;
+        $this->handle      = $handle;
+        $this->description = $description;
+        $this->type        = $type;
+        $this->required    = $required;
     }
 
     /**
@@ -49,6 +59,14 @@ class Setting
     public function getHandle(): string
     {
         return $this->handle;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**

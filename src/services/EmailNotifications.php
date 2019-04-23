@@ -172,7 +172,7 @@ class EmailNotifications extends BaseService
         $templateVariables = $this->getTemplateVariables($form, $submission, $postedData);
         $fieldValues       = $form->getFields()->asArray();
 
-        $renderEvent = new RenderEmailValuesEvent($form, $submission, $notification, $templateVariables);
+        $renderEvent = new RenderEmailValuesEvent($form, $submission, $notification, $templateVariables, $fieldValues);
 
         $this->trigger(self::EVENT_BEFORE_RENDER, $renderEvent);
         $templateVariables = $renderEvent->getTemplateVariables();

@@ -36,8 +36,8 @@ class CampaignMonitor extends AbstractIntegrationType implements MailingListType
     public static function getSettingsManifest(): array
     {
         return [
-            new Setting('API Key', 'apiKey', Setting::TYPE_TEXT),
-            new Setting('Client ID', 'clientId', Setting::TYPE_TEXT),
+            new Setting('API Key', 'apiKey'),
+            new Setting('Client ID', 'clientId'),
         ];
     }
 

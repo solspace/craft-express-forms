@@ -10,18 +10,23 @@ class BuildTitleEvent extends Event
     /** @var Form */
     private $form;
 
+    /** @var string */
+    private $title;
+
     /** @var array */
     private $twigVariables;
 
     /**
      * BuildTitleEvent constructor.
      *
-     * @param Form  $form
-     * @param array $twigVariables
+     * @param Form   $form
+     * @param string $title
+     * @param array  $twigVariables
      */
-    public function __construct(Form $form, array $twigVariables)
+    public function __construct(Form $form, string $title, array $twigVariables)
     {
         $this->form          = $form;
+        $this->title         = $title;
         $this->twigVariables = $twigVariables;
 
         parent::__construct();
@@ -33,6 +38,26 @@ class BuildTitleEvent extends Event
     public function getForm(): Form
     {
         return $this->form;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     *
+     * @return BuildTitleEvent
+     */
+    public function setTitle(string $title): BuildTitleEvent
+    {
+        $this->title = $title;
+
+        return $this;
     }
 
     /**
@@ -51,6 +76,19 @@ class BuildTitleEvent extends Event
     public function setTwigVariables($twigVariables): BuildTitleEvent
     {
         $this->twigVariables = $twigVariables;
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return BuildTitleEvent
+     */
+    public function addTwigVariable(string $key, $value): BuildTitleEvent
+    {
+        $this->twigVariables[$key] = $value;
 
         return $this;
     }

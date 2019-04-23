@@ -68,7 +68,7 @@ class Submissions extends BaseService
             $postData
         );
 
-        $titleEvent = new BuildTitleEvent($form, $twigVariables);
+        $titleEvent = new BuildTitleEvent($form, $form->getSubmissionTitle(), $twigVariables);
         $this->trigger(self::EVENT_BEFORE_BUILD_SUBMISSION_TITLE, $titleEvent);
 
         $submission              = new Submission();
@@ -82,7 +82,7 @@ class Submissions extends BaseService
 
         try {
             $title = Craft::$app->view->renderObjectTemplate(
-                $form->getSubmissionTitle(),
+                $titleEvent->getTitle(),
                 $submission,
                 $titleEvent->getTwigVariables()
             );
