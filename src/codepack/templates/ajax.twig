@@ -7,12 +7,10 @@
 
     <h1>AJAX Example</h1>
     <p class="lead">
-        This template serves as an example of how your form might look and feel when built manually along with AJAX
-        handling.
+        This template serves as an example of how your form might look and feel when built manually along with AJAX handling.
     </p>
     <div class="alert alert-warning" role="alert">
-        This template is set up to work with the demo form that the Demo Templates installer generates. You can also use
-        this as a starting point for your own forms.
+        This template is set up to work with the demo form that the Demo Templates installer generates. You can also use this as a starting point for your own forms.
     </div>
     <hr /><br />
 
@@ -33,15 +31,13 @@
             <label for="firstName"{{ form.fields.firstName.isRequired ? ' class="required"' }}>
                 {{ form.fields.firstName.label }}
             </label>
-            <input type="text" name="firstName" id="firstName" value="{{ form.fields.firstName.value }}"
-                   class="form-control">
+            <input type="text" name="firstName" id="firstName" value="{{ form.fields.firstName.value }}" class="form-control">
             <ul class="errors"></ul>
         </div>
 
         <div class="form-group col-md-6">
             <label for="lastName"{{ form.fields.lastName.isRequired ? ' class="required"' }}>{{ form.fields.lastName.label }}</label>
-            <input type="text" name="lastName" id="lastName" value="{{ form.fields.lastName.value }}"
-                   class="form-control">
+            <input type="text" name="lastName" id="lastName" value="{{ form.fields.lastName.value }}" class="form-control">
             <ul class="errors"></ul>
         </div>
     </div>
@@ -50,8 +46,7 @@
         <label for="email"{{ form.fields.email.isRequired ? ' class="required"' }}>
             Email Address
         </label>
-        <input type="email" name="email" id="email" placeholder="name@example.com" value="{{ form.fields.email.value }}"
-               class="form-control">
+        <input type="email" name="email" id="email" placeholder="name@example.com" value="{{ form.fields.email.value }}" class="form-control">
         <small class="form-text text-muted">We'll never share your email with anyone else.</small>
         <ul class="errors"></ul>
     </div>
@@ -64,11 +59,8 @@
             <option value="">I need some help with...</option>
             <option disabled>──────────</option>
             <option{{ "My homework" in form.fields.subject.value ? " selected" }}>My homework</option>
-            <option{{ "Practicing my hammer dance" in form.fields.subject.value ? " selected" }}>Practicing my hammer
-                dance
-            </option>
-            <option{{ "Finding my belly button" in form.fields.subject.value ? " selected" }}>Finding my belly button
-            </option>
+            <option{{ "Practicing my hammer dance" in form.fields.subject.value ? " selected" }}>Practicing my hammer dance</option>
+            <option{{ "Finding my belly button" in form.fields.subject.value ? " selected" }}>Finding my belly button</option>
         </select>
         <ul class="errors"></ul>
     </div>
@@ -78,8 +70,8 @@
             {{ form.fields.message.label }}
         </label>
         <textarea name="message" id="message" rows="3" class="form-control">
-        {{- form.fields.message.value -}}
-      </textarea>
+            {{- form.fields.message.value -}}
+        </textarea>
         <ul class="errors"></ul>
     </div>
 
@@ -89,33 +81,27 @@
         </label>
         <div class="form-check">
             <label class="form-check-label" for="how-heard-newspaper">
-                <input type="checkbox"
-                       id="how-heard-newspaper"
-                       name="howHeard[]"
+                <input type="checkbox" class="form-check-input"
+                       name="howHeard[]" id="how-heard-newspaper" 
                        value="newspaper"{{ "newspaper" in form.fields.howHeard.value ? " checked" }}
-                       class="form-check-input"
                 />
                 Newspaper
             </label>
         </div>
         <div class="form-check">
             <label class="form-check-label" for="how-heard-radio">
-                <input type="checkbox"
-                       id="how-heard-radio"
-                       name="howHeard[]"
+                <input type="checkbox" class="form-check-input"
+                       name="howHeard[]" id="how-heard-radio"
                        value="radio"{{ "radio" in form.fields.howHeard.value ? " checked" }}
-                       class="form-check-input"
                 />
                 Radio
             </label>
         </div>
         <div class="form-check">
             <label class="form-check-label" for="how-heard-friend">
-                <input type="checkbox"
-                       id="how-heard-friend"
-                       name="howHeard[]"
+                <input type="checkbox" class="form-check-input"
+                       name="howHeard[]" id="how-heard-friend"
                        value="friend"{{ "friend" in form.fields.howHeard.value ? " checked" }}
-                       class="form-check-input"
                 />
                 Friend
             </label>
@@ -142,11 +128,9 @@
     <div class="form-group">
         <div class="form-check">
             <label class="form-check-label{{ form.fields.acceptTerms.isRequired ? ' required' }}" for="accept-terms">
-                <input type="checkbox"
-                       id="accept-terms"
-                       name="acceptTerms"
+                <input type="checkbox" class="form-check-input"
+                       name="acceptTerms" id="accept-terms"
                        value="1"
-                       class="form-check-input"
                 />
                 {{ form.fields.acceptTerms.label }}
             </label>
@@ -253,11 +237,9 @@
         var successMessage = document.createElement("div")
         successMessage.classList.add("alert", "alert-success", "form-success")
 
-        var paragraph = document.createElement("p")
-        paragraph.classList.add("lead")
-        paragraph.appendChild(document.createTextNode("Form submitted successfully"))
-
-        successMessage.appendChild(paragraph)
+        successMessage.appendChild(
+          document.createTextNode("Form has been submitted successfully!")
+        )
 
         form.insertBefore(successMessage, form.childNodes[0])
       }
@@ -293,10 +275,9 @@
         var errorBlock = document.createElement("div")
         errorBlock.classList.add("alert", "alert-danger", "form-errors")
 
-        var paragraph = document.createElement("p")
-        paragraph.classList.add("lead")
-        paragraph.appendChild(document.createTextNode("This form has errors"))
-        errorBlock.appendChild(paragraph)
+        errorBlock.appendChild(
+          document.createTextNode("Error! Please review the form and try submitting again.")
+        )
 
         if (errors.length) {
           var errorsList = document.createElement("ul")

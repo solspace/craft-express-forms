@@ -34,7 +34,11 @@ class SubmitController extends Controller
 
         if ($form) {
             $postData = Craft::$app->request->post();
-            $form->submit($postData);
+
+            $event = new FormSubmitEvent($form, $postData);
+            $this->trigger(self::EVENT_BEFORE_FORM_SUBMIT, $event);
+
+            $form->submit($event->getSubmittedData());
 
             if ($form->isSuccess()) {
                 $submissionsService = ExpressForms::getInstance()->submissions;
@@ -62,26 +66,28 @@ class SubmitController extends Controller
                 if ($event->isValid && $redirectUrl) {
                     return Craft::$app->getResponse()->redirect($event->getRedirectUrl());
                 }
-            } else {
-                $this->trigger(self::EVENT_FORM_INVALID, new FormInvalidEvent($form, $postData));
 
-                if ($isAjax) {
-                    $fieldErrors = [];
-                    foreach ($form->getFields() as $field) {
-                        if ($field->hasErrors()) {
-                            $fieldErrors[$field->getHandle()] = $field->getErrors();
-                        }
+                return Craft::$app->getResponse()->redirect(Craft::$app->request->getUrl());
+            }
+
+            $this->trigger(self::EVENT_FORM_INVALID, new FormInvalidEvent($form, $postData));
+
+            if ($isAjax) {
+                $fieldErrors = [];
+                foreach ($form->getFields() as $field) {
+                    if ($field->hasErrors()) {
+                        $fieldErrors[$field->getHandle()] = $field->getErrors();
                     }
-
-                    return $this->asJson(
-                        [
-                            'success'    => false,
-                            'returnUrl'  => null,
-                            'formErrors' => $form->getErrors(),
-                            'errors'     => $fieldErrors,
-                        ]
-                    );
                 }
+
+                return $this->asJson(
+                    [
+                        'success'    => false,
+                        'returnUrl'  => null,
+                        'formErrors' => $form->getErrors(),
+                        'errors'     => $fieldErrors,
+                    ]
+                );
             }
         }
     }

@@ -86,6 +86,14 @@
             errors: notification.getErrors('bcc'),
         }) }}
 
+        {{ forms.textField({
+            label: "Subject"|t('express-forms'),
+            instructions: "The subject line that will appear in your email notification."|t('express-forms'),
+            name: "subject",
+            value: notification.subject,
+            errors: notification.getErrors('subject'),
+        }) }}
+
         {{ forms.textareaField({
             label: "Email Body"|t('express-forms'),
             instructions: "The content of the email notification. See documentation for availability of variables."|t('express-forms'),

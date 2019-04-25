@@ -5,18 +5,16 @@
 
 {% block content %}
 
-<h1>Automated Example</h1>
-<p class="lead">
-    This template serves as an example of how your form might look and feel when built with some automation of rendering
-    in the template along with a macro for error handling.
-</p>
-<div class="alert alert-warning" role="alert">
-    This template is set up to work with the demo form that the Demo Templates installer generates. You can also use
-    this as a starting point for your own forms.
-</div>
-<hr /><br />
+    <h1>Automated Example</h1>
+    <p class="lead">
+        This template serves as an example of how your form might look and feel when built with some automation of rendering in the template along with a macro for error handling.
+    </p>
+    <div class="alert alert-warning" role="alert">
+        This template is set up to work with the demo form that the Demo Templates installer generates. You can also use this as a starting point for your own forms.
+    </div>
+    <hr /><br />
 
-{% set form = craft.expressforms.form("express-forms-demo") %}
+    {% set form = craft.expressforms.form("express-forms-demo") %}
 
     {# Macro for Field Errors #}
     {% macro renderErrors(field) %}
@@ -38,20 +36,26 @@
     {% endif %}
 
     {# General Error Handling #}
-    {% if form.hasErrors %}
+    {% if not form.valid %}
         <div class="alert alert-danger" role="alert">
             {{ "Error! Please review the form and try submitting again."|t }}
-            {{ forms.renderErrors(form) }}
+            {% if form.errors|length %}
+                <ul>
+                    {% for error in form.errors %}
+                        <li>{{ error|t }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
     {% endif %}
 
-<h3>{{ form.name }}</h3>
+    <h3>{{ form.name }}</h3>
 
-{# Automatically set Form tags with Return, CSRF and Honeypot (if enabled) #}
+    {# Automatically set Form tags with Return, CSRF and Honeypot (if enabled) #}
     {{ form.openTag({ return: '?success=1' }) }}
 
-      {# Automation of Field Rendering #}
-      {% for field in form.fields %}
+    {# Automation of Field Rendering #}
+    {% for field in form.fields %}
 
         {% if field.type == "hidden" %}
 
@@ -64,7 +68,7 @@
                     {{ field.label }}
                 </label>
                 <textarea name="{{ field.handle }}" id="{{ field.handle }}" rows="3" class="form-control">
-              {{- field.value -}}
+                {{- field.value -}}
             </textarea>
                 {{ forms.renderErrors(field) }}
             </div>
@@ -79,8 +83,7 @@
                     This field won't currently work unless setup correctly in the Express Forms form builder.
                 </div>
                 <div class="custom-file">
-                    <input type="file" multiple name="{{ field.handle }}[]" id="{{ field.handle }}"
-                           class="custom-file-input">
+                    <input type="file" multiple name="{{ field.handle }}[]" id="{{ field.handle }}" class="custom-file-input">
                     <label for="{{ field.handle }}" class="custom-file-label">
                         {{ "Choose file"|t }}
                     </label>
@@ -92,8 +95,7 @@
 
             <div class="form-group form-check{{ field.hasErrors ? ' has-error' }}">
                 <label class="form-check-label{{ field.isRequired ? ' required' }}">
-                    <input type="checkbox" name="{{ field.handle }}" value="1"{{ "1" in field.value ? " checked" }}
-                           class="form-check-input">
+                    <input type="checkbox" name="{{ field.handle }}" value="1"{{ "1" in field.value ? " checked" }} class="form-check-input">
                     {{ field.label }}
                 </label>
                 {{ forms.renderErrors(field) }}
@@ -102,48 +104,42 @@
             {# If Options field type, handle manually #}
         {% elseif field.type == "options" %}
 
-        {% if field.handle == "howHeard" %}
+            {% if field.handle == "howHeard" %}
 
-            <div class="form-group{{ field.hasErrors ? ' has-error' }}">
-                <label for="{{ field.handle }}"{{ field.isRequired ? ' class="required"' }}>
-                    {{ field.label }}
-                </label>
-                <div class="form-check">
-                    <label class="form-check-label" for="how-heard-newspaper">
-                        <input type="checkbox"
-                               id="how-heard-newspaper"
-                               name="howHeard[]"
-                               value="newspaper"{{ "newspaper" in field.value ? " checked" }}
-                               class="form-check-input"
-                        />
-                        Newspaper
+                <div class="form-group{{ field.hasErrors ? ' has-error' }}">
+                    <label for="{{ field.handle }}"{{ field.isRequired ? ' class="required"' }}>
+                        {{ field.label }}
                     </label>
+                    <div class="form-check">
+                        <label class="form-check-label" for="how-heard-newspaper">
+                            <input type="checkbox" class="form-check-input"
+                                name="howHeard[]" id="how-heard-newspaper"
+                                value="newspaper"{{ "newspaper" in field.value ? " checked" }}
+                            />
+                            Newspaper
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label" for="how-heard-radio">
+                            <input type="checkbox" class="form-check-input"
+                                name="howHeard[]" id="how-heard-radio"
+                                value="radio"{{ "radio" in field.value ? " checked" }}
+                            />
+                            Radio
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label" for="how-heard-friend">
+                            <input type="checkbox" class="form-check-input"
+                                name="howHeard[]" id="how-heard-friend"
+                                value="friend"{{ "friend" in field.value ? " checked" }}
+                            />
+                            Friend
+                        </label>
+                    </div>
+                    {{ forms.renderErrors(field) }}
                 </div>
-                <div class="form-check">
-                    <label class="form-check-label" for="how-heard-radio">
-                        <input type="checkbox"
-                               id="how-heard-radio"
-                               name="howHeard[]"
-                               value="radio"{{ "radio" in field.value ? " checked" }}
-                               class="form-check-input"
-                        />
-                        Radio
-                    </label>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label" for="how-heard-friend">
-                        <input type="checkbox"
-                               id="how-heard-friend"
-                               name="howHeard[]"
-                               value="friend"{{ "friend" in field.value ? " checked" }}
-                               class="form-check-input"
-                        />
-                        Friend
-                    </label>
-                </div>
-                {{ forms.renderErrors(field) }}
-            </div>
-        {% endif %}
+            {% endif %}
 
         {# Handle all other simple text fields #}
         {% else %}
@@ -158,11 +154,8 @@
                         <option value="">I need some help with...</option>
                         <option disabled>──────────</option>
                         <option{{ "My homework" in field.value ? " selected" }}>My homework</option>
-                        <option{{ "Practicing my hammer dance" in field.value ? " selected" }}>Practicing my hammer
-                            dance
-                        </option>
-                        <option{{ "Finding my belly button" in field.value ? " selected" }}>Finding my belly button
-                        </option>
+                        <option{{ "Practicing my hammer dance" in field.value ? " selected" }}>Practicing my hammer dance</option>
+                        <option{{ "Finding my belly button" in field.value ? " selected" }}>Finding my belly button</option>
                     </select>
                     {{ forms.renderErrors(field) }}
                 </div>
@@ -173,8 +166,7 @@
                     <label for="{{ field.handle }}"{{ field.isRequired ? ' class="required"' }}>
                         {{ field.label }}
                     </label>
-                    <input type="{{ field.type }}" name="{{ field.handle }}" id="{{ field.handle }}"
-                           class="form-control">
+                    <input type="{{ field.type }}" name="{{ field.handle }}" id="{{ field.handle }}" value="{{ field.value }}" class="form-control">
                     {{ forms.renderErrors(field) }}
                 </div>
 
@@ -182,10 +174,10 @@
 
         {% endif %}
 
-      {% endfor %}
+    {% endfor %}
 
-<button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 
-{{ form.closeTag }}
+    {{ form.closeTag }}
 
 {% endblock %}

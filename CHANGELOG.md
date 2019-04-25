@@ -1,7 +1,16 @@
 # Solspace Express Forms Changelog
 
+## 1.0.0-beta.4 - 2018-04-25
+### Fixed
+- Fixed a bug where form submitting and return URL's were not working correctly.
+- Fixed a bug where the Subject field was not displaying inside CP email notification template editor.
+- Fixed a bug where the "Template Directory Path" setting was prepending the full file path after saving a relative path.
+- Fixed a bug where the form would not render the flash success message if the return URL wasn't set.
+- Fixed a bug with a namespace that was not the correct case, causing issues with Nginx servers.
+- Fixed various bugs with demo templates.
+
 ## 1.0.0-beta.3 - 2018-04-23
-### Changes
+### Changed
 - Various improvements to developer events.
 
 ### Fixed

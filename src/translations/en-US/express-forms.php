@@ -164,6 +164,8 @@ return [
     'The CC email address for your email notification. Leave blank to not use any.' => 'The CC email address for your email notification. Leave blank to not use any.',
     'BCC' => 'BCC',
     'The BCC email address for your email notification. Leave blank to not use any.' => 'The BCC email address for your email notification. Leave blank to not use any.',
+    'Subject' => 'Subject',
+    'The subject line that will appear in your email notification.' => 'The subject line that will appear in your email notification.',
     'Email Body' => 'Email Body',
     'The content of the email notification. See documentation for availability of variables.' => 'The content of the email notification. See documentation for availability of variables.',
     'Include Attachments?' => 'Include Attachments?',

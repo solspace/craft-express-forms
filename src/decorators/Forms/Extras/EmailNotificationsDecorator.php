@@ -96,7 +96,7 @@ class EmailNotificationsDecorator extends AbstractDecorator
                 $directoryPath = Path::getAbsoluteTemplatesPath($post['directoryPath']);
             }
 
-            $event->addData('emailNotificationsDirectoryPath', $directoryPath ?? null);
+            $event->addData('emailNotificationsDirectoryPath', $post['directoryPath'] ?? null);
             if (!empty($directoryPath) && (!file_exists($directoryPath) || !is_dir($directoryPath))) {
                 $event->isValid = false;
                 $event->addError(

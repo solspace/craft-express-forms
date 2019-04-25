@@ -7,13 +7,10 @@
 
     <h1>Manual w/ Macro Example</h1>
     <p class="lead">
-        This template serves as an example of how your form might look and feel when built completely manually with a
-        macro
-        for error handling to clean up the template code.
+        This template serves as an example of how your form might look and feel when built completely manually with a macro for error handling to clean up the template code.
     </p>
     <div class="alert alert-warning" role="alert">
-        This template is set up to work with the demo form that the Demo Templates installer generates. You can also use
-        this as a starting point for your own forms.
+        This template is set up to work with the demo form that the Demo Templates installer generates. You can also use this as a starting point for your own forms.
     </div>
     <hr /><br />
 
@@ -39,10 +36,16 @@
     {% endif %}
 
     {# General Error Handling #}
-    {% if form.hasErrors %}
+    {% if not form.valid %}
         <div class="alert alert-danger" role="alert">
             {{ "Error! Please review the form and try submitting again."|t }}
-            {{ forms.renderErrors(form) }}
+            {% if form.errors|length %}
+                <ul>
+                    {% for error in form.errors %}
+                        <li>{{ error|t }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
     {% endif %}
 
@@ -56,8 +59,7 @@
             <label for="firstName"{{ form.fields.firstName.isRequired ? ' class="required"' }}>
                 {{ form.fields.firstName.label }}
             </label>
-            <input type="text" name="firstName" id="firstName" value="{{ form.fields.firstName.value }}"
-                   class="form-control">
+            <input type="text" name="firstName" id="firstName" value="{{ form.fields.firstName.value }}" class="form-control">
             {{ forms.renderErrors(form.fields.firstName) }}
         </div>
 
@@ -65,8 +67,7 @@
             <label for="lastName"{{ form.fields.lastName.isRequired ? ' class="required"' }}>
                 {{ form.fields.lastName.label }}
             </label>
-            <input type="text" name="lastName" id="lastName" value="{{ form.fields.lastName.value }}"
-                   class="form-control">
+            <input type="text" name="lastName" id="lastName" value="{{ form.fields.lastName.value }}" class="form-control">
             {{ forms.renderErrors(form.fields.lastName) }}
         </div>
     </div>
@@ -75,8 +76,7 @@
         <label for="email"{{ form.fields.email.isRequired ? ' class="required"' }}>
             Email Address
         </label>
-        <input type="email" name="email" id="email" placeholder="name@example.com" value="{{ form.fields.email.value }}"
-               class="form-control">
+        <input type="email" name="email" id="email" placeholder="name@example.com" value="{{ form.fields.email.value }}" class="form-control">
         <small class="form-text text-muted">We'll never share your email with anyone else.</small>
         {{ forms.renderErrors(form.fields.email) }}
     </div>
@@ -89,11 +89,8 @@
             <option value="">I need some help with...</option>
             <option disabled>──────────</option>
             <option{{ "My homework" in form.fields.subject.value ? " selected" }}>My homework</option>
-            <option{{ "Practicing my hammer dance" in form.fields.subject.value ? " selected" }}>Practicing my hammer
-                dance
-            </option>
-            <option{{ "Finding my belly button" in form.fields.subject.value ? " selected" }}>Finding my belly button
-            </option>
+            <option{{ "Practicing my hammer dance" in form.fields.subject.value ? " selected" }}>Practicing my hammer dance</option>
+            <option{{ "Finding my belly button" in form.fields.subject.value ? " selected" }}>Finding my belly button</option>
         </select>
         {{ forms.renderErrors(form.fields.subject) }}
     </div>
@@ -103,7 +100,7 @@
             {{ form.fields.message.label }}
         </label>
         <textarea name="message" id="message" rows="3" class="form-control">
-          {{- form.fields.message.value -}}
+            {{- form.fields.message.value -}}
         </textarea>
         {{ forms.renderErrors(form.fields.message) }}
     </div>
@@ -114,33 +111,27 @@
         </label>
         <div class="form-check">
             <label class="form-check-label" for="how-heard-newspaper">
-                <input type="checkbox"
-                       id="how-heard-newspaper"
-                       name="howHeard[]"
+                <input type="checkbox" class="form-check-input"
+                       name="howHeard[]" id="how-heard-newspaper"
                        value="newspaper"{{ "newspaper" in form.fields.howHeard.value ? " checked" }}
-                       class="form-check-input"
                 />
                 Newspaper
             </label>
         </div>
         <div class="form-check">
             <label class="form-check-label" for="how-heard-radio">
-                <input type="checkbox"
-                       id="how-heard-radio"
-                       name="howHeard[]"
+                <input type="checkbox" class="form-check-input"
+                       name="howHeard[]" id="how-heard-radio"
                        value="radio"{{ "radio" in form.fields.howHeard.value ? " checked" }}
-                       class="form-check-input"
                 />
                 Radio
             </label>
         </div>
         <div class="form-check">
             <label class="form-check-label" for="how-heard-friend">
-                <input type="checkbox"
-                       id="how-heard-friend"
-                       name="howHeard[]"
+                <input type="checkbox" class="form-check-input"
+                       name="howHeard[]" id="how-heard-friend"
                        value="friend"{{ "friend" in form.fields.howHeard.value ? " checked" }}
-                       class="form-check-input"
                 />
                 Friend
             </label>
@@ -165,11 +156,9 @@
     <div class="form-group{{ form.fields.acceptTerms.hasErrors ? ' has-error' }}">
         <div class="form-check">
             <label class="form-check-label{{ form.fields.acceptTerms.isRequired ? ' required' }}" for="accept-terms">
-                <input type="checkbox"
-                       id="accept-terms"
-                       name="acceptTerms"
+                <input type="checkbox" class="form-check-input"
+                       name="acceptTerms" id="accept-terms"
                        value="1"{{ form.fields.acceptTerms.value ? " checked" }}
-                       class="form-check-input"
                 />
                 {{ form.fields.acceptTerms.label }}
             </label>

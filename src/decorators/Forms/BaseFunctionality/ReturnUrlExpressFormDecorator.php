@@ -18,12 +18,6 @@ class ReturnUrlExpressFormDecorator extends AbstractDecorator
 {
     const RETURN_URL_KEY = 'return';
 
-    /** @var HashingInterface */
-    private $hashing;
-
-    /** @var RequestProviderInterface */
-    private $request;
-
     /** @var RenderProviderInterface */
     private $renderer;
 
@@ -33,19 +27,13 @@ class ReturnUrlExpressFormDecorator extends AbstractDecorator
     /**
      * ReturnUrlExpressFormDecorator constructor.
      *
-     * @param HashingInterface         $hashing
-     * @param RequestProviderInterface $request
      * @param RenderProviderInterface  $renderer
      * @param LoggerProviderInterface  $logger
      */
     public function __construct(
-        HashingInterface $hashing,
-        RequestProviderInterface $request,
         RenderProviderInterface $renderer,
         LoggerProviderInterface $logger
     ) {
-        $this->hashing  = $hashing;
-        $this->request  = $request;
         $this->renderer = $renderer;
         $this->logger   = $logger;
     }
@@ -55,24 +43,6 @@ class ReturnUrlExpressFormDecorator extends AbstractDecorator
         return [
             [SubmitController::class, SubmitController::EVENT_REDIRECT, [$this, 'redirectPageAfterSubmit']],
         ];
-    }
-
-    /**
-     * @param FormRenderTagEvent $event
-     */
-    public function attachReturnUrlToFormTag(FormRenderTagEvent $event)
-    {
-        $returnUrl = $event->getForm()->getParameters()->get(self::RETURN_URL_KEY);
-        if ($returnUrl) {
-            $returnUrl = $this->hashing->encrypt($returnUrl, $event->getForm()->getUuid());
-
-            $output = sprintf(
-                '<input type="hidden" name="return" value="%s" />',
-                $returnUrl
-            );
-
-            $event->appendToOutput($output);
-        }
     }
 
     /**
