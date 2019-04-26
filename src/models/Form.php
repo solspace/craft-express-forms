@@ -115,6 +115,9 @@ class Form
     /** @var bool */
     private $markedAsSpam = false;
 
+    /** @var bool */
+    private $skipped = false;
+
     /** @var ParameterBag */
     private $extraParameters;
 
@@ -734,6 +737,26 @@ class Form
     public function markAsSpam(): Form
     {
         $this->markedAsSpam = true;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSkipped(): bool
+    {
+        return $this->skipped;
+    }
+
+    /**
+     * @param bool $skipped
+     *
+     * @return Form
+     */
+    public function setSkipped(bool $skipped): Form
+    {
+        $this->skipped = $skipped;
 
         return $this;
     }

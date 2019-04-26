@@ -19,7 +19,7 @@ class Submissions extends BaseService
     const EVENT_AFTER_SAVE_SUBMISSION         = 'afterSaveSubmission';
 
     /** @var Submission[] */
-    private static $submissionCache = [];
+    private static $submissionCache     = [];
     private static $submissionsByFormId = [];
 
     /**
@@ -113,9 +113,13 @@ class Submissions extends BaseService
             return false;
         }
 
-        if ($submission->getForm()->isMarkedAsSpam()) {
+        $form = $submission->getForm();
+        if ($form->isMarkedAsSpam()) {
+            ExpressForms::getInstance()->forms->incrementSpamCount($form);
+        }
+
+        if ($form->isMarkedAsSpam() || $form->isSkipped()) {
             $result = false;
-            ExpressForms::getInstance()->forms->incrementSpamCount($submission->getForm());
         } else {
             $result = Craft::$app->elements->saveElement($submission);
         }

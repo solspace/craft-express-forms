@@ -26,6 +26,8 @@ use Solspace\ExpressForms\providers\Security\Hashing;
 use Solspace\ExpressForms\providers\Security\HashingInterface;
 use Solspace\ExpressForms\providers\Session\FlashBagProvider;
 use Solspace\ExpressForms\providers\Session\FlashBagProviderInterface;
+use Solspace\ExpressForms\providers\Session\SessionProvider;
+use Solspace\ExpressForms\providers\Session\SessionProviderInterface;
 use Solspace\ExpressForms\providers\View\RenderProvider;
 use Solspace\ExpressForms\providers\View\RenderProviderInterface;
 use Solspace\ExpressForms\providers\View\RequestProvider;
@@ -137,5 +139,6 @@ class Container extends BaseService
         $container->set(IntegrationTypeProviderInterface::class, IntegrationTypeProvider::class);
         $container->set(ConfigProviderInterface::class, ConfigProvider::class);
         $container->set(FlashBagProviderInterface::class, FlashBagProvider::class);
+        $container->set(SessionProviderInterface::class, SessionProvider::class);
     }
 }

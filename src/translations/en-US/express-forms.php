@@ -180,6 +180,8 @@ return [
     'If you wish to display a different name for the plugin in page headings and navigation, enter one here.' => 'If you wish to display a different name for the plugin in page headings and navigation, enter one here.',
     'Enhanced UI in Form Builder' => 'Enhanced UI in Form Builder',
     'When disabled, the field layout column in Form Builder will instead use a regular Craft style select dropdown to choose a field type and regular Craft style inputs for Name and Handle fields.' => 'When disabled, the field layout column in Form Builder will instead use a regular Craft style select dropdown to choose a field type and regular Craft style inputs for Name and Handle fields.',
+    'Prevent Duplicate Submissions' => 'Prevent Duplicate Submissions',
+    "Prevents users from accidentally submitting the form extra times. If caching forms, you'll have to disable this setting." => "Prevents users from accidentally submitting the form extra times. If caching forms, you'll have to disable this setting.",
     'Save' => 'Save',
     "Sorry, there's nothing here." => "Sorry, there's nothing here.",
     'Resources' => 'Resources',

@@ -2,10 +2,12 @@
 
 namespace Solspace\ExpressForms\controllers;
 
+use Craft;
 use craft\web\Controller;
 use Solspace\Commons\Helpers\PermissionHelper;
 use Solspace\ExpressForms\ExpressForms;
 use Solspace\ExpressForms\models\Settings;
+use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 
 class SettingsController extends Controller
@@ -16,6 +18,9 @@ class SettingsController extends Controller
     public function actionIndex(): Response
     {
         PermissionHelper::requirePermission(ExpressForms::PERMISSION_SETTINGS);
+        if (!Craft::$app->getConfig()->getGeneral()->allowAdminChanges) {
+            throw new ForbiddenHttpException('Changes are not allowed');
+        }
 
         return $this->renderEditTemplate();
     }

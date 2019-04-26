@@ -1,0 +1,12 @@
+{% import "_includes/forms" as forms %}
+
+<div>
+    {{ forms.lightswitchField({
+        label: "Prevent Duplicate Submissions"|t("express-forms"),
+        instructions: "Prevents users from accidentally submitting the form extra times. If caching forms, you'll have to disable this setting."|t("express-forms"),
+        name: "duplicatePrevention[enabled]",
+        on: settings.duplicatePreventionEnabled,
+        errors: settings.errors("duplicatePreventionEnabled"),
+        toggle: "duplicatePreventionBehaviour"
+    }) }}
+</div>

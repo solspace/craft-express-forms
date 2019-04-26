@@ -204,6 +204,11 @@ class IntegrationsDecorator extends AbstractDecorator implements ExtraBundle
      */
     public function pushData(FormCompletedEvent $event)
     {
+        $form = $event->getForm();
+        if ($form->isMarkedAsSpam() || $form->isSkipped()) {
+            return;
+        }
+
         /** @var IntegrationMappingInterface $integration */
         foreach ($event->getForm()->getIntegrations() as $integration) {
             try {

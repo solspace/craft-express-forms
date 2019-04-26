@@ -10,6 +10,11 @@ interface HashingInterface
     public function getProjectSecretKey(): string;
 
     /**
+     * @return string
+     */
+    public function getUuid4(): string;
+
+    /**
      * @param string $value
      * @param string $secret
      *

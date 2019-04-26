@@ -102,7 +102,7 @@ class EmailNotifications extends BaseService
     public function sendAdminNotifications(FormCompletedEvent $event)
     {
         $form = $event->getForm();
-        if ($form->isMarkedAsSpam()) {
+        if ($form->isMarkedAsSpam() || $form->isSkipped()) {
             return;
         }
 
@@ -127,7 +127,7 @@ class EmailNotifications extends BaseService
     public function sendEmailNotifications(FormCompletedEvent $event)
     {
         $form = $event->getForm();
-        if ($form->isMarkedAsSpam()) {
+        if ($form->isMarkedAsSpam() || $form->isSkipped()) {
             return;
         }
 

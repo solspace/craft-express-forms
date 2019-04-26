@@ -35,6 +35,7 @@ use Solspace\ExpressForms\decorators\Forms\Extras\GeneralSettingsDecorator;
 use Solspace\ExpressForms\decorators\Forms\Extras\HoneypotDecorator;
 use Solspace\ExpressForms\decorators\Forms\Extras\IntegrationPreviewDecorator;
 use Solspace\ExpressForms\decorators\Forms\Extras\IntegrationsDecorator;
+use Solspace\ExpressForms\decorators\Forms\Extras\PreventDuplicateSubmissionsDecorator;
 use Solspace\ExpressForms\decorators\Forms\Extras\RecaptchaDecorator;
 use Solspace\ExpressForms\models\Settings as SettingsModel;
 use Solspace\ExpressForms\services\Container;
@@ -117,6 +118,7 @@ class ExpressForms extends Plugin
         DynamicNotificationsDecorator::class,
         DynamicRecipientsDecorator::class,
         ErrorLogDecorator::class,
+        PreventDuplicateSubmissionsDecorator::class,
 
         // Export
         CsvExporterDecorator::class,

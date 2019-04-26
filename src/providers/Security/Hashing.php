@@ -2,6 +2,8 @@
 
 namespace Solspace\ExpressForms\providers\Security;
 
+use Ramsey\Uuid\Uuid;
+
 class Hashing implements HashingInterface
 {
     /**
@@ -10,6 +12,14 @@ class Hashing implements HashingInterface
     public function getProjectSecretKey(): string
     {
         return \Craft::$app->getConfig()->getGeneral()->securityKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUuid4(): string
+    {
+        return Uuid::uuid4()->toString();
     }
 
     /**

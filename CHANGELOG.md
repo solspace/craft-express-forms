@@ -1,5 +1,12 @@
 # Solspace Express Forms Changelog
 
+## 1.0.0-beta.5 - 2018-04-26
+### Added
+- Added 'Prevent Duplicate Submissions' setting for forms.
+
+### Fixed
+- Fixed a bug where Settings area in CP was still visible when the `allowAdminChanges` setting is disabled for Project Config.
+
 ## 1.0.0-beta.4 - 2018-04-25
 ### Fixed
 - Fixed a bug where form submitting and return URL's were not working correctly.

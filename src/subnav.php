@@ -13,7 +13,10 @@ if (PermissionHelper::checkPermission(ExpressForms::PERMISSION_SUBMISSIONS)) {
     $navItems['submissions'] = ['label' => ExpressForms::t('Submissions'), 'url' => 'express-forms/submissions'];
 }
 
-if (PermissionHelper::checkPermission(ExpressForms::PERMISSION_SETTINGS)) {
+if (
+    PermissionHelper::checkPermission(ExpressForms::PERMISSION_SETTINGS) &&
+    Craft::$app->getConfig()->getGeneral()->allowAdminChanges
+) {
     $navItems['settings'] = ['label' => ExpressForms::t('Settings'), 'url' => 'express-forms/settings'];
 }
 

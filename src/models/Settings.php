@@ -25,6 +25,8 @@ class Settings extends Model
 
     public $emailNotificationsDirectoryPath;
 
+    public $duplicatePreventionEnabled = true;
+
     /**
      * @return string|null
      */

@@ -76,7 +76,7 @@
         <label for="email"{{ form.fields.email.isRequired ? ' class="required"' }}>
             Email Address
         </label>
-        <input type="email" name="email" id="email" placeholder="name@example.com" class="form-control">
+        <input type="email" name="email" id="email" placeholder="name@example.com" value="{{ form.fields.email.value }}" class="form-control">
         <small class="form-text text-muted">We'll never share your email with anyone else.</small>
         {{ forms.renderErrors(form.fields.email) }}
     </div>
