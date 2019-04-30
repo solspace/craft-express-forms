@@ -1,5 +1,9 @@
 # Solspace Express Forms Changelog
 
+## 1.0.0-beta.6 - 2018-04-30
+### Fixed
+- Fixed a bug where saving a form would trigger an error when using PostgreSQL.
+
 ## 1.0.0-beta.5 - 2018-04-26
 ### Added
 - Added 'Prevent Duplicate Submissions' setting for forms.

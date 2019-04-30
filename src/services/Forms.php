@@ -2,10 +2,8 @@
 
 namespace Solspace\ExpressForms\services;
 
-use craft\base\Field as CraftField;
 use craft\db\Query;
 use craft\db\Table;
-use craft\models\FieldLayoutTab;
 use Solspace\ExpressForms\elements\Submission;
 use Solspace\ExpressForms\ExpressForms;
 use Solspace\ExpressForms\models\Form;
@@ -156,7 +154,12 @@ class Forms extends BaseService
 
         $oldFormHandle = $record->getOldAttribute('handle') ?? null;
 
-        $record->setAttributes(ExpressForms::container()->formSerializer()->toArray($form));
+        $attributes = ExpressForms::container()->formSerializer()->toArray($form);
+        if ($isNew) {
+            unset($attributes['id']);
+        }
+
+        $record->setAttributes($attributes);
         $record->save();
 
         if ($record->id && !$form->getId()) {
