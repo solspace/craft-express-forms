@@ -177,14 +177,12 @@ class EmailNotifications extends BaseService
         $this->trigger(self::EVENT_BEFORE_RENDER, $renderEvent);
         $templateVariables = $renderEvent->getTemplateVariables();
 
-        $view = \Craft::$app->view;
-
-        $fromName  = $view->renderObjectTemplate($notification->getFromName(), $fieldValues, $templateVariables);
-        $fromEmail = $view->renderObjectTemplate($notification->getFromEmail(), $fieldValues, $templateVariables);
+        $fromName  = $this->renderString($notification->getFromName(), $fieldValues, $templateVariables);
+        $fromEmail = $this->renderString($notification->getFromEmail(), $fieldValues, $templateVariables);
 
         $cc = $notification->getCc();
         if ($cc) {
-            $cc = $view->renderString($cc, $templateVariables);
+            $cc = $this->renderString($cc, $fieldValues, $templateVariables);
             if (is_string($cc)) {
                 $cc = StringHelper::extractSeparatedValues($cc);
             }
@@ -192,7 +190,7 @@ class EmailNotifications extends BaseService
 
         $bcc = $notification->getBcc();
         if ($bcc) {
-            $bcc = $view->renderString($bcc, $templateVariables);
+            $bcc = $this->renderString($bcc, $fieldValues, $templateVariables);
             if (is_string($bcc)) {
                 $bcc = StringHelper::extractSeparatedValues($bcc);
             }
@@ -205,8 +203,8 @@ class EmailNotifications extends BaseService
             $email
                 ->setTo($recipients)
                 ->setFrom([$fromEmail => $fromName])
-                ->setSubject($view->renderObjectTemplate($notification->getSubject(), $fieldValues, $templateVariables))
-                ->setHtmlBody($view->renderObjectTemplate($notification->getBody(), $fieldValues, $templateVariables));
+                ->setSubject($this->renderString($notification->getSubject(), $fieldValues, $templateVariables))
+                ->setHtmlBody($this->renderString($notification->getBody(), $fieldValues, $templateVariables));
 
             if ($cc) {
                 $email->setCc($cc);
@@ -218,7 +216,7 @@ class EmailNotifications extends BaseService
 
             if ($notification->getReplyTo()) {
                 $email->setReplyTo(
-                    $view->renderObjectTemplate($notification->getReplyTo(), $fieldValues, $templateVariables)
+                    $this->renderString($notification->getReplyTo(), $fieldValues, $templateVariables)
                 );
             }
         } catch (\Exception $e) {
@@ -303,5 +301,25 @@ class EmailNotifications extends BaseService
         ];
 
         return $variables;
+    }
+
+    /**
+     * @param string $string
+     * @param array  $fieldValues
+     * @param array  $templateVariables
+     *
+     * @return bool|string|null
+     * @throws \Throwable
+     * @throws \yii\base\Exception
+     */
+    private function renderString(string $string, array $fieldValues, array $templateVariables)
+    {
+        $view = \Craft::$app->view;
+
+        if (preg_match('/^\$(\w+)$/', $string, $matches)) {
+            return \Craft::parseEnv($string);
+        }
+
+        return $view->renderObjectTemplate($string, $fieldValues, $templateVariables);
     }
 }
