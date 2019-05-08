@@ -1,5 +1,9 @@
 # Solspace Express Forms Changelog
 
+## 1.0.1 - 2019-05-08
+### Fixed
+- Fixed a bug where using AJAX would not record data on additional submits (e.g. after first one errored) when using the 'Prevent Duplicate Submissions' setting.
+
 ## 1.0.0 - 2019-05-07
 ### Added
 - Added support for using environment variables inside email notification templates.

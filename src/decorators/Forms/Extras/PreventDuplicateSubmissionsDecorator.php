@@ -3,7 +3,9 @@
 namespace Solspace\ExpressForms\decorators\Forms\Extras;
 
 use Craft;
+use Solspace\ExpressForms\controllers\SubmitController;
 use Solspace\ExpressForms\decorators\AbstractDecorator;
+use Solspace\ExpressForms\events\forms\FormAjaxResponseEvent;
 use Solspace\ExpressForms\events\forms\FormRenderTagEvent;
 use Solspace\ExpressForms\events\forms\FormValidateEvent;
 use Solspace\ExpressForms\events\settings\RenderSettingsEvent;
@@ -16,9 +18,10 @@ use Solspace\ExpressForms\services\Settings;
 
 class PreventDuplicateSubmissionsDecorator extends AbstractDecorator
 {
+    const AJAX_KEY           = 'duplicateCheck';
     const PREFIX             = 'fdchk-';
     const TTL                = 60 * 60 * 3; // 3 hours
-    const MAX_SESSION_TOKENS = 100;
+    const MAX_SESSION_TOKENS = 40;
 
     /** @var SessionProviderInterface */
     private $session;
@@ -56,6 +59,8 @@ class PreventDuplicateSubmissionsDecorator extends AbstractDecorator
             [Settings::class, Settings::EVENT_BEFORE_SAVE_SETTINGS, [$this, 'storeSettings']],
             [Form::class, Form::EVENT_RENDER_CLOSING_TAG, [$this, 'attachInput']],
             [Form::class, Form::EVENT_VALIDATE_FORM, [$this, 'validate']],
+            [SubmitController::class, SubmitController::EVENT_BEFORE_AJAX_RESPONSE, [$this, 'attachToAjax']],
+            [SubmitController::class, SubmitController::EVENT_BEFORE_AJAX_ERROR_RESPONSE, [$this, 'attachToAjax']],
         ];
     }
 
@@ -103,6 +108,27 @@ class PreventDuplicateSubmissionsDecorator extends AbstractDecorator
         $this->appendToSession($value);
 
         $event->prependToOutput($output);
+    }
+
+    /**
+     * @param FormAjaxResponseEvent $event
+     */
+    public function attachToAjax(FormAjaxResponseEvent $event)
+    {
+        if (!$this->isEnabled()) {
+            return;
+        }
+
+        $value = $this->generateHash();
+        $this->appendToSession($value);
+
+        $event->addAjaxResponseData(
+            self::AJAX_KEY,
+            [
+                'value'  => $value,
+                'prefix' => $this->getPrefix(),
+            ]
+        );
     }
 
     /**

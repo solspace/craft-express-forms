@@ -4,7 +4,7 @@ namespace Solspace\ExpressForms\controllers;
 
 use Craft;
 use craft\web\Controller;
-use Solspace\ExpressForms\elements\Submission;
+use Solspace\ExpressForms\events\forms\FormAjaxResponseEvent;
 use Solspace\ExpressForms\events\forms\FormCompletedEvent;
 use Solspace\ExpressForms\events\forms\FormInvalidEvent;
 use Solspace\ExpressForms\events\forms\FormRedirectEvent;
@@ -14,10 +14,12 @@ use yii\web\Response;
 
 class SubmitController extends Controller
 {
-    const EVENT_REDIRECT           = 'redirect';
-    const EVENT_FORM_COMPLETED     = 'formCompleted';
-    const EVENT_FORM_INVALID       = 'formInvalid';
-    const EVENT_BEFORE_FORM_SUBMIT = 'beforeFormSubmit';
+    const EVENT_REDIRECT                   = 'redirect';
+    const EVENT_FORM_COMPLETED             = 'formCompleted';
+    const EVENT_FORM_INVALID               = 'formInvalid';
+    const EVENT_BEFORE_FORM_SUBMIT         = 'beforeFormSubmit';
+    const EVENT_BEFORE_AJAX_RESPONSE       = 'beforeAjaxResponse';
+    const EVENT_BEFORE_AJAX_ERROR_RESPONSE = 'beforeAjaxErrorResponse';
 
     public $allowAnonymous = true;
 
@@ -53,14 +55,17 @@ class SubmitController extends Controller
                 $redirectUrl = $event->getRedirectUrl();
 
                 if ($isAjax) {
-                    return $this->asJson(
-                        [
-                            'success'      => true,
-                            'submissionId' => $submission->id ?: null,
-                            'returnUrl'    => $redirectUrl,
-                            'errors'       => [],
-                        ]
-                    );
+                    $ajaxResponseData = [
+                        'success'      => true,
+                        'submissionId' => $submission->id ?: null,
+                        'returnUrl'    => $redirectUrl,
+                        'errors'       => [],
+                    ];
+
+                    $event = new FormAjaxResponseEvent($form, $submission, $ajaxResponseData);
+                    $this->trigger(self::EVENT_BEFORE_AJAX_RESPONSE, $event);
+
+                    return $this->asJson($event->getAjaxResponseData());
                 }
 
                 if ($event->isValid && $redirectUrl) {
@@ -80,14 +85,17 @@ class SubmitController extends Controller
                     }
                 }
 
-                return $this->asJson(
-                    [
-                        'success'    => false,
-                        'returnUrl'  => null,
-                        'formErrors' => $form->getErrors(),
-                        'errors'     => $fieldErrors,
-                    ]
-                );
+                $ajaxResponseData = [
+                    'success'    => false,
+                    'returnUrl'  => null,
+                    'formErrors' => $form->getErrors(),
+                    'errors'     => $fieldErrors,
+                ];
+
+                $event = new FormAjaxResponseEvent($form, null, $ajaxResponseData);
+                $this->trigger(self::EVENT_BEFORE_AJAX_ERROR_RESPONSE, $event);
+
+                return $this->asJson($event->getAjaxResponseData());
             }
         }
     }

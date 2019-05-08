@@ -82,7 +82,7 @@
         <div class="form-check">
             <label class="form-check-label" for="how-heard-newspaper">
                 <input type="checkbox" class="form-check-input"
-                       name="howHeard[]" id="how-heard-newspaper" 
+                       name="howHeard[]" id="how-heard-newspaper"
                        value="newspaper"{{ "newspaper" in form.fields.howHeard.value ? " checked" }}
                 />
                 Newspaper
@@ -196,6 +196,7 @@
               renderFormErrors(response.formErrors, form)
             }
 
+            replaceInputs(form, response);
             unlockSubmit(form)
           } else {
             console.error(request)
@@ -206,6 +207,18 @@
 
         request.send(data)
         event.preventDefault()
+      }
+
+      function replaceInputs(form, response) {
+        if (response.duplicateCheck) {
+          var prefix = response.duplicateCheck.prefix;
+          var value = response.duplicateCheck.value;
+          var input = form.querySelector('input[name^="' + prefix + '"]');
+          if (input) {
+            input.setAttribute("name", value);
+            input.setAttribute("value", value);
+          }
+        }
       }
 
       /**
