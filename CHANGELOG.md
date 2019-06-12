@@ -1,5 +1,13 @@
 # Solspace Express Forms Changelog
 
+## 1.0.2 - 2019-06-12
+### Changed
+- Updated `carbon` dependency to `^1.22.1|^2.19` for better compatibility with other plugins, and to reduce the chances of seeing deprecation notice.
+- Updated plugin icon.
+
+### Fixed
+- Fixed a bug where submission saving on multi-site Craft installs would trigger an error.
+
 ## 1.0.1 - 2019-05-08
 ### Fixed
 - Fixed a bug where using AJAX would not record data on additional submits (e.g. after first one errored) when using the 'Prevent Duplicate Submissions' setting.

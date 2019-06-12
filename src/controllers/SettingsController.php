@@ -19,7 +19,7 @@ class SettingsController extends Controller
     {
         PermissionHelper::requirePermission(ExpressForms::PERMISSION_SETTINGS);
         if (!Craft::$app->getConfig()->getGeneral()->allowAdminChanges) {
-            throw new ForbiddenHttpException('Changes are not allowed');
+            throw new ForbiddenHttpException('Administrative changes are disallowed in this environment.');
         }
 
         return $this->renderEditTemplate();

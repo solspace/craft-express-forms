@@ -1,11 +1,11 @@
 <?php
 /**
- * Freeform for Craft
+ * Express Forms for Craft
  *
- * @package       Solspace:Freeform
+ * @package       Solspace:ExpressForms
  * @author        Solspace, Inc.
- * @copyright     Copyright (c) 2008-2017, Solspace, Inc.
- * @link          https://solspace.com/craft/freeform
+ * @copyright     Copyright (c) 2019, Solspace, Inc.
+ * @link          http://craft.express/forms
  * @license       https://solspace.com/software/license-agreement
  */
 

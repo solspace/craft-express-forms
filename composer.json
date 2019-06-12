@@ -1,7 +1,7 @@
 {
   "name": "solspace/craft-express-forms",
   "description": "Intuitive and lightweight form builder that gets the job done but doesn’t get in your way.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "craft-plugin",
   "keywords": ["forms", "express", "form builder", "freeform"],
   "authors": [
@@ -24,7 +24,7 @@
     "symfony/yaml": "^3.0|^4.0",
     "ramsey/uuid": "3.8.0",
     "phpoffice/phpspreadsheet": "^1.6.0",
-    "nesbot/carbon": "^1.22.1",
+    "nesbot/carbon": "^1.22.1|^2.19",
     "ext-json": "*"
   },
   "require-dev": {

@@ -100,6 +100,14 @@ class Submission extends Element
     /**
      * @inheritdoc
      */
+    public static function isLocalized(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public static function displayName(): string
     {
         return ExpressForms::t('Submission');

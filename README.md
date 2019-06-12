@@ -51,12 +51,12 @@ Check out the chart below to help you choose the right version for your needs.
 
 |  | **Lite** | **Pro** |
 | :--- | :---: | :---: |
-| Price | $29 | **$79** |
+| Price | $19 | **$49** |
 | Number of sites (including dev/staging) | 1 site | **1 site** |
 | Support Level<br /><small><em>† Support tickets will typically receive first response within this timeframe or sooner, based on business days.</em></small> | 2 days† | **2 days†** |
 | Support term | 1 year | **1 year** |
 | Updates available | 1 year | **1 year** |
-| Renewal (optional) | $15/yr | **$39/yr** |
+| Renewal (optional) | $9/yr | **$29/yr** |
 | Compatibility | Craft 3.1+ | **Craft 3.1+** |
 | Refund policy | 30 days | **30 days** |
 | <small><a href="https://plugins.craftcms.com/express-forms">GET A FREE, UNLIMITED TRIAL TODAY!</a></small> | [Buy!](https://plugins.craftcms.com/express-forms) | [Buy!](https://plugins.craftcms.com/express-forms) |
