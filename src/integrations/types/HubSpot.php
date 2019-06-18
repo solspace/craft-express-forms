@@ -233,7 +233,7 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
 
             } catch (RequestException $e) {
                 if ($e->getResponse()) {
-                    $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+                    $json = \GuzzleHttp\json_decode((string) $e->getResponse()->getBody(), false);
                     if (isset($json->error, $json->identityProfile) && $json->error === 'CONTACT_EXISTS') {
                         $contactId = $json->identityProfile->vid;
                     } else {
