@@ -6,7 +6,7 @@
  * @author        Solspace, Inc.
  * @copyright     Copyright (c) 2019, Solspace, Inc.
  * @link          http://craft.express/forms/v1/
- * @license       https://solspace.com/software/license-agreement
+ * @license       https://docs.solspace.com/license-agreement/
  */
 
 return [

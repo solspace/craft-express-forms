@@ -11,10 +11,10 @@ Express Forms is an intuitive and lightweight form builder that gets the job don
 - [Documentation](#documentation)
 
 ## Overview
-Express Forms is a reliable form building plugin for Craft CMS. It contains every feature available to the native Craft Contact Form plugin and more. It's simple and intuitive to use, and doesn't get in your way if you're wanting to build simple forms or handle your own templating and custom features. It was developed with a "developer first" mentality, so it’s highly extendable. It also contains several built-in popular API integrations. Stop wasting valuable development hours wrestling with alternative form plugins. Express Forms makes form building smooth.
+Express Forms is a FREE reliable form building plugin for Craft CMS. It contains every feature available to the native Craft Contact Form plugin and more. It's simple and intuitive to use, and doesn't get in your way if you're wanting to build simple forms or handle your own templating and custom features. It was developed with a "developer first" mentality, so it’s highly extendable. It also contains several built-in popular API integrations. Stop wasting valuable development hours wrestling with alternative form plugins. Express Forms makes form building smooth.
 
 ## Key Features
-Compare the key features for Express Forms between *Lite* and *Pro* editions. The *Lite* edition includes all the essentials for creating and managing forms for most websites. Upgrade to *Pro* edition if you need additional functionality for your forms.
+Compare the key features for Express Forms between *Lite* and *Pro* editions. The FREE *Lite* edition includes all the essentials for creating and managing forms for most websites. Upgrade to *Pro* edition if you need additional functionality for your forms.
 
 For a full feature comparison to **Freeform** and the native Craft **Contact Form** plugin, [check out the Compare page](http://craft.express/forms/v1/compare.html)!
 
@@ -51,15 +51,15 @@ Check out the chart below to help you choose the right version for your needs.
 
 |  | **Lite** | **Pro** |
 | :--- | :---: | :---: |
-| Price | $19 | **$49** |
+| Price | FREE | **$49** |
 | Number of sites (including dev/staging) | 1 site | **1 site** |
-| Support Level<br /><small><em>† Support tickets will typically receive first response within this timeframe or sooner, based on business days.</em></small> | 2 days† | **2 days†** |
-| Support term | 1 year | **1 year** |
-| Updates available | 1 year | **1 year** |
-| Renewal (optional) | $9/yr | **$29/yr** |
+| Support Level<br /><small><em>† Support tickets will typically receive first response within this timeframe or sooner, based on business days.</em></small> | 3-5 days† | **2 days†** |
+| Support term | N/A | **1 year** |
+| Updates available | N/A | **1 year** |
+| Renewal (optional) | N/A | **$29/yr** |
 | Compatibility | Craft 3.1+ | **Craft 3.1+** |
-| Refund policy | 30 days | **30 days** |
-| <small><a href="https://plugins.craftcms.com/express-forms">GET A FREE, UNLIMITED TRIAL TODAY!</a></small> | [Buy!](https://plugins.craftcms.com/express-forms) | [Buy!](https://plugins.craftcms.com/express-forms) |
+| Refund policy | N/A | **30 days** |
+| <small><a href="https://plugins.craftcms.com/express-forms">GET A FREE, UNLIMITED TRIAL TODAY!</a></small> | [Install Free!](https://plugins.craftcms.com/express-forms) | [Buy!](https://plugins.craftcms.com/express-forms) |
 
 ## Requirements
 Solspace Express Forms mostly meets the same requirements as listed on the [Craft Requirements](https://docs.craftcms.com/v3/requirements.html) page.

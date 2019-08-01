@@ -110,12 +110,14 @@ class HoneypotDecorator extends AbstractDecorator
         $id = Uuid::uuid4()->toString();
 
         $output = '';
-        $output .= '<div style="position: fixed; left: -100%; top: -100%;">';
-        $output .= '<label for="' . $id . '">Leave this alone</label>';
+        $output .= '<div style="position: fixed; left: -100%; top: -100%;" tabindex="-1" aria-hidden="true">';
+        $output .= '<label for="' . $id . '" aria-hidden="true" tabindex="-1">Leave this alone</label>';
         $output .= '<input type="text"';
         $output .= ' name="' . ($settings->honeypotInputName ?? Honeypot::DEFAULT_NAME) . '"';
         $output .= ' value=""';
         $output .= ' id="' . $id . '"';
+        $output .= ' tabindex="-1"';
+        $output .= ' aria-hidden="true"';
         $output .= ' />';
         $output .= '</div>';
 

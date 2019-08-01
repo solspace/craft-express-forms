@@ -1,5 +1,13 @@
 # Solspace Express Forms Changelog
 
+## 1.0.3 - 2019-07-31
+### Changed
+- Updated Honeypot field to ensure screen readers don't see it and it can't be tabbed to, etc.
+
+### Fixed
+- Fixed a bug where fields with array values wouldn't work correctly with required field validator.
+- Fixed a bug where the HubSpot integration wouldn't work correctly when a duplicate Contact is being created.
+
 ## 1.0.2 - 2019-06-12
 ### Changed
 - Updated `carbon` dependency to `^1.22.1|^2.19` for better compatibility with other plugins, and to reduce the chances of seeing deprecation notice.

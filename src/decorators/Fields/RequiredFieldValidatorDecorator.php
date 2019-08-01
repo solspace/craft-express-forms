@@ -23,12 +23,24 @@ class RequiredFieldValidatorDecorator extends AbstractDecorator
     {
         $field = $event->getField();
 
+        if (!$field->isRequired()) {
+            return;
+        }
+
         if ($field instanceof File) {
             return;
         }
 
-        if ($field->isRequired() && empty(trim($field->getValue()))) {
-            $field->addValidationError('This field is required');
+        $value = $field->getValue();
+
+        if (!is_array($value)) {
+            $value = trim($value);
         }
+
+        if (!empty($value)) {
+            return;
+        }
+
+        $field->addValidationError('This field is required');
     }
 }
