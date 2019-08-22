@@ -1,5 +1,9 @@
 # Solspace Express Forms Changelog
 
+## 1.0.4 - 2019-08-22
+### Fixed
+- Fixed a bug where search index updating in the CP would error each time after a new Express Forms submission was created.
+
 ## 1.0.3 - 2019-07-31
 ### Changed
 - Updated Honeypot field to ensure screen readers don't see it and it can't be tabbed to, etc.

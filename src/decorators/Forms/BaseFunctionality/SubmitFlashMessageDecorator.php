@@ -2,6 +2,7 @@
 
 namespace Solspace\ExpressForms\decorators\Forms\BaseFunctionality;
 
+use Craft;
 use Solspace\ExpressForms\controllers\SubmitController;
 use Solspace\ExpressForms\decorators\AbstractDecorator;
 use Solspace\ExpressForms\events\forms\FormBuildFromArrayEvent;
@@ -43,7 +44,11 @@ class SubmitFlashMessageDecorator extends AbstractDecorator
      */
     public function attachParameterToForm(FormBuildFromArrayEvent $event)
     {
-        $isSubmittedSuccessfully = $this->flashBag->get($this->getFlashBagKey($event->getForm()), false);
+        try {
+            $isSubmittedSuccessfully = $this->flashBag->get($this->getFlashBagKey($event->getForm()), false);
+        } catch (\Exception $exception) {
+            $isSubmittedSuccessfully = false;
+        }
 
         $event->getForm()->getExtraParameters()->add(self::FORM_SUCCESSFUL_SUBMIT_KEY, $isSubmittedSuccessfully);
     }

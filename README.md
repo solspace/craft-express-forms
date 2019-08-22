@@ -33,8 +33,6 @@ For a full feature comparison to **Freeform** and the native Craft **Contact For
 | XML, JSON and Excel Exporting | Export all submissions for a form as a XML, JSON or Excel file |  | **✓** |
 | Built-in Honeypot spam protection | Powerful and effective advanced spam control built right in | ✓ | **✓** |
 | reCAPTCHA v2 Checkbox | Fight spam with reCAPTCHA v2 Checkbox | ✓ | **✓** |
-| reCAPTCHA v2 Invisible | Fight spam with reCAPTCHA v2 Invisible |  | <sub><sup>coming soon</sup></sub> |
-| reCAPTCHA v3 | Fight spam with reCAPTCHA v3 |  | <sub><sup>coming soon</sup></sub> |
 | Clean and simplified templating and available automation | Full control with regular Twig/HTML templates to customize layouts | ✓ | **✓** |
 | Inline errors | Display error messages and validation per field upon submit | ✓ | **✓** |
 | Demo templates | Just 1 click and you have an example form and a real-world set of working templates | ✓ | **✓** |
@@ -59,7 +57,7 @@ Check out the chart below to help you choose the right version for your needs.
 | Renewal (optional) | N/A | **$29/yr** |
 | Compatibility | Craft 3.1+ | **Craft 3.1+** |
 | Refund policy | N/A | **30 days** |
-| <small><a href="https://plugins.craftcms.com/express-forms">GET A FREE, UNLIMITED TRIAL TODAY!</a></small> | [Install Free!](https://plugins.craftcms.com/express-forms) | [Buy!](https://plugins.craftcms.com/express-forms) |
+| <small><a href="https://plugins.craftcms.com/express-forms">TRY IT TODAY!</a></small> | [Install Free!](https://plugins.craftcms.com/express-forms) | [Buy!](https://plugins.craftcms.com/express-forms) |
 
 ## Requirements
 Solspace Express Forms mostly meets the same requirements as listed on the [Craft Requirements](https://docs.craftcms.com/v3/requirements.html) page.
