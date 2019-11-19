@@ -9,7 +9,7 @@
  * @license       https://docs.solspace.com/license-agreement/
  */
 
-namespace Solspace\ExpressForms\Services;
+namespace Solspace\ExpressForms\services;
 
 use Carbon\Carbon;
 use craft\base\Component;
