@@ -14,7 +14,7 @@ use Solspace\ExpressForms\elements\Submission;
 use Solspace\ExpressForms\ExpressForms;
 use Solspace\ExpressForms\resources\bundles\OverviewStatsWidgetBundle;
 use Solspace\ExpressForms\services\Forms;
-use Solspace\ExpressForms\Services\Widgets;
+use Solspace\ExpressForms\services\Widgets;
 
 class OverviewStatsWidget extends Widget
 {
