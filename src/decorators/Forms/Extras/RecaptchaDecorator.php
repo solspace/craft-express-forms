@@ -77,7 +77,7 @@ class RecaptchaDecorator extends AbstractTranslatableDecorator
             return;
         }
 
-        $event->setTitle('Spam');
+        $event->setTitle('Spam Protection');
         $event->addContent(
             Craft::$app->getView()->renderTemplate(
                 'express-forms/settings/_components/spam/recaptcha',

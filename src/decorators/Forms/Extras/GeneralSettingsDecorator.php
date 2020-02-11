@@ -40,7 +40,7 @@ class GeneralSettingsDecorator extends AbstractDecorator
             return;
         }
 
-        $event->setTitle('General');
+        $event->setTitle('General Settings');
         $event->addContent(
             \Craft::$app->getView()->renderTemplate(
                 'express-forms/settings/_components/general',

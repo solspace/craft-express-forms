@@ -110,13 +110,16 @@ class EmailNotifications extends BaseService
         if ($formIsValid && $form->getAdminNotification()) {
             $notification = $this->getEmailNotification($form->getAdminNotification());
             if ($notification) {
-                $this->sendEmail(
-                    StringHelper::extractSeparatedValues($form->getAdminEmails() ?? ''),
-                    $notification,
-                    $form,
-                    $event->getSubmission(),
-                    $event->getPostData()
-                );
+                $validEmails = $this->validateEmails(StringHelper::extractSeparatedValues($form->getAdminEmails() ?? ''));
+                if ($validEmails) {
+                    $this->sendEmail(
+                        $validEmails,
+                        $notification,
+                        $form,
+                        $event->getSubmission(),
+                        $event->getPostData()
+                    );
+                }
             }
         }
     }
@@ -321,5 +324,27 @@ class EmailNotifications extends BaseService
         }
 
         return $view->renderObjectTemplate($string, $fieldValues, $templateVariables);
+    }
+
+    /**
+     * @param array $emails
+     *
+     * @return bool|array
+     */
+    private function validateEmails($emails)
+    {
+        if (!$emails) {
+            return false;
+        }
+
+        $validEmails = [];
+
+        foreach ($emails as $email) {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $validEmails[] = $email;
+            }
+        }
+
+        return $validEmails;
     }
 }

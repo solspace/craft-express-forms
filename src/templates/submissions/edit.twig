@@ -146,8 +146,6 @@
 
     {% if submission.id %}
 
-        <hr>
-
         <div class="meta read-only">
             <div class="data">
                 <h5 class="heading">{{ "Date Created"|t('express-forms') }}</h5>
@@ -158,8 +156,6 @@
                 <div class="value">{{ submission.dateUpdated|date('short') }} {{ submission.dateUpdated|time('short') }}</div>
             </div>
         </div>
-
-        <hr>
 
     {% endif %}
 

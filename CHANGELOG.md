@@ -1,5 +1,11 @@
 # Solspace Express Forms Changelog
 
+## 1.0.5 - 2020-02-11
+### Fixed
+- Fixed a bug where installing Express Forms through the CLI could error.
+- Fixed a bug where the Dynamic Recipients feature would bypass spam protection.
+- Fixed a bug where there was a case sensitivity issue in the class namespace for the dashboard widget.
+
 ## 1.0.4 - 2019-08-22
 ### Fixed
 - Fixed a bug where search index updating in the CP would error each time after a new Express Forms submission was created.

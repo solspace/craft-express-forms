@@ -70,7 +70,7 @@ class HoneypotDecorator extends AbstractDecorator
             return;
         }
 
-        $event->setTitle('Spam');
+        $event->setTitle('Spam Protection');
         $event->addContent(
             Craft::$app->getView()->renderTemplate(
                 'express-forms/settings/_components/spam/honeypot',
