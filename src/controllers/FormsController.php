@@ -28,6 +28,8 @@ class FormsController extends Controller
     public function init()
     {
         PermissionHelper::requirePermission(ExpressForms::PERMISSION_FORMS);
+
+        parent::init();
     }
 
     /**

@@ -5,11 +5,11 @@
  * @package       Solspace:ExpressForms
  * @author        Solspace, Inc.
  * @copyright     Copyright (c) 2019-2020, Solspace, Inc.
- * @link          http://craft.express/forms
+ * @link          https://craft.express/forms
  * @license       https://docs.solspace.com/license-agreement/
  */
 
-namespace Solspace\ExpressForms\Services;
+namespace Solspace\ExpressForms\services;
 
 use Carbon\Carbon;
 use craft\base\Component;

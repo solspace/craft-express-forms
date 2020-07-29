@@ -8,6 +8,38 @@
     { label: "Forms"|t("express-forms"), url: url("express-forms/forms") },
 ] %}
 
+{% block actionButton %}
+    <div class="btngroup express-forms-save">
+        <input
+                type="submit"
+                class="btn submit"
+                id="xf-save"
+                value="{{ "Quick Save"|t('express-forms') }}"
+        />
+        <div class="btn submit menubtn" tabIndex={0} role="combobox"></div>
+        <div class="menu">
+            <ul>
+                <li>
+                    <a class="formsubmit" id="xf-save-finish">
+                        {{ "Save and finish"|t('express-forms') }}
+                    </a>
+                </li>
+                <li>
+                    <a class="formsubmit" id="xf-save-new">
+                        {{ "Save and add another"|t('express-forms') }}
+                    </a>
+                </li>
+                <li>
+                    <a class="formsubmit" id="xf-save-duplicate">
+                        {{ "Save as a new form"|t('express-forms') }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+
 {% block content %}
 
     <script>

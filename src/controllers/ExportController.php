@@ -3,6 +3,7 @@
 namespace Solspace\ExpressForms\controllers;
 
 use craft\db\Query;
+use craft\db\Table;
 use craft\web\Controller;
 use Solspace\ExpressForms\elements\Submission;
 use Solspace\ExpressForms\events\export\BuildExportQueryEvent;
@@ -66,7 +67,13 @@ class ExportController extends Controller
             ->from(Submission::TABLE . ' s')
             ->innerJoin(Submission::getContentTableName($form) . 'c', 'c.[[elementId]] = s.[[id]]')
             ->innerJoin(FormRecord::TABLE . ' f', 'f.[[id]] = s.[[formId]]')
-            ->where(['s.[[formId]]' => $form->getId()]);
+            ->innerJoin(Table::ELEMENTS . ' e', 'e.[[id]] = s.[[id]] AND e.[[dateDeleted]] IS NULL')
+            ->where(
+                [
+                    's.[[formId]]' => $form->getId(),
+                    'c.[[siteId]]' => \Craft::$app->sites->currentSite->id,
+                ]
+            );
 
         $event = new BuildExportQueryEvent($query);
         $this->trigger(self::EVENT_BUILD_QUERY, $event);

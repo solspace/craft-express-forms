@@ -5,7 +5,7 @@
  * @package       Solspace:ExpressForms
  * @author        Solspace, Inc.
  * @copyright     Copyright (c) 2019-2020, Solspace, Inc.
- * @link          http://craft.express/forms/v1/
+ * @link          https://craft.express/forms/v1/
  * @license       https://docs.solspace.com/license-agreement/
  */
 

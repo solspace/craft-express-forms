@@ -1,5 +1,12 @@
 # Solspace Express Forms Changelog
 
+## 1.0.6 - 2020-07-29
+### Fixed
+- Fixed some compatibility issues with Craft 3.5+.
+- Fixed a bug where the Save form button was not correctly positioned.
+- Fixed a bug where deleted submissions were being included in CSV exports.
+- Fixed a bug where using Dashboard Widget could show an error.
+
 ## 1.0.5 - 2020-02-11
 ### Fixed
 - Fixed a bug where installing Express Forms through the CLI could error.

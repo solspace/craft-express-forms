@@ -1,7 +1,7 @@
 {
   "name": "solspace/craft-express-forms",
   "description": "Intuitive and lightweight form builder that gets the job done but doesn’t get in your way.",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "craft-plugin",
   "keywords": ["forms", "express", "form builder", "freeform"],
   "authors": [
@@ -14,7 +14,7 @@
     "email": "support@solspace.com",
     "issues": "https://github.com/solspace/craft-express-forms/issues?state=open",
     "source": "https://github.com/solspace/craft-express-forms",
-    "docs": "http://craft.express/forms/v1/"
+    "docs": "https://craft.express/forms/v1/"
   },
   "require": {
     "craftcms/cms": "^3.1.0",
@@ -41,8 +41,8 @@
     "handle": "express-forms",
     "name": "Express Forms",
     "developer": "Solspace",
-    "developerUrl": "http://craft.express/forms/v1/",
-    "documentationUrl": "http://craft.express/forms/v1/",
+    "developerUrl": "https://craft.express/forms/v1/",
+    "documentationUrl": "https://craft.express/forms/v1/",
     "changelogUrl": "https://raw.githubusercontent.com/solspace/craft-express-forms/master/CHANGELOG.md"
   }
 }

@@ -16,7 +16,7 @@ Express Forms is a FREE reliable form building plugin for Craft CMS. It contains
 ## Key Features
 Compare the key features for Express Forms between *Lite* and *Pro* editions. The FREE *Lite* edition includes all the essentials for creating and managing forms for most websites. Upgrade to *Pro* edition if you need additional functionality for your forms.
 
-For a full feature comparison to **Freeform** and the native Craft **Contact Form** plugin, [check out the Compare page](http://craft.express/forms/v1/compare.html)!
+For a full feature comparison to **Freeform** and the native Craft **Contact Form** plugin, [check out the Compare page](https://craft.express/forms/v1/compare.html)!
 
 | Feature | Description | **Lite** | **Pro** |
 | :--- | :--- | :---: | :---: |
@@ -86,4 +86,4 @@ Express Forms can also be installed manually through Composer:
 4. In the Craft control panel, go to *Settings → Plugins* and click the **Install** button for Express Forms.
 
 ## Documentation
-Full documentation for Express Forms can be found on the [Craft Express documentation website](http://craft.express/forms/v1/).
+Full documentation for Express Forms can be found on the [Craft Express documentation website](https://craft.express/forms/v1/).
