@@ -19,8 +19,12 @@ class Options extends MultipleValueField
      *
      * @return array
      */
-    public function getValueDictionaryFromValues(array $values): array
+    public function getValueDictionaryFromValues($values): array
     {
+        if (!is_array($values)) {
+            $values = [$values];
+        }
+
         $dictionary = [];
         foreach ($values as $value) {
             $dictionary[$value] = $value;

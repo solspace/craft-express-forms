@@ -22,6 +22,7 @@ class Settings extends Model
     public $recaptchaLoadScript = true;
     public $recaptchaSiteKey;
     public $recaptchaSecretKey;
+    public $recaptchaTheme = 'light';
 
     public $emailNotificationsDirectoryPath;
 

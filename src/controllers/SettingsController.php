@@ -18,9 +18,6 @@ class SettingsController extends Controller
     public function actionIndex(): Response
     {
         PermissionHelper::requirePermission(ExpressForms::PERMISSION_SETTINGS);
-        if (!Craft::$app->getConfig()->getGeneral()->allowAdminChanges) {
-            throw new ForbiddenHttpException('Administrative changes are disallowed in this environment.');
-        }
 
         return $this->renderEditTemplate();
     }
@@ -32,6 +29,10 @@ class SettingsController extends Controller
     {
         PermissionHelper::requirePermission(ExpressForms::PERMISSION_SETTINGS);
         $this->requirePostRequest();
+
+        if (!Craft::$app->getConfig()->getGeneral()->allowAdminChanges) {
+            throw new ForbiddenHttpException('Administrative changes are disallowed in this environment.');
+        }
 
         if (ExpressForms::getInstance()->settings->saveSettings()) {
             \Craft::$app->session->setNotice(ExpressForms::t('Settings updated'));
@@ -62,6 +63,11 @@ class SettingsController extends Controller
         }
 
         $event = $settingsService->onRenderSettings($selectedHandle);
+
+        $allowAdminChanges = Craft::$app->getConfig()->getGeneral()->allowAdminChanges;
+        if (!$allowAdminChanges && !$event->isAllowViewingWithoutAdminChanges()) {
+            throw new ForbiddenHttpException('Administrative changes are disallowed in this environment.');
+        }
 
         return $this->renderTemplate(
             'express-forms/settings',

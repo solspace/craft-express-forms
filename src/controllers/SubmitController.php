@@ -29,13 +29,20 @@ class SubmitController extends Controller
     public function actionIndex()
     {
         $this->requirePostRequest();
-        $uuid = Craft::$app->request->post('formId');
+        $request = Craft::$app->request;
+
+        $uuid = $request->post('formId');
         $form = ExpressForms::getInstance()->forms->getFormByUuid($uuid);
 
-        $isAjax = Craft::$app->request->isAjax;
+        $acceptType = $request->getHeaders()->get('Accept');
+        if ($acceptType !== null && $acceptType !== '*/*') {
+            $isJsonResponse = strpos($acceptType, 'application/json') !== false;
+        } else {
+            $isJsonResponse = $request->getIsAjax();
+        }
 
         if ($form) {
-            $postData = Craft::$app->request->post();
+            $postData = $request->post();
 
             $event = new FormSubmitEvent($form, $postData);
             $this->trigger(self::EVENT_BEFORE_FORM_SUBMIT, $event);
@@ -54,7 +61,7 @@ class SubmitController extends Controller
                 $this->trigger(self::EVENT_REDIRECT, $event);
                 $redirectUrl = $event->getRedirectUrl();
 
-                if ($isAjax) {
+                if ($isJsonResponse) {
                     $ajaxResponseData = [
                         'success'      => true,
                         'submissionId' => $submission->id ?: null,
@@ -72,12 +79,12 @@ class SubmitController extends Controller
                     return Craft::$app->getResponse()->redirect($event->getRedirectUrl());
                 }
 
-                return Craft::$app->getResponse()->redirect(Craft::$app->request->getUrl());
+                return Craft::$app->getResponse()->redirect($request->getUrl());
             }
 
             $this->trigger(self::EVENT_FORM_INVALID, new FormInvalidEvent($form, $postData));
 
-            if ($isAjax) {
+            if ($isJsonResponse) {
                 $fieldErrors = [];
                 foreach ($form->getFields() as $field) {
                     if ($field->hasErrors()) {

@@ -1,5 +1,15 @@
 # Solspace Express Forms Changelog
 
+## 1.0.7 - 2020-10-09
+### Changed
+- Updated reCAPTCHA to offer a Light/Dark theme preference.
+- The 'Accept' header now can be used to specify a JSON response by using `application/json` when returning AJAX data.
+
+### Fixed
+- Fixed a bug where email notifications would still be sent via Dynamic Recipients when the submission was considered spam.
+- Fixed a bug where an error would be shown if using the Options field type with data that as not an array.
+- Fixed a bug where the CP Error Log could not be accessed when the Craft `allowAdminChanges` config setting was disabled.
+
 ## 1.0.6 - 2020-07-29
 ### Fixed
 - Fixed some compatibility issues with Craft 3.5+.

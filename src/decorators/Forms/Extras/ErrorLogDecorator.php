@@ -38,6 +38,7 @@ class ErrorLogDecorator extends AbstractDecorator
     public function renderSettings(RenderSettingsEvent $event)
     {
         if ($event->getSelectedItem() === 'error-log') {
+            $event->setAllowViewingWithoutAdminChanges(true);
             $event
                 ->setTitle('Error Log')
                 ->setActionButton(

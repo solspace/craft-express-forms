@@ -49,7 +49,11 @@ class DynamicNotificationsDecorator extends AbstractDecorator
      */
     public function sendEmails(FormCompletedEvent $event)
     {
-        $form                 = $event->getForm();
+        $form = $event->getForm();
+        if ($form->isMarkedAsSpam() || $form->isSkipped()) {
+            return;
+        }
+
         $dynamicNotifications = $form->getParameters()->get(self::DYNAMIC_NOTIFICATIONS_KEY);
 
         if (null === $dynamicNotifications) {

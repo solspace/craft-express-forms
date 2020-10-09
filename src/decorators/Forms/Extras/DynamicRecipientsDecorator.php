@@ -49,8 +49,7 @@ class DynamicRecipientsDecorator extends AbstractDecorator
      */
     public function sendEmails(FormCompletedEvent $event)
     {
-        $form              = $event->getForm();
-
+        $form = $event->getForm();
         if ($form->isMarkedAsSpam() || $form->isSkipped()) {
             return;
         }

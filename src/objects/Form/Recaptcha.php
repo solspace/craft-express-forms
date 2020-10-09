@@ -9,6 +9,9 @@ class Recaptcha
     /** @var string */
     private $key;
 
+    /** @var string */
+    private $theme;
+
     /** @var array */
     private $errors = [];
 
@@ -19,10 +22,12 @@ class Recaptcha
      * Recaptcha constructor.
      *
      * @param string $key
+     * @param string $theme
      */
-    public function __construct(string $key = null)
+    public function __construct(string $key = null, string $theme = 'light')
     {
         $this->key = $key;
+        $this->theme = $theme;
     }
 
     /**
@@ -36,7 +41,7 @@ class Recaptcha
 
         $this->rendered = true;
 
-        return '<div class="g-recaptcha" data-sitekey="' . $this->key . '"></div>';
+        return '<div class="g-recaptcha" data-sitekey="' . $this->key . '" data-theme="' . $this->theme . '"></div>';
     }
 
     /**

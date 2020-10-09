@@ -19,6 +19,18 @@
             errors: settings.errors("recaptchaLoadScript"),
         }) }}
 
+        {{ forms.selectField({
+            label: "Theme"|t('express-forms'),
+            instructions: "Choose the theme used for displaying reCAPTCHA."|t("express-forms"),
+            name: "recaptcha[theme]",
+            options: {
+                light: "Light"|t('express-forms'),
+                dark: "Dark"|t('express-forms'),
+            },
+            value: settings.recaptchaTheme,
+            errors: settings.getErrors("recaptchaTheme"),
+        }) }}
+
         {{ forms.textField({
             label: "Site Key"|t('express-forms'),
             instructions: "Enter the Site Key from the Google reCAPTCHA website in order for it to work correctly."|t("express-forms"),

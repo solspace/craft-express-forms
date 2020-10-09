@@ -172,6 +172,7 @@
         request.setRequestHeader("Cache-Control", "no-cache")
         request.setRequestHeader("X-Requested-With", "XMLHttpRequest")
         request.setRequestHeader("HTTP_X_REQUESTED_WITH", "XMLHttpRequest")
+        request.setRequestHeader("Accept", "application/json")
         request.onload = function() {
           removeMessages(form)
 

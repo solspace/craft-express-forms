@@ -23,6 +23,9 @@ class RenderSettingsEvent extends Event
     /** @var string */
     private $selectedItem;
 
+    /** @var bool */
+    private $allowViewingWithoutAdminChanges = false;
+
     /**
      * RenderSettingsEvent constructor.
      *
@@ -126,6 +129,26 @@ class RenderSettingsEvent extends Event
     public function setActionButton(string $actionButton = null): RenderSettingsEvent
     {
         $this->actionButton = $actionButton;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAllowViewingWithoutAdminChanges(): bool
+    {
+        return $this->allowViewingWithoutAdminChanges;
+    }
+
+    /**
+     * @param bool $allowViewingWithoutAdminChanges
+     *
+     * @return $this
+     */
+    public function setAllowViewingWithoutAdminChanges(bool $allowViewingWithoutAdminChanges): self
+    {
+        $this->allowViewingWithoutAdminChanges = $allowViewingWithoutAdminChanges;
 
         return $this;
     }

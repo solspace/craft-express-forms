@@ -98,6 +98,7 @@ class RecaptchaDecorator extends AbstractTranslatableDecorator
             $event->addData('recaptchaLoadScript', $post['loadScript'] ?? true);
             $event->addData('recaptchaSiteKey', $post['siteKey'] ?: null);
             $event->addData('recaptchaSecretKey', $post['secretKey'] ?: null);
+            $event->addData('recaptchaTheme', $post['theme'] ?: null);
         }
     }
 
@@ -107,8 +108,9 @@ class RecaptchaDecorator extends AbstractTranslatableDecorator
     public function attachRecaptchaToForm(FormBuildFromArrayEvent $event)
     {
         $key = $this->isRecaptchaEnabled() ? $this->getSettings()->recaptchaSiteKey : null;
+        $theme = $this->isRecaptchaEnabled() ? $this->getSettings()->recaptchaTheme : null;
 
-        $event->getForm()->getExtraParameters()->add(self::FORM_RECAPTCHA_KEY, new Recaptcha($key));
+        $event->getForm()->getExtraParameters()->add(self::FORM_RECAPTCHA_KEY, new Recaptcha($key, $theme));
     }
 
     /**
