@@ -24,7 +24,7 @@ class Recaptcha
      * @param string $key
      * @param string $theme
      */
-    public function __construct(string $key = null, string $theme = 'light')
+    public function __construct(string $key = null, string $theme = null)
     {
         $this->key = $key;
         $this->theme = $theme;

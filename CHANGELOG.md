@@ -1,5 +1,9 @@
 # Solspace Express Forms Changelog
 
+## 1.0.8 - 2020-10-12
+### Fixed
+- Fixed a bug where the form builder would not load correctly if reCAPTCHA was not enabled for the site.
+
 ## 1.0.7 - 2020-10-09
 ### Changed
 - Updated reCAPTCHA to offer a Light/Dark theme preference.
