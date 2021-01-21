@@ -659,7 +659,10 @@ class Form
 
         $this->submitted = true;
 
-        Event::trigger($this, self::EVENT_BEFORE_SUBMIT, new FormSubmitEvent($this, $submittedData));
+        $event = new FormSubmitEvent($this, $submittedData);
+        Event::trigger($this, self::EVENT_BEFORE_SUBMIT, $event);
+
+        $submittedData = $event->getSubmittedData();
 
         /** @var FieldInterface $field */
         foreach ($this->getFields() as $field) {
