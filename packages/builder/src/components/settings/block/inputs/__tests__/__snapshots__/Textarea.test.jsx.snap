@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Textarea /> renders & displays correctly 1`] = `
+<div
+  className="block-row"
+>
+  <div
+    className="label"
+  >
+    <WithStyles(ForwardRef(Tooltip))
+      placement="bottom"
+      title=""
+    >
+      <label
+        className=""
+      >
+        A Test Textarea
+      </label>
+    </WithStyles(ForwardRef(Tooltip))>
+  </div>
+  <div
+    className="input ltr"
+  >
+    <textarea
+      className="text nicetext"
+      defaultValue="a value"
+      name="test_textarea"
+      onChange={[MockFunction]}
+    />
+  </div>
+</div>
+`;

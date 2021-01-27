@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BaseInput /> renders & displays correctly 1`] = `
+<div
+  className="block-row"
+>
+  <div
+    className="label"
+  >
+    <WithStyles(ForwardRef(Tooltip))
+      placement="bottom"
+      title=""
+    >
+      <label
+        className=""
+      >
+        Test Input
+      </label>
+    </WithStyles(ForwardRef(Tooltip))>
+  </div>
+  <div
+    className="input ltr"
+  >
+    <input
+      type="text"
+      value="test value"
+    />
+  </div>
+</div>
+`;
+
+exports[`<BaseInput /> shows asterisk if required 1`] = `
+<div
+  className="block-row"
+>
+  <div
+    className="label"
+  >
+    <WithStyles(ForwardRef(Tooltip))
+      placement="bottom"
+      title=""
+    >
+      <label
+        className="required"
+      >
+        Test Input
+      </label>
+    </WithStyles(ForwardRef(Tooltip))>
+  </div>
+  <div
+    className="input ltr"
+  >
+    <input
+      type="text"
+      value="test value"
+    />
+  </div>
+</div>
+`;

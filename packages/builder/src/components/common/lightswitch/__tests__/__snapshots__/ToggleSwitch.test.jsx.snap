@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ToggleSwitch /> renders & displays correctly 1`] = `
+<div
+  aria-checked={true}
+  className="toggle-switch on"
+  role="checkbox"
+>
+  <div
+    className="toggle-switch-handle"
+  />
+</div>
+`;

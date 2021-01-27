@@ -1,0 +1,252 @@
+@import "@xf/styles/variables.styl"
+@import "@xf/styles/utils.styl"
+
+.radial-action-button-overlay
+  position fixed
+  top 0
+  right 0
+  bottom 0
+  left 0
+
+  z-index 20
+
+.radial-action-button
+  $size = 40px
+  $bgColor = #FFFFFF
+  $itemColor = #97999A
+  $animationSpeed = 0.3s
+  $ease = ease
+
+  $expandSize = 150px
+  $expandOffset = ($expandSize - $size) / 2
+
+  position relative
+
+  display block
+  width $size
+  height $size
+
+  transition: all $animationSpeed $ease
+
+  button:focus
+    outline 0
+
+  .backdrop
+    position absolute
+    left 0
+    top 0
+    z-index 2
+    width $size
+    height $size
+
+    opacity 1
+    background-color $bgColor
+    border 1px solid $borderColor
+    border-radius 50%
+    transition all $animationSpeed $ease
+
+  ul.items
+    position absolute
+    top 1px
+    left 1px
+
+    display block
+    width $size
+    height $size
+
+    list-style none
+
+    border none
+    border-radius 50%
+
+    opacity 1
+    z-index 1
+
+    > li
+      position absolute
+      left 0
+      top 0
+
+      display flex
+
+      opacity 0
+
+      transform rotate(70deg)
+      transition all $animationSpeed $ease
+
+      text-align center
+
+
+      a[data-field-type]
+        width $size
+        height $size
+
+        background $bgColor
+        border 1px solid $borderColor
+        border-radius 50%
+        box-shadow 1px 3px 7px alpha(black, 0.2)
+
+        line-height $size
+        font-size 1.4em
+        text-decoration none
+        cursor pointer
+
+        color $itemColor
+        transition all $animationSpeed $ease
+
+        &:focus
+          outline none
+
+        &:hover
+          text-decoration none
+
+  .action-button
+    position relative
+    top 1px
+    left 1px
+    z-index 4
+
+    display flex
+    width $size
+    height $size
+    padding 0
+
+    background-color transparent
+    border none
+    border-radius 50%
+    color $itemColor
+
+    text-align center
+    font-size 1.5em
+
+    cursor pointer
+    transition all $animationSpeed $ease
+
+    > span
+      position relative;
+      top 4px
+      left 0
+
+      justify-self stretch
+      align-self stretch
+
+      width 100%
+      height 100%
+
+      font-size 0.88em
+      transition all $animationSpeed $ease
+
+      svg
+        width $size - 10
+        height $size - 10
+
+    &:hover > div
+      transform scale(1.2)
+
+  .close-button
+    position absolute
+    top 1px
+    left 1px
+    z-index 2
+
+    width $size
+    height $size
+    padding 0
+
+    opacity 0
+    cursor pointer
+    transition all $animationSpeed $ease
+    transform rotateZ(-180deg)
+
+    background-color transparent
+    border none
+    border-radius 50%
+
+    color $itemColor
+    text-align center
+    font-family Craft, sans-serif
+    font-size 1.5em
+    line-height 1.8em
+
+    &:before
+      content "remove"
+
+
+  &.open
+    .backdrop
+      z-index 25
+
+    .action-button
+      z-index 25
+      transform rotateZ(180deg)
+      opacity 0
+
+    .close-button
+      z-index 31
+      transform rotateZ(0deg)
+      opacity 1
+
+    ul.items
+      z-index 30
+
+      for $items in (2..12)
+        &.data-type-count-{$items}
+          > li
+            $radius = $expandOffset
+            $slice = 275deg / $items
+
+            for $i in (1..$items)
+              &:nth-child({$i})
+                opacity 1
+                transition-delay ($i) * .030s
+
+                $angle = ($slice * $i) + 200deg
+                $x = $radius * cos($angle)
+                $y = $radius * sin($angle)
+                transform translate($x, $y)
+
+                &:hover > a
+                  transition-delay 0s
+                  transform scale(1.2)
+
+
+  *[data-field-type]
+    display block
+
+    svg
+      margin-top 5px
+      width $size - 10
+      height $size - 10
+
+    &[data-field-type="text"]:before
+      background-image url(./icons/fieldtype-text.svg)
+
+    &[data-field-type="textarea"]:before
+      background-image url(./icons/fieldtype-textarea.svg)
+
+    &[data-field-type="hidden"]:before
+      background-image url(./icons/fieldtype-hidden.svg)
+
+    &[data-field-type="email"]:before
+      background-image url(./icons/fieldtype-email.svg)
+
+    &[data-field-type="file"]:before
+      background-image url(./icons/fieldtype-file.svg)
+
+    &[data-field-type="options"]:before
+      background-image url(./icons/fieldtype-options.svg)
+
+    &[data-field-type="checkbox"]:before
+      background-image url(./icons/fieldtype-checkbox.svg)
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 alpha($itemColor, 0.4)
+    }
+    70% {
+      box-shadow: 0 0 0 10px alpha($itemColor, 0)
+    }
+    100% {
+      box-shadow: 0 0 0 0 alpha($itemColor, 0)
+    }
+  }

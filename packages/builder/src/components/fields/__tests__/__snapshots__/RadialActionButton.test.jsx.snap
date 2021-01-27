@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RadialActionButton /> renders & displays correctly 1`] = `
+<Fragment>
+  <div
+    className="radial-action-button"
+  >
+    <ul
+      className="items data-type-count-6"
+    >
+      <li
+        key="textarea"
+      >
+        <a
+          data-field-type="textarea"
+          onClick={[Function]}
+          tabIndex={-1}
+          title="Textarea"
+        >
+          <span>
+            <SVGElement />
+          </span>
+        </a>
+      </li>
+      <li
+        key="options"
+      >
+        <a
+          data-field-type="options"
+          onClick={[Function]}
+          tabIndex={-1}
+          title="Options"
+        >
+          <span>
+            <SVGElement />
+          </span>
+        </a>
+      </li>
+      <li
+        key="checkbox"
+      >
+        <a
+          data-field-type="checkbox"
+          onClick={[Function]}
+          tabIndex={-1}
+          title="Checkbox"
+        >
+          <span>
+            <SVGElement />
+          </span>
+        </a>
+      </li>
+      <li
+        key="email"
+      >
+        <a
+          data-field-type="email"
+          onClick={[Function]}
+          tabIndex={-1}
+          title="Email"
+        >
+          <span>
+            <SVGElement />
+          </span>
+        </a>
+      </li>
+      <li
+        key="hidden"
+      >
+        <a
+          data-field-type="hidden"
+          onClick={[Function]}
+          tabIndex={-1}
+          title="Hidden"
+        >
+          <span>
+            <SVGElement />
+          </span>
+        </a>
+      </li>
+      <li
+        key="file"
+      >
+        <a
+          data-field-type="file"
+          onClick={[Function]}
+          tabIndex={-1}
+          title="File"
+        >
+          <span>
+            <SVGElement />
+          </span>
+        </a>
+      </li>
+    </ul>
+    <button
+      className="action-button"
+      onClick={[Function]}
+      tabIndex={-1}
+    >
+      <span
+        className="type-icon"
+      >
+        <SVGElement />
+      </span>
+    </button>
+    <div
+      className="close-button"
+      onClick={[Function]}
+    />
+    <div
+      className="backdrop"
+    />
+  </div>
+</Fragment>
+`;

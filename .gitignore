@@ -1,1 +1,14 @@
 .DS_Store
+.idea
+.vscode
+*.code-workspace
+
+vendor/
+node_modules/
+
+*.log
+
+.phpunit.result.cache
+.php_cs.cache
+cghooks.lock
+

@@ -1,0 +1,151 @@
+{% extends "express-forms/settings/index" %}
+{% import "_includes/forms" as forms %}
+
+{% set settingsTitle = "Email Notifications" %}
+
+{% block content %}
+
+    <div>
+        <h2>{{ templateTitle }}</h2>
+        <div class="instructions">
+            {{ "Express Forms reads the file in your Craft Templates directory on your server and populates an intuitive form for editing the file. Be sure to have proper file permissions set. Editing of this notification template can be done directly inside the file as well."|t("express-forms") }}
+        </div>
+
+        <input type="hidden" name="action" value="express-forms/email-notifications/save">
+        <input type="hidden" name="id" value="{{ notification.getFileName() }}">
+        {{ csrfInput() }}
+
+        {{ forms.textField({
+            label: "Name"|t('express-forms'),
+            instructions: "The name of the notification."|t('express-forms'),
+            name: "name",
+            value: notification.name,
+            required: true,
+            errors: notification.getErrors('name'),
+        }) }}
+
+        {{ forms.textField({
+            label: "File Name"|t('express-forms'),
+            instructions: "The file name of the notification. Only `.twig` or `.html` extensions are valid."|t('express-forms'),
+            name: "fileName",
+            value: notification.getFileName(),
+            required: true,
+            class: "code",
+            errors: notification.getErrors('fileName'),
+        }) }}
+
+        {{ forms.textareaField({
+            label: "Description"|t('express-forms'),
+            instructions: "Description of this notification."|t('express-forms'),
+            name: "description",
+            value: notification.getDescription(),
+            errors: notification.getErrors('description'),
+        }) }}
+
+        <hr>
+
+        {{ forms.textField({
+            label: "From Name"|t('express-forms'),
+            instructions: "The name that the email will appear from in your email notification."|t('express-forms'),
+            name: "fromName",
+            value: notification.fromName,
+            required: true,
+            errors: notification.getErrors('fromName'),
+        }) }}
+
+        {{ forms.textField({
+            label: "From Email"|t('express-forms'),
+            instructions: "The email address that the email will appear from in your email notification."|t('express-forms'),
+            name: "fromEmail",
+            value: notification.fromEmail,
+            required: true,
+            errors: notification.getErrors('fromEmail'),
+        }) }}
+
+        {{ forms.textField({
+            label: "Reply-to Email"|t('express-forms'),
+            instructions: "The reply-to email address for your email notification. Leave blank to use 'From Email' address."|t('express-forms'),
+            name: "replyTo",
+            value: notification.replyTo,
+            errors: notification.getErrors('replyTo'),
+        }) }}
+
+        {{ forms.textField({
+            label: "CC"|t('express-forms'),
+            instructions: "The CC email address for your email notification. Leave blank to not use any."|t('express-forms'),
+            name: "cc",
+            value: notification.cc,
+            errors: notification.getErrors('cc'),
+        }) }}
+
+        {{ forms.textField({
+            label: "BCC"|t('express-forms'),
+            instructions: "The BCC email address for your email notification. Leave blank to not use any."|t('express-forms'),
+            name: "bcc",
+            value: notification.bcc,
+            errors: notification.getErrors('bcc'),
+        }) }}
+
+        {{ forms.textField({
+            label: "Subject"|t('express-forms'),
+            instructions: "The subject line that will appear in your email notification."|t('express-forms'),
+            name: "subject",
+            value: notification.subject,
+            errors: notification.getErrors('subject'),
+        }) }}
+
+        {{ forms.textareaField({
+            label: "Email Body"|t('express-forms'),
+            instructions: "The content of the email notification. See documentation for availability of variables."|t('express-forms'),
+            name: "body",
+            value: notification.body,
+            errors: notification.getErrors('body'),
+        }) }}
+
+        <style>
+            #editor {
+                display: none;
+                overflow: hidden;
+
+                width: 100%;
+                height: 400px;
+                margin-top: -20px;
+
+                border-radius: 3px;
+                border: 1px solid #e3e5e8;
+            }
+
+            #emailBody {
+                display: none;
+            }
+        </style>
+        <div id="editor">{{ notification.body }}</div>
+
+        {{ forms.lightswitchField({
+            label: "Include Attachments?"|t('express-forms'),
+            instructions: "Include uploaded files as attachments in email notification."|t('express-forms'),
+            name: "includeAttachments",
+            on: notification.includeAttachments,
+            errors: notification.getErrors('includeAttachments'),
+        }) }}
+    </div>
+
+{% endblock %}
+
+{% js %}
+    var elem = document.getElementById('editor');
+    var editor = ace.edit(elem, {
+        mode: "ace/mode/twig",
+        theme: "ace/theme/xcode",
+        useWorker: false,
+    });
+
+    var textarea = $('textarea[name="body"]').hide();
+
+    editor.getSession().setValue(textarea.val());
+    editor.getSession().on('change', function(){
+        textarea.val(editor.getSession().getValue());
+    });
+
+    document.getElementById("editor").style.display = "block";
+{% endjs %}

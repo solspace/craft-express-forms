@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Info /> renders & displays correctly 1`] = `
+<WithStyles(ForwardRef(Tooltip))
+  placement="right"
+  title="test"
+>
+  <span
+    className="information-dot"
+  >
+    <SVGElement />
+  </span>
+</WithStyles(ForwardRef(Tooltip))>
+`;

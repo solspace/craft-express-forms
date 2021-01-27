@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Text /> renders & displays correctly 1`] = `
+<div
+  className="block-row"
+>
+  <div
+    className="label"
+  >
+    <WithStyles(ForwardRef(Tooltip))
+      placement="bottom"
+      title=""
+    >
+      <label
+        className=""
+      >
+        A Test Input
+      </label>
+    </WithStyles(ForwardRef(Tooltip))>
+  </div>
+  <div
+    className="input ltr"
+  >
+    <input
+      className="text fullwidth"
+      data-value-to-camel-case=""
+      name="test_input"
+      onChange={[MockFunction]}
+      type="text"
+      value="a value"
+    />
+  </div>
+</div>
+`;

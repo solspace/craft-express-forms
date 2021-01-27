@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Select /> renders & displays correctly 1`] = `
+<div
+  className="block-row"
+>
+  <div
+    className="label"
+  >
+    <WithStyles(ForwardRef(Tooltip))
+      placement="bottom"
+      title=""
+    >
+      <label
+        className=""
+      >
+        A Test Select Box
+      </label>
+    </WithStyles(ForwardRef(Tooltip))>
+  </div>
+  <div
+    className="input ltr"
+  >
+    <div
+      className="select fullwidth"
+    >
+      <select
+        disabled={false}
+        name="test_select"
+        onChange={[MockFunction]}
+        value="two"
+      >
+        <option
+          key="one"
+          value="one"
+        >
+          Value One
+        </option>
+        <option
+          key="two"
+          value="two"
+        >
+          Value Two
+        </option>
+        <option
+          key="three"
+          value="three"
+        >
+          Value Three
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,188 @@
+@import "@xf/styles/variables.styl"
+
+ul#form-cards
+  display grid !important
+  grid-template-columns repeat(3, 1fr)
+  column-gap 20px
+  row-gap 20px
+
+  @media (min-width: 1550px) {
+    grid-template-columns repeat(4, 1fr)
+  }
+
+  &:focus
+    outline none
+
+  > li
+    display grid
+    grid-template-rows auto 70px
+
+    background white
+    border 1px solid #E2E2E5
+    border-radius 5px
+
+    &:focus
+      outline none
+
+    &.draggable-mirror
+      min-width 400px
+      max-width 400px
+
+    .corner
+      position absolute
+      top 0
+      left 0
+      border-top-left-radius  5px
+      border-width 1.35em
+      border-color: transparent;
+      border-style: solid;
+
+    .card-body
+      position relative
+      display flex
+      justify-content center
+      align-content center
+      flex-direction column
+
+      width inherit
+      overflow hidden
+      padding 20px 25px
+      text-align center
+
+      .card-info
+        flex 0 1
+
+        a.form-name
+          display block
+          word-wrap break-spaces
+
+          font-size 25px
+          line-height 1.1em
+          font-weight normal
+          color $linkColor
+
+          &:hover
+            text-decoration none
+
+        .form-handle
+          margin-top 6px
+          font-weight bold
+
+        p.form-description
+          font-weight 100
+          font-size 14px
+          font-style italic
+
+      .card-actions, .integrations
+        position absolute
+        right 0
+
+        li
+          a, span
+            display block
+            padding 3px
+
+            font-size 1.2em
+            color #BCBCBD
+
+            &:hover
+              text-decoration none
+
+      .card-actions
+        top 0
+
+        opacity 0
+        transition all .2s ease
+
+      .integrations
+        bottom 0
+
+    .card-footer
+      display grid
+      grid-template-columns 33% 25% 32%
+      column-gap 5%
+
+      padding 17px 0 0
+
+      background #f3f7fc
+      border-top 1px solid #E2E2E5
+      border-radius 5px
+
+      .submissions, .spam
+        font-size 1.0em
+        font-weight normal
+        text-align center
+
+        div
+          display block
+          margin 0 0 5px
+          font-size 1.3em
+          font-weight bold
+          line-height 0.8em
+
+      .submissions-not-stored
+        font-weight normal
+        color #BCBCBD
+        text-align center
+        padding 0 10px
+
+      .submissions
+        color $linkColor
+
+        &:hover
+          text-decoration none
+
+      .spam
+        color #8496ac
+
+        > div
+          > span
+            position relative
+            padding-right 30px
+
+            a
+              position absolute
+              top 1px
+              right 0
+
+              height 20px
+              padding 2px 3px
+
+              font-size 0.7em
+              line-height 1.4em
+
+      .export
+        padding 0 10px 0 0
+        .select
+          width 100%
+          select
+            width 100%
+
+    &:hover
+      .card-actions
+        opacity 1
+
+ul.form-helper-list
+  list-style inside
+
+  li
+    padding-left 20px
+
+
+.error-log-banner
+  color = #e78640
+
+  display block !important
+  padding 1em
+  margin-bottom 16px
+
+  color color
+  border 1px solid color
+  border-radius 4px
+  font-size 16px
+
+  a
+    color color
+    font-weight bold
+    text-decoration underline
+

@@ -1,0 +1,165 @@
+@import "@xf/styles/variables.styl"
+@import "@xf/styles/utils.styl"
+
+.fields
+  flex 1
+  padding 20px 24px
+
+  box-sizing border-box
+  overflow-y auto
+
+  .btn.submit.add.icon
+    font-size 14px
+
+  h3
+    position relative
+    font-size 1.35em
+
+  ul.field-list
+    max-width 630px
+    min-width 500px
+
+    > li
+      &:not(.draggable-field)
+        opacity 0
+
+      display flex
+      justify-content space-between
+
+      background #FBFCFD
+      border 1px solid $borderColor
+      border-radius 3px
+
+      margin: 0 0 10px
+
+      > div
+        padding $spacing 0
+
+      .base
+        flex 1
+
+        .main-row
+          display flex
+          justify-content space-between
+
+          > .icon
+            position relative
+            width 40px
+            padding 0 0 $spacing $spacing
+
+          > .data
+            flex 1 0
+            padding-left $spacing
+
+            > div
+              $offset = 2px
+              position relative
+
+              &:not(:first-child)
+                margin $offset 0 0
+
+              input
+                display block
+                width 100%
+                padding 0 0 $offset
+
+                background #FBFCFD
+                border none
+                border-bottom 1px solid $borderColor
+
+                color #575656
+
+                outline none
+
+                &:not(:first-child)
+                  margin-top $spacing
+
+                &.name, &.name ~ label
+                  font-size 1.5em
+
+                &.name ~ label
+                  bottom 5px
+
+                &.handle, &.handle ~ label
+                  font-size 1em
+                  padding-left 2px
+
+                &.handle ~ label
+                  bottom 1px
+
+              input, label
+                font-weight normal
+
+              label
+                display block
+                color #9a9898
+                pointer-events none
+
+              input ~ label
+                position absolute
+                left 0
+
+                width 100%
+                letter-spacing .5px
+
+                transition .3s ease-out
+
+              input.has-content ~ label
+                opacity 0
+
+              input:focus ~ label, input.has-content ~ label
+                left 100px
+                opacity 0
+
+              input ~ .focus-border
+                position absolute
+                bottom 0
+                left 0
+                width 0
+                height 2px
+
+                background-color #0D99F2
+                transition .3s ease
+
+              input:focus ~ .focus-border
+                width 100%
+
+          .attributes
+            align-self center
+
+            > div
+              display flex
+              justify-content space-between
+
+              padding 0 $doubleSpacing
+
+              &:not(:first-child)
+                margin-top $spacing
+
+              label
+                display block
+                color #707070
+                font-size 1em
+
+                padding 0 $spacing 0 0
+
+
+      .actions
+        padding 0
+        align-self stretch
+
+        background #f3f7fc
+        border-left 1px solid $borderColor
+
+        float: none;
+
+        a
+          display block
+          padding 5px
+          box-sizing border-box
+
+          font-size 1.3em
+          text-align center
+
+          &:focus
+            outline none

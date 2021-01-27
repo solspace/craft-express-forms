@@ -3,7 +3,12 @@
   "description": "Intuitive and lightweight form builder that gets the job done but doesn’t get in your way.",
   "version": "1.0.9",
   "type": "craft-plugin",
-  "keywords": ["forms", "express", "form builder", "freeform"],
+  "keywords": [
+    "forms",
+    "express",
+    "form builder",
+    "freeform"
+  ],
   "authors": [
     {
       "name": "Solspace",
@@ -19,21 +24,32 @@
   "require": {
     "craftcms/cms": "^3.1.0",
     "solspace/craft3-commons": "^1.0.19",
-    "symfony/property-access": "^2.8|^3.0|^4.0",
-    "symfony/finder": "^2.8|^3.0|^4.0",
+    "symfony/property-access": "^2.8|^3.0|^4.0|^5.0",
+    "symfony/finder": "^2.8|^3.0|^4.0|^5.0",
     "symfony/yaml": "^3.0|^4.0|^5.0",
-    "ramsey/uuid": "^3.8.0",
+    "ramsey/uuid": "^4.1.1",
     "phpoffice/phpspreadsheet": "^1.6.0",
     "nesbot/carbon": "^1.22.1|^2.19",
     "ext-json": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7"
+    "phpunit/phpunit": "^9.3.0",
+    "friendsofphp/php-cs-fixer": "^2.16",
+    "brainmaestro/composer-git-hooks": "^2.8"
   },
   "autoload": {
     "psr-4": {
-      "Solspace\\ExpressForms\\": "src/"
+      "Solspace\\ExpressForms\\": "packages/plugin/src/",
+      "Solspace\\Tests\\ExpressForms\\": "packages/plugin/tests"
     }
+  },
+  "scripts": {
+    "test:unit": "vendor/bin/phpunit --configuration ./phpunit.xml",
+    "fix": "vendor/bin/php-cs-fixer fix --diff",
+    "fix:dry-run": "vendor/bin/php-cs-fixer fix --dry-run --diff",
+    "cghooks": "vendor/bin/cghooks",
+    "post-install-cmd": "cghooks add --ignore-lock",
+    "post-update-cmd": "cghooks update"
   },
   "extra": {
     "schemaVersion": "1.0.1",
@@ -43,6 +59,21 @@
     "developer": "Solspace",
     "developerUrl": "https://craft.express/forms/v1/",
     "documentationUrl": "https://craft.express/forms/v1/",
-    "changelogUrl": "https://raw.githubusercontent.com/solspace/craft-express-forms/master/CHANGELOG.md"
+    "changelogUrl": "https://raw.githubusercontent.com/solspace/craft-express-forms/master/CHANGELOG.md",
+    "hooks": {
+      "pre-commit": [
+        "set -e",
+        "npm -v",
+        "php -v",
+        "printf '\\n\\e[32m######### Linting Scripts #########\\e[0m\\n\\n'",
+        "npm run lint",
+        "printf '\\n\\e[32m######### Validating Composer #########\\e[0m\\n\\n'",
+        "composer validate",
+        "printf '\\n\\e[32m######### Running Unit Tests #########\\e[0m\\n\\n'",
+        "composer run test:unit",
+        "printf '\\n\\e[32m######### Running CS Fixer dry run #########\\e[0m\\n\\n'",
+        "composer run fix:dry-run || (printf \"\\e[41mCS Fixer found issues\\e[0m\\n\" && exit 1)"
+      ]
+    }
   }
 }

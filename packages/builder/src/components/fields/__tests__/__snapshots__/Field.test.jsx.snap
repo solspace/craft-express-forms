@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Field /> renders & displays correctly 1`] = `
+<Fragment>
+  <div
+    className="base"
+  >
+    <div
+      className="main-row"
+    >
+      <div
+        className="icon"
+      >
+        <RadialActionButton
+          type="text"
+        />
+      </div>
+      <div
+        className="data"
+      >
+        <div>
+          <input
+            autoComplete="off"
+            className="name has-content"
+            type="text"
+            value="Field"
+          />
+          <label>
+            Name
+          </label>
+          <span
+            className="focus-border"
+          />
+        </div>
+        <div>
+          <input
+            autoComplete="off"
+            className="handle has-content"
+            type="text"
+            value="field"
+          />
+          <label>
+            Handle
+          </label>
+          <span
+            className="focus-border"
+          />
+        </div>
+      </div>
+      <div
+        className="attributes"
+      >
+        <div>
+          <label>
+            Required
+          </label>
+          <div>
+            <ToggleSwitch />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="actions"
+  >
+    <a
+      className="icon delete"
+      onClick={[Function]}
+      tabIndex={-1}
+    />
+    <a
+      className="icon move"
+      tabIndex={-1}
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`<Field /> renders & displays correctly with empty name and handle 1`] = `
+<Fragment>
+  <div
+    className="base"
+  >
+    <div
+      className="main-row"
+    >
+      <div
+        className="icon"
+      >
+        <RadialActionButton
+          type="text"
+        />
+      </div>
+      <div
+        className="data"
+      >
+        <div>
+          <input
+            autoComplete="off"
+            className="name "
+            type="text"
+            value=""
+          />
+          <label>
+            Name
+          </label>
+          <span
+            className="focus-border"
+          />
+        </div>
+        <div>
+          <input
+            autoComplete="off"
+            className="handle "
+            type="text"
+            value=""
+          />
+          <label>
+            Handle
+          </label>
+          <span
+            className="focus-border"
+          />
+        </div>
+      </div>
+      <div
+        className="attributes"
+      >
+        <div>
+          <label>
+            Required
+          </label>
+          <div>
+            <ToggleSwitch />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="actions"
+  >
+    <a
+      className="icon delete"
+      onClick={[Function]}
+      tabIndex={-1}
+    />
+    <a
+      className="icon move"
+      tabIndex={-1}
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`<Field /> shows extras for File type fields 1`] = `
+<Fragment>
+  <div
+    className="base"
+  >
+    <div
+      className="main-row"
+    >
+      <div
+        className="icon"
+      >
+        <RadialActionButton
+          type="file"
+        />
+      </div>
+      <div
+        className="data"
+      >
+        <div>
+          <input
+            autoComplete="off"
+            className="name has-content"
+            type="text"
+            value="Field"
+          />
+          <label>
+            Name
+          </label>
+          <span
+            className="focus-border"
+          />
+        </div>
+        <div>
+          <input
+            autoComplete="off"
+            className="handle has-content"
+            type="text"
+            value="field"
+          />
+          <label>
+            Handle
+          </label>
+          <span
+            className="focus-border"
+          />
+        </div>
+      </div>
+      <div
+        className="attributes"
+      >
+        <div>
+          <label>
+            Required
+          </label>
+          <div>
+            <ToggleSwitch />
+          </div>
+        </div>
+      </div>
+    </div>
+    <Connect(FileExtras) />
+  </div>
+  <div
+    className="actions"
+  >
+    <a
+      className="icon delete"
+      onClick={[Function]}
+      tabIndex={-1}
+    />
+    <a
+      className="icon move"
+      tabIndex={-1}
+    />
+  </div>
+</Fragment>
+`;

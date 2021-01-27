@@ -1,0 +1,67 @@
+{
+  "name": "@xf/builder",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm run clean && npm run watch",
+    "build": "npm run clean && NODE_ENV=production npm run compile",
+    "watch": "webpack --watch",
+    "clean": "rm -rf ../plugin/src/Resources/js/builder",
+    "lint": "eslint -c .eslintrc.json .",
+    "compile": "webpack",
+    "test": "jest --maxWorkers=4"
+  },
+  "author": "Solspace, Inc.",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.12",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.12.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.7",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.5",
+    "@svgr/webpack": "^5.5.0",
+    "autoprefixer": "^10.2.3",
+    "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-to-json": "^3.6.1",
+    "file-loader": "^6.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.6.3",
+    "postcss-loader": "^4.2.0",
+    "sinon": "^9.2.4",
+    "style-loader": "^2.0.0",
+    "stylus": "^0.54.8",
+    "stylus-loader": "^4.3.3",
+    "terser-webpack-plugin": "^4.2.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.17.0",
+    "webpack-cli": "^4.4.0"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "prop-types": "^15.7.2",
+    "react": "^16.14.0",
+    "react-beautiful-dnd": "^13.0.0",
+    "react-color": "^2.19.3",
+    "react-dom": "^16.14.0",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.2.1",
+    "uuid": "^8.3.2"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "last 2 version",
+    "not dead"
+  ]
+}

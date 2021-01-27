@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Checkbox /> renders & displays correctly 1`] = `
+<div
+  className="block-row"
+>
+  <div
+    className="label"
+  >
+    <WithStyles(ForwardRef(Tooltip))
+      placement="bottom"
+      title=""
+    >
+      <label
+        className=""
+      >
+        A Test checkbox field
+      </label>
+    </WithStyles(ForwardRef(Tooltip))>
+  </div>
+  <div
+    className="input ltr"
+  >
+    <ToggleSwitch
+      toggleHandler={[Function]}
+      value={true}
+    />
+  </div>
+</div>
+`;

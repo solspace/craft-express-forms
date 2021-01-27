@@ -1,0 +1,44 @@
+@import "@xf/styles/variables.styl"
+
+$bgOn = #00b007
+$bgOff = #9da5af
+
+$width = 20
+$height = 20
+
+.toggle-switch
+  padding 0
+
+  background $bgOff
+
+  border 1px solid $borderColor
+  border-radius 11px
+  width $width * 1.5px
+
+  transition all .2s ease-in-out
+
+  &:hover
+    cursor pointer
+
+  &.on
+    background $bgOn
+
+  .toggle-switch-handle
+    position relative
+    left 0
+
+    width $width * 1px
+    height $height * 1px
+
+    border none
+    border-radius 50%
+
+    background white
+    box-shadow 0 0 0 1px alpha(black, .1)
+
+    transition all .2s ease-in-out
+
+  &.on
+    .toggle-switch-handle
+      left ($width / 2px)
+

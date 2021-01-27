@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Block /> renders & displays correctly 1`] = `
+<div
+  className="block"
+>
+  <h3>
+    Block Title
+     
+    <Info />
+  </h3>
+</div>
+`;
+
+exports[`<Block /> renders children 1`] = `
+<div
+  className="block"
+>
+  <h3>
+    Block Title
+     
+    <Info />
+  </h3>
+  <TestInput
+    description="A description"
+    label="Testing one"
+    name="test1"
+    required={false}
+    value="test1"
+  />
+  <TestInput
+    description={null}
+    label="Testing two"
+    name="test2"
+    required={true}
+    value="test2"
+  />
+</div>
+`;
