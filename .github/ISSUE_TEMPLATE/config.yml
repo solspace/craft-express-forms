@@ -1,16 +1,16 @@
 blank_issues_enabled: false
 contact_links:
   - name: Feature Requests
-    url: https://github.com/solspace/craft3-express-forms/discussions
+    url: https://github.com/solspace/craft-express-forms/discussions
     about: Share an idea you have for Express Forms.
   - name: Ask a Question
-    url: https://github.com/solspace/craft3-express-forms/discussions
+    url: https://github.com/solspace/craft-express-forms/discussions
     about: Ask a question about Express Forms (e.g. whether or not ____ can be done, etc).
   - name: Private Support Ticket
-    url: https://docs.solspace.com/craft/express-forms/v3/support.html
+    url: https://craft.express/forms/v1/support.html
     about: Create a private support ticket.
   - name: Express Forms Documentation
-    url: https://docs.solspace.com/craft/express-forms/v3/
+    url: https://craft.express/forms/v1/
     about: Read the official documentation.
   - name: Craft Stack Exchange
     url: https://craftcms.stackexchange.com/questions/tagged/solspace

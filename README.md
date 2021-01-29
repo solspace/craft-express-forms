@@ -2,7 +2,7 @@
 
 Express Forms is an intuitive and lightweight form builder that gets the job done but doesn’t get in your way.
 
-![Screenshot](src/icon.svg)
+![Screenshot](packages/plugin/src/icon.svg)
 
 - [Overview](#overview)
 - [Key Features](#key-features)
