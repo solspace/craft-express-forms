@@ -1,5 +1,10 @@
 # Solspace Express Forms Changelog
 
+## 1.1.0 - 2021-01-29
+
+### Changed
+- Updated the file structure of the Express Forms plugin and updated Resources areas to show latest support options, etc.
+
 ## 1.0.9 - 2021-01-21
 
 ### Fixed
