@@ -1,5 +1,21 @@
 # Solspace Express Forms Changelog
 
+## 1.1.1 - 2021-04-21
+
+### Changed
+
+- Removed [ramsey/uuid](https://github.com/ramsey/uuid) package dependency, and switched to using Craft's native UUID generator
+
+### Added
+
+- Added an `autocomplete` attribute to honeypot inputs, to prevent Chrome from autofilling it
+
+### Fixed
+
+- Fixed admin emails not recognizing env variables
+- Fixed `from email` value of email templates not using env variables
+- Fixed a namespace issue that was causing warnings in composer
+
 ## 1.1.0 - 2021-01-29
 
 ### Changed
