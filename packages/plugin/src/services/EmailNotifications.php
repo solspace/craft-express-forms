@@ -106,7 +106,7 @@ class EmailNotifications extends BaseService
         if ($formIsValid && $form->getAdminNotification()) {
             $notification = $this->getEmailNotification($form->getAdminNotification());
             if ($notification) {
-                $validEmails = $this->validateEmails(StringHelper::extractSeparatedValues($form->getAdminEmails() ?? ''));
+                $validEmails = $this->validateEmails(StringHelper::extractSeparatedValues($form->getAdminEmails() ?? ''), true);
                 if ($validEmails) {
                     $this->sendEmail(
                         $validEmails,
@@ -301,10 +301,11 @@ class EmailNotifications extends BaseService
 
     /**
      * @param array $emails
+     * @param mixed $parseEnv
      *
      * @return array|bool
      */
-    private function validateEmails($emails)
+    private function validateEmails($emails, $parseEnv = false)
     {
         if (!$emails) {
             return false;
@@ -313,6 +314,10 @@ class EmailNotifications extends BaseService
         $validEmails = [];
 
         foreach ($emails as $email) {
+            if ($parseEnv && preg_match('/^\$(\w+)$/', $email)) {
+                $email = \Craft::parseEnv($email);
+            }
+
             if (filter_var($email, \FILTER_VALIDATE_EMAIL)) {
                 $validEmails[] = $email;
             }
