@@ -291,11 +291,12 @@ class EmailNotifications extends BaseService
     {
         $view = \Craft::$app->view;
 
-        if (preg_match('/^\$(\w+)$/', $string, $matches)) {
-            return \Craft::parseEnv($string);
+        $value = $view->renderObjectTemplate($string, $fieldValues, $templateVariables);
+        if (preg_match('/^\$(\w+)$/', $value, $matches)) {
+            $value = \Craft::parseEnv($value);
         }
 
-        return $view->renderObjectTemplate($string, $fieldValues, $templateVariables);
+        return $value;
     }
 
     /**
