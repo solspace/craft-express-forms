@@ -60,11 +60,11 @@ class IntegrationPreviewDecorator extends AbstractDecorator
             ->setActionButton('')
             ->addContent(
                 Craft::$app->getView()->renderTemplate(
-                'express-forms/settings/_components/integrations/preview',
-                [
-                    'integrations' => $this->integrationTypes->getIntegrationTypes(),
-                ]
-            )
+                    'express-forms/settings/_components/integrations/preview',
+                    [
+                        'integrations' => $this->integrationTypes->getIntegrationTypes(),
+                    ]
+                )
             )
         ;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Solspace\Tests\ExpressForms\models;
+namespace Solspace\Tests\ExpressForms\objects\EmailNotifications;
 
 use PHPUnit\Framework\TestCase;
 use Solspace\ExpressForms\models\EmailNotification;
