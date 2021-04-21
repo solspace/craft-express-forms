@@ -57,7 +57,7 @@ class HoneypotDecoratorTest extends TestCase
 
         $result = $form->getOpenTag()->jsonSerialize();
 
-        self::assertStringContainsString('<input type="text" name="form_handler" value="" id="', $result);
+        self::assertStringContainsString('<input type="text" name="form_handler" autocomplete="express-form form_handler" value="" id="', $result);
     }
 
     public function testAttachingHoneypotWithCustomName()
@@ -76,7 +76,7 @@ class HoneypotDecoratorTest extends TestCase
 
         $result = $form->getOpenTag()->jsonSerialize();
 
-        self::assertStringContainsString('<input type="text" name="test_honeypot_input_name" value="" id="', $result);
+        self::assertStringContainsString('<input type="text" name="test_honeypot_input_name" autocomplete="express-form test_honeypot_input_name" value="" id="', $result);
     }
 
     public function testHoneypotValidOnEmptyValue()

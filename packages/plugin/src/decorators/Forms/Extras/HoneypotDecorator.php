@@ -91,11 +91,14 @@ class HoneypotDecorator extends AbstractDecorator
 
         $id = StringHelper::UUID();
 
+        $honeypotName = $settings->honeypotInputName ?? Honeypot::DEFAULT_NAME;
+
         $output = '';
         $output .= '<div style="position: fixed; left: -100%; top: -100%;" tabindex="-1" aria-hidden="true">';
         $output .= '<label for="'.$id.'" aria-hidden="true" tabindex="-1">Leave this alone</label>';
         $output .= '<input type="text"';
-        $output .= ' name="'.($settings->honeypotInputName ?? Honeypot::DEFAULT_NAME).'"';
+        $output .= ' name="'.$honeypotName.'"';
+        $output .= ' autocomplete="express-form '.($honeypotName).'"';
         $output .= ' value=""';
         $output .= ' id="'.$id.'"';
         $output .= ' tabindex="-1"';
