@@ -2,7 +2,7 @@
 
 namespace Solspace\ExpressForms\providers\Security;
 
-use Ramsey\Uuid\Uuid;
+use craft\helpers\StringHelper;
 
 class Hashing implements HashingInterface
 {
@@ -13,7 +13,7 @@ class Hashing implements HashingInterface
 
     public function getUuid4(): string
     {
-        return Uuid::uuid4()->toString();
+        return StringHelper::UUID();
     }
 
     /**

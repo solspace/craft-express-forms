@@ -3,7 +3,7 @@
 namespace Solspace\ExpressForms\decorators\Forms\Extras;
 
 use Craft;
-use Ramsey\Uuid\Uuid;
+use craft\helpers\StringHelper;
 use Solspace\ExpressForms\decorators\AbstractDecorator;
 use Solspace\ExpressForms\events\settings\RegisterSettingSidebarItemsEvent;
 use Solspace\ExpressForms\events\settings\RenderSettingsEvent;
@@ -125,7 +125,7 @@ class CodePackDecorator extends AbstractDecorator
             ExpressForms::getInstance()->forms->deleteById($oldForm->getId());
         }
 
-        $emailUid = Uuid::uuid4()->toString();
+        $emailUid = StringHelper::UUID();
         $form = (new Form())
             ->setName('Express Demo Form')
             ->setHandle(self::DEMO_FORM_HANDLE)
@@ -140,7 +140,7 @@ class CodePackDecorator extends AbstractDecorator
             ->addField(
                 new Text(
                     [
-                        'uid' => Uuid::uuid4()->toString(),
+                        'uid' => StringHelper::UUID(),
                         'name' => 'First Name',
                         'handle' => 'firstName',
                         'required' => true,
@@ -150,7 +150,7 @@ class CodePackDecorator extends AbstractDecorator
             ->addField(
                 new Text(
                     [
-                        'uid' => Uuid::uuid4()->toString(),
+                        'uid' => StringHelper::UUID(),
                         'name' => 'Last Name',
                         'handle' => 'lastName',
                         'required' => true,
@@ -170,7 +170,7 @@ class CodePackDecorator extends AbstractDecorator
             ->addField(
                 new Text(
                     [
-                        'uid' => Uuid::uuid4()->toString(),
+                        'uid' => StringHelper::UUID(),
                         'name' => 'Subject',
                         'handle' => 'subject',
                         'required' => true,
@@ -180,7 +180,7 @@ class CodePackDecorator extends AbstractDecorator
             ->addField(
                 new Textarea(
                     [
-                        'uid' => Uuid::uuid4()->toString(),
+                        'uid' => StringHelper::UUID(),
                         'name' => 'Message',
                         'handle' => 'message',
                         'required' => false,
@@ -190,7 +190,7 @@ class CodePackDecorator extends AbstractDecorator
             ->addField(
                 new Options(
                     [
-                        'uid' => Uuid::uuid4()->toString(),
+                        'uid' => StringHelper::UUID(),
                         'name' => 'How did you hear about us?',
                         'handle' => 'howHeard',
                         'required' => false,
@@ -200,7 +200,7 @@ class CodePackDecorator extends AbstractDecorator
             ->addField(
                 new File(
                     [
-                        'uid' => Uuid::uuid4()->toString(),
+                        'uid' => StringHelper::UUID(),
                         'name' => 'Attachment',
                         'handle' => 'attachment',
                         'required' => false,
@@ -210,7 +210,7 @@ class CodePackDecorator extends AbstractDecorator
             ->addField(
                 new Checkbox(
                     [
-                        'uid' => Uuid::uuid4()->toString(),
+                        'uid' => StringHelper::UUID(),
                         'name' => 'Accept Terms',
                         'handle' => 'acceptTerms',
                         'required' => true,

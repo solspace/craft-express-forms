@@ -4,7 +4,6 @@ namespace Solspace\ExpressForms\decorators\Forms\Extras;
 
 use Craft;
 use craft\helpers\StringHelper;
-use Ramsey\Uuid\Uuid;
 use Solspace\ExpressForms\controllers\SubmitController;
 use Solspace\ExpressForms\decorators\AbstractDecorator;
 use Solspace\ExpressForms\events\forms\FormRedirectEvent;
@@ -90,7 +89,7 @@ class HoneypotDecorator extends AbstractDecorator
             return;
         }
 
-        $id = Uuid::uuid4()->toString();
+        $id = StringHelper::UUID();
 
         $output = '';
         $output .= '<div style="position: fixed; left: -100%; top: -100%;" tabindex="-1" aria-hidden="true">';

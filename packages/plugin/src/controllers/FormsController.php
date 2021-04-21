@@ -2,8 +2,8 @@
 
 namespace Solspace\ExpressForms\controllers;
 
+use craft\helpers\StringHelper;
 use craft\web\Controller;
-use Ramsey\Uuid\Uuid;
 use Solspace\Commons\Helpers\PermissionHelper;
 use Solspace\Commons\Loggers\Readers\LineLogReader;
 use Solspace\ExpressForms\exceptions\Form\FormsNotFoundException;
@@ -130,7 +130,7 @@ class FormsController extends Controller
 
                 $newForm = $formFactory->populateFromArray(new Form(), $serializedForm);
                 $newForm->setId();
-                $newForm->setUuid(Uuid::uuid4()->toString());
+                $newForm->setUuid(StringHelper::UUID());
                 $newForm->setIntegrations(new IntegrationMappingCollection());
 
                 $fieldCollection = new FieldCollection();
@@ -138,7 +138,7 @@ class FormsController extends Controller
                 foreach ($form->getFields() as $field) {
                     $uid = $field->getUid();
                     $clone = $fieldSerializer->toArray($field);
-                    $clone['uid'] = Uuid::uuid4()->toString();
+                    $clone['uid'] = StringHelper::UUID();
 
                     if ($uid && $form->getSubmitterEmailField() === $uid) {
                         $newForm->setSubmitterEmailField($clone['uid']);

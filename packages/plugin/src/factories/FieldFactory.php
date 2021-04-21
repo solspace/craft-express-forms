@@ -2,7 +2,7 @@
 
 namespace Solspace\ExpressForms\factories;
 
-use Ramsey\Uuid\Uuid;
+use craft\helpers\StringHelper;
 use Solspace\ExpressForms\events\fields\FieldBuildFromArrayEvent;
 use Solspace\ExpressForms\exceptions\Field\FieldClassDoesNotExist;
 use Solspace\ExpressForms\ExpressForms;
@@ -34,7 +34,12 @@ class FieldFactory
         FieldInterface::TYPE_FILE => File::class,
     ];
 
-    public function fromArray(array $data): FieldInterface
+    /**
+     * @throws FieldClassDoesNotExist
+     *
+     * @return null|BaseField|\craft\base\FieldInterface|FieldInterface
+     */
+    public function fromArray(array $data)
     {
         $type = $data['type'] ?? null;
         $class = self::TYPE_MAP[$type] ?? null;
@@ -48,7 +53,7 @@ class FieldFactory
             $field = \Craft::$app->getFields()->getFieldByUid($data['uid']);
         } else {
             $field = null;
-            $data['uid'] = Uuid::uuid4();
+            $data['uid'] = StringHelper::UUID();
         }
 
         if (null === $field) {

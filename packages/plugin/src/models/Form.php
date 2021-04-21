@@ -4,7 +4,6 @@ namespace Solspace\ExpressForms\models;
 
 use craft\base\Field;
 use craft\models\FieldLayout;
-use Ramsey\Uuid\Uuid;
 use Solspace\Commons\Helpers\ColorHelper;
 use Solspace\Commons\Helpers\StringHelper;
 use Solspace\ExpressForms\events\fields\FieldValidateEvent;
@@ -126,7 +125,7 @@ class Form
      */
     public function __construct()
     {
-        $this->uuid = Uuid::uuid4()->toString();
+        $this->uuid = \craft\helpers\StringHelper::UUID();
         $this->parameters = new ParameterBag();
         $this->extraParameters = new ParameterBag();
         $this->htmlAttributes = new ParameterBag(self::DEFAULT_HTML_ATTRIBUTES);
