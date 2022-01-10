@@ -3,7 +3,7 @@
 ## 1.1.2 - 2022-01-10
 
 ### Fixed
-- Fixed a bug where the exporting of submissions were not fully compatibility with the Craft 3.7 field column suffix change.
+- Fixed a bug where the exporting of submissions was not fully compatible with the Craft 3.7 field column suffix change.
 
 ## 1.1.1 - 2021-04-21
 
