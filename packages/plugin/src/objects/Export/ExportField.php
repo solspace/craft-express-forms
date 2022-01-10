@@ -29,7 +29,8 @@ abstract class ExportField implements ExportFieldInterface
      */
     public static function createFromField(BaseField $field): self
     {
-        $suffix = $field->canGetProperty('columnSuffix') ? '_'.$field->columnSuffix : '';
+        $suffix = $field->canGetProperty('columnSuffix') ? $field->columnSuffix : '';
+        $suffix = $suffix ? '_'.$suffix : '';
         $handle = "c.[[field_{$field->getHandle()}$suffix]]";
         $name = $field->getName();
 
