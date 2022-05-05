@@ -18,31 +18,16 @@ use Solspace\ExpressForms\services\Settings;
 
 class PreventDuplicateSubmissionsDecorator extends AbstractDecorator
 {
-    const AJAX_KEY = 'duplicateCheck';
-    const PREFIX = 'fdchk-';
-    const TTL = 60 * 60 * 3; // 3 hours
-    const MAX_SESSION_TOKENS = 40;
+    public const AJAX_KEY = 'duplicateCheck';
+    public const PREFIX = 'fdchk-';
+    public const TTL = 60 * 60 * 3; // 3 hours
+    public const MAX_SESSION_TOKENS = 40;
 
-    /** @var SessionProviderInterface */
-    private $session;
-
-    /** @var HashingInterface */
-    private $hashing;
-
-    /** @var SettingsProviderInterface */
-    private $settings;
-
-    /**
-     * PreventDuplicateSubmissionsDecorator constructor.
-     */
     public function __construct(
-        SessionProviderInterface $session,
-        HashingInterface $hashing,
-        SettingsProviderInterface $settings
+        private SessionProviderInterface $session,
+        private HashingInterface $hashing,
+        private SettingsProviderInterface $settings
     ) {
-        $this->session = $session;
-        $this->hashing = $hashing;
-        $this->settings = $settings;
     }
 
     public function getEventListenerList(): array
@@ -57,7 +42,7 @@ class PreventDuplicateSubmissionsDecorator extends AbstractDecorator
         ];
     }
 
-    public function renderSettings(RenderSettingsEvent $event)
+    public function renderSettings(RenderSettingsEvent $event): void
     {
         if ('general' !== $event->getSelectedItem()) {
             return;
@@ -71,7 +56,7 @@ class PreventDuplicateSubmissionsDecorator extends AbstractDecorator
         );
     }
 
-    public function storeSettings(SaveSettingsEvent $event)
+    public function storeSettings(SaveSettingsEvent $event): void
     {
         $post = Craft::$app->getRequest()->post('duplicatePrevention');
 
@@ -80,7 +65,7 @@ class PreventDuplicateSubmissionsDecorator extends AbstractDecorator
         }
     }
 
-    public function attachInput(FormRenderTagEvent $event)
+    public function attachInput(FormRenderTagEvent $event): void
     {
         if (!$this->isEnabled()) {
             return;
@@ -94,7 +79,7 @@ class PreventDuplicateSubmissionsDecorator extends AbstractDecorator
         $event->prependToOutput($output);
     }
 
-    public function attachToAjax(FormAjaxResponseEvent $event)
+    public function attachToAjax(FormAjaxResponseEvent $event): void
     {
         if (!$this->isEnabled()) {
             return;
@@ -112,7 +97,7 @@ class PreventDuplicateSubmissionsDecorator extends AbstractDecorator
         );
     }
 
-    public function validate(FormValidateEvent $event)
+    public function validate(FormValidateEvent $event): void
     {
         if (!$this->isEnabled()) {
             return;
@@ -138,7 +123,7 @@ class PreventDuplicateSubmissionsDecorator extends AbstractDecorator
         $this->session->remove($hash);
     }
 
-    private function cleanup()
+    private function cleanup(): void
     {
         $currentTime = time();
 
@@ -164,25 +149,17 @@ class PreventDuplicateSubmissionsDecorator extends AbstractDecorator
         return self::TTL;
     }
 
-    /**
-     * @throws \Exception
-     */
     private function generateHash(): string
     {
         return $this->getPrefix().$this->hashing->getUuid4();
     }
 
-    /**
-     * @param $key
-     *
-     * @return false|int
-     */
-    private function isHashedToken($key)
+    private function isHashedToken($key): bool
     {
-        return preg_match("/^{$this->getPrefix()}/", $key);
+        return (bool) preg_match("/^{$this->getPrefix()}/", $key);
     }
 
-    private function appendToSession(string $value)
+    private function appendToSession(string $value): void
     {
         $sortedByTime = [];
         if (isset($_SESSION)) {

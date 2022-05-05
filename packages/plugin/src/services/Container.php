@@ -40,7 +40,7 @@ use yii\di\Container as YiiContainer;
 
 class Container extends BaseService
 {
-    public function init()
+    public function init(): void
     {
         $this->initDependencies();
     }
@@ -80,12 +80,6 @@ class Container extends BaseService
         return $this->getContainer()->get($class);
     }
 
-    /**
-     * @throws \yii\base\InvalidConfigException
-     * @throws \yii\di\NotInstantiableException
-     *
-     * @return object
-     */
     public function get(string $class, array $params = [], array $config = [])
     {
         return $this->getContainer()->get($class, $params, $config);

@@ -1,7 +1,7 @@
 {
   "name": "solspace/craft-express-forms",
   "description": "Intuitive and lightweight form builder that gets the job done but doesn’t get in your way.",
-  "version": "1.1.2",
+  "version": "2.0.0-alpha.1",
   "type": "craft-plugin",
   "keywords": [
     "forms",
@@ -22,7 +22,7 @@
     "docs": "https://craft.express/forms/v1/"
   },
   "require": {
-    "craftcms/cms": "^3.1.0",
+    "craftcms/cms": "^4.0.0-alpha",
     "solspace/craft3-commons": "^1.0.19",
     "symfony/property-access": "^2.8|^3.0|^4.0|^5.0",
     "symfony/finder": "^2.8|^3.0|^4.0|^5.0",
@@ -33,7 +33,7 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^9.3.0",
-    "friendsofphp/php-cs-fixer": "^2.16",
+    "friendsofphp/php-cs-fixer": "^3.4.0",
     "brainmaestro/composer-git-hooks": "^2.8"
   },
   "autoload": {
@@ -73,6 +73,12 @@
         "printf '\\n\\e[32m######### Running CS Fixer dry run #########\\e[0m\\n\\n'",
         "composer run fix:dry-run || (printf \"\\e[41mCS Fixer found issues\\e[0m\\n\" && exit 1)"
       ]
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
     }
   }
 }

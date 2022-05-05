@@ -39,12 +39,12 @@ class EmailNotificationsDecorator extends AbstractDecorator
         ];
     }
 
-    public function registerSettingsSidebarItem(RegisterSettingSidebarItemsEvent $event)
+    public function registerSettingsSidebarItem(RegisterSettingSidebarItemsEvent $event): void
     {
         $event->addItem('Email Notifications');
     }
 
-    public function renderSettings(RenderSettingsEvent $event)
+    public function renderSettings(RenderSettingsEvent $event): void
     {
         if ('email-notifications' !== $event->getSelectedItem()) {
             return;
@@ -76,7 +76,7 @@ class EmailNotificationsDecorator extends AbstractDecorator
         $event->setActionButton($actionButton);
     }
 
-    public function storeSettings(SaveSettingsEvent $event)
+    public function storeSettings(SaveSettingsEvent $event): void
     {
         $post = Craft::$app->getRequest()->post('emailNotifications');
 
@@ -98,7 +98,7 @@ class EmailNotificationsDecorator extends AbstractDecorator
         }
     }
 
-    public function registerUrl(RegisterUrlRulesEvent $event)
+    public function registerUrl(RegisterUrlRulesEvent $event): void
     {
         $rule = 'express-forms/settings/email-notifications/<fileName:(?:[^\/]*)>';
         $url = 'express-forms/email-notifications/edit';

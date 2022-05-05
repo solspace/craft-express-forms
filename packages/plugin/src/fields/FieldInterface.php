@@ -4,54 +4,34 @@ namespace Solspace\ExpressForms\fields;
 
 interface FieldInterface extends \JsonSerializable
 {
-    const VALIDATION_ERROR_KEY = 'expressformsValidationErrors';
-    const EVENT_BEFORE_SET_VALUE = 'beforeSetValue';
+    public const VALIDATION_ERROR_KEY = 'expressformsValidationErrors';
+    public const EVENT_BEFORE_SET_VALUE = 'beforeSetValue';
 
-    const TYPE_TEXT = 'text';
-    const TYPE_TEXTAREA = 'textarea';
-    const TYPE_CHECKBOX = 'checkbox';
-    const TYPE_OPTIONS = 'options';
-    const TYPE_EMAIL = 'email';
-    const TYPE_HIDDEN = 'hidden';
-    const TYPE_FILE = 'file';
+    public const TYPE_TEXT = 'text';
+    public const TYPE_TEXTAREA = 'textarea';
+    public const TYPE_CHECKBOX = 'checkbox';
+    public const TYPE_OPTIONS = 'options';
+    public const TYPE_EMAIL = 'email';
+    public const TYPE_HIDDEN = 'hidden';
+    public const TYPE_FILE = 'file';
 
     public function hasMultipleValues(): bool;
 
-    /**
-     * @return mixed
-     */
-    public function getValue();
+    public function getValue(): mixed;
 
     public function getValueAsString(): string;
 
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function setValue($value): self;
+    public function setValue(mixed $value): self;
 
-    /**
-     * @return null|int
-     */
-    public function getId();
+    public function getId(): ?int;
 
     public function getUid(): string;
 
-    /**
-     * @return null|string
-     */
-    public function getName();
+    public function getName(): ?string;
 
-    /**
-     * @return null|string
-     */
-    public function getHandle();
+    public function getHandle(): ?string;
 
-    /**
-     * @return null|string
-     */
-    public function getType();
+    public function getType(): ?string;
 
     public function isRequired(): bool;
 

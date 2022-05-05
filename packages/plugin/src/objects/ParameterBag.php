@@ -6,31 +6,16 @@ use Traversable;
 
 class ParameterBag implements \IteratorAggregate, \ArrayAccess
 {
-    /** @var array */
-    private $bag = [];
-
-    /**
-     * ParameterBag constructor.
-     */
-    public function __construct(array $bag = [])
+    public function __construct(private array $bag = [])
     {
-        $this->bag = $bag;
     }
 
-    /**
-     * @param null $defaultValue
-     *
-     * @return null|mixed
-     */
-    public function get(string $name, $defaultValue = null)
+    public function get(string $name, mixed $defaultValue = null): mixed
     {
         return $this->bag[$name] ?? $defaultValue;
     }
 
-    /**
-     * @param null $value
-     */
-    public function add(string $name, $value = null): self
+    public function add(string $name, mixed $value = null): self
     {
         $this->bag[$name] = $value;
 
@@ -70,10 +55,7 @@ class ParameterBag implements \IteratorAggregate, \ArrayAccess
         return $this->bag;
     }
 
-    /**
-     * @return \ArrayIterator|Traversable
-     */
-    public function getIterator()
+    public function getIterator(): Traversable|\ArrayIterator
     {
         return new \ArrayIterator($this->bag);
     }
@@ -83,12 +65,12 @@ class ParameterBag implements \IteratorAggregate, \ArrayAccess
         return $this->has($offset);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->bag[$offset];
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if (null === $offset) {
             $this->bag[] = $value;
@@ -97,7 +79,7 @@ class ParameterBag implements \IteratorAggregate, \ArrayAccess
         }
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->bag[$offset]);
     }

@@ -14,7 +14,7 @@ class Options extends MultipleValueField
      *
      * @param array $values
      */
-    public function getValueDictionaryFromValues($values): array
+    public function getValueDictionaryFromValues(mixed $values): array
     {
         if (!\is_array($values)) {
             $values = [$values];

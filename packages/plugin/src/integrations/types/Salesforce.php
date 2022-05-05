@@ -23,42 +23,23 @@ use yii\base\Event;
 
 class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
 {
-    const RESOURCE_LEAD = 'Lead';
-    const RESOURCE_OPPORTUNITY = 'Opportunity';
+    public const RESOURCE_LEAD = 'Lead';
+    public const RESOURCE_OPPORTUNITY = 'Opportunity';
 
-    const FIELD_CATEGORY_OPPORTUNITY = 'Opportunity';
-    const FIELD_CATEGORY_ACCOUNT = 'Account';
-    const FIELD_CATEGORY_CONTACT = 'Contact';
+    public const FIELD_CATEGORY_OPPORTUNITY = 'Opportunity';
+    public const FIELD_CATEGORY_ACCOUNT = 'Account';
+    public const FIELD_CATEGORY_CONTACT = 'Contact';
 
-    /** @var string */
-    protected $consumerKey;
-
-    /** @var string */
-    protected $consumerSecret;
-
-    /** @var string */
-    protected $accessToken;
-
-    /** @var string */
-    protected $refreshToken;
-
-    /** @var bool */
-    protected $assignOwner = false;
-
-    /** @var bool */
-    protected $sandboxMode = false;
-
-    /** @var bool */
-    protected $customUrl = false;
-
-    /** @var string */
-    protected $instance;
-
-    /** @var string */
-    protected $closeDate;
-
-    /** @var string */
-    protected $stageName;
+    protected ?string $consumerKey = null;
+    protected ?string $consumerSecret = null;
+    protected ?string $accessToken = null;
+    protected ?string $refreshToken = null;
+    protected bool $assignOwner = false;
+    protected bool $sandboxMode = false;
+    protected bool $customUrl = false;
+    protected ?string $instance = null;
+    protected ?string $closeDate = null;
+    protected ?string $stageName = null;
 
     public static function getSettingsManifest(): array
     {
@@ -123,7 +104,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
 
         try {
             $response = $client->get($endpoint);
-            $json = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+            $json = json_decode((string) $response->getBody(), true);
 
             return !empty($json);
         } catch (RequestException $e) {
@@ -131,10 +112,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         }
     }
 
-    /**
-     * Do something before settings are rendered.
-     */
-    public function beforeRenderUpdate()
+    public function beforeRenderUpdate(): void
     {
         if (isset($_GET['code'])) {
             $payload = [
@@ -150,7 +128,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
             try {
                 $response = $client->post($this->getAccessTokenUrl(), ['form_params' => $payload]);
 
-                $json = \GuzzleHttp\json_decode((string) $response->getBody());
+                $json = json_decode((string) $response->getBody());
                 if (!isset($json->access_token)) {
                     throw new IntegrationException(
                         ExpressForms::t("No 'access_token' present in auth response for Salesforce")
@@ -171,10 +149,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         }
     }
 
-    /**
-     * Do something before settings are saved.
-     */
-    public function beforeSaveSettings()
+    public function beforeSaveSettings(): void
     {
         if (!$this->consumerKey || !$this->consumerSecret) {
             $this->consumerKey = null;
@@ -185,10 +160,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         }
     }
 
-    /**
-     * Perform an OAUTH authorization.
-     */
-    public function afterSaveSettings()
+    public function afterSaveSettings(): void
     {
         try {
             if (!$this->getAccessToken()) {
@@ -202,7 +174,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
             $consumerSecret = $this->getConsumerSecret();
 
             if (!$consumerKey || !$consumerSecret) {
-                return false;
+                return;
             }
 
             $payload = [
@@ -218,17 +190,11 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         }
     }
 
-    /**
-     * @return null|string
-     */
-    public function getConsumerKey()
+    public function getConsumerKey(): ?string
     {
         return $this->consumerKey;
     }
 
-    /**
-     * @param string $consumerKey
-     */
     public function setConsumerKey(string $consumerKey = null): self
     {
         $this->consumerKey = $consumerKey;
@@ -236,17 +202,11 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getConsumerSecret()
+    public function getConsumerSecret(): ?string
     {
         return $this->consumerSecret;
     }
 
-    /**
-     * @param string $consumerSecret
-     */
     public function setConsumerSecret(string $consumerSecret = null): self
     {
         $this->consumerSecret = $consumerSecret;
@@ -254,17 +214,11 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getAccessToken()
+    public function getAccessToken(): ?string
     {
         return $this->accessToken;
     }
 
-    /**
-     * @param string $accessToken
-     */
     public function setAccessToken(string $accessToken = null): self
     {
         $this->accessToken = $accessToken;
@@ -272,17 +226,11 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getRefreshToken()
+    public function getRefreshToken(): ?string
     {
         return $this->refreshToken;
     }
 
-    /**
-     * @param string $refreshToken
-     */
     public function setRefreshToken(string $refreshToken = null): self
     {
         $this->refreshToken = $refreshToken;
@@ -326,17 +274,11 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getInstance()
+    public function getInstance(): ?string
     {
         return $this->instance;
     }
 
-    /**
-     * @param string $instance
-     */
     public function setInstance(string $instance = null): self
     {
         $this->instance = $instance;
@@ -344,17 +286,11 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getCloseDate()
+    public function getCloseDate(): ?string
     {
         return $this->closeDate;
     }
 
-    /**
-     * @param string $closeDate
-     */
     public function setCloseDate(string $closeDate = null): self
     {
         $this->closeDate = $closeDate;
@@ -362,17 +298,11 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getStageName()
+    public function getStageName(): ?string
     {
         return $this->stageName;
     }
 
-    /**
-     * @param string $stageName
-     */
     public function setStageName(string $stageName = null): self
     {
         $this->stageName = $stageName;
@@ -413,11 +343,9 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
     }
 
     /**
-     * @param int|string $resourceId
-     *
      * @return ResourceField[]
      */
-    public function fetchResourceFields($resourceId): array
+    public function fetchResourceFields(int|string $resourceId): array
     {
         if (self::RESOURCE_LEAD === $resourceId) {
             return $this->fetchFieldsForLeads();
@@ -460,7 +388,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
             return [];
         }
 
-        $data = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+        $data = json_decode((string) $response->getBody(), false);
 
         $fieldList = [];
         foreach ($data->fields as $field) {
@@ -505,7 +433,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
                 continue;
             }
 
-            $data = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+            $data = json_decode((string) $response->getBody(), false);
 
             foreach ($data->fields as $field) {
                 if (!$field->updateable || !empty($field->referenceTo)) {
@@ -672,7 +600,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
             } else {
                 $accountEndpoint = $this->getEndpoint('/sobjects/Account');
                 $accountResponse = $client->post($accountEndpoint, ['json' => $accountMapping]);
-                $accountId = \GuzzleHttp\json_decode($accountResponse->getBody(), false)->id;
+                $accountId = json_decode($accountResponse->getBody(), false)->id;
 
                 Event::trigger($this, self::EVENT_AFTER_RESPONSE, new PushResponseEvent($accountResponse));
             }
@@ -714,7 +642,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
             $this->getLogger()->error($responseBody, ['exception' => $e->getMessage()]);
 
             if (400 === $exceptionResponse->getStatusCode()) {
-                $errors = \GuzzleHttp\json_decode((string) $exceptionResponse->getBody(), false);
+                $errors = json_decode((string) $exceptionResponse->getBody(), false);
 
                 if (\is_array($errors)) {
                     foreach ($errors as $error) {
@@ -755,9 +683,6 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         return UrlHelper::cpUrl('express-forms/settings/api-integrations/salesforce');
     }
 
-    /**
-     * @throws IntegrationException
-     */
     private function getRefreshedAccessToken(): string
     {
         if (!$this->getRefreshToken() || !$this->getConsumerSecret() || !$this->getConsumerKey()) {
@@ -779,7 +704,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         try {
             $response = $client->post($this->getAccessTokenUrl(), ['form_params' => $payload]);
 
-            $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+            $json = json_decode((string) $response->getBody(), false);
             if (!isset($json->access_token)) {
                 throw new IntegrationException(
                     ExpressForms::t("No 'access_token' present in auth response for Salesforce")
@@ -832,9 +757,6 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         return $client;
     }
 
-    /**
-     * @return mixed
-     */
     private function query(string $query, array $params = []): array
     {
         $client = $this->generateAuthorizedClient();
@@ -852,7 +774,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
                 ]
             );
 
-            $result = \GuzzleHttp\json_decode($response->getBody(), false);
+            $result = json_decode($response->getBody(), false);
 
             if (0 === $result->totalSize || !$result->done) {
                 return [];
@@ -866,10 +788,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
         }
     }
 
-    /**
-     * @return null|mixed
-     */
-    private function querySingle(string $query, array $params = [])
+    private function querySingle(string $query, array $params = []): mixed
     {
         $data = $this->query($query, $params);
 

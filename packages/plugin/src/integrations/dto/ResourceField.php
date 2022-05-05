@@ -4,43 +4,14 @@ namespace Solspace\ExpressForms\integrations\dto;
 
 class ResourceField
 {
-    /** @var string */
-    private $name;
-
-    /** @var string */
-    private $handle;
-
-    /** @var string */
-    private $type;
-
-    /** @var bool */
-    private $required;
-
-    /** @var array */
-    private $settings;
-
-    /** @var string */
-    private $category;
-
-    /**
-     * ListField constructor.
-     *
-     * @param string $category
-     */
     public function __construct(
-        string $name,
-        string $handle,
-        string $type,
-        bool $required = false,
-        array $settings = [],
-        string $category = null
+        private string $name,
+        private string $handle,
+        private string $type,
+        private bool $required = false,
+        private array $settings = [],
+        private ?string $category = null
     ) {
-        $this->name = $name;
-        $this->handle = $handle;
-        $this->type = $type;
-        $this->required = $required;
-        $this->settings = $settings;
-        $this->category = $category;
     }
 
     public function getName(): string
@@ -68,10 +39,7 @@ class ResourceField
         return $this->settings;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getCategory()
+    public function getCategory(): ?string
     {
         return $this->category;
     }

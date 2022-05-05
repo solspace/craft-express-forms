@@ -22,20 +22,13 @@ use yii\base\Event;
 
 class ConstantContact extends AbstractIntegrationType implements MailingListTypeInterface
 {
-    const FIELD_TARGET_EMAIL = 'constantContactTargetEmail';
-    const FIELD_OPT_IN = 'constantContactOptIn';
+    public const FIELD_TARGET_EMAIL = 'constantContactTargetEmail';
+    public const FIELD_OPT_IN = 'constantContactOptIn';
 
-    /** @var string */
-    protected $apiKey;
-
-    /** @var string */
-    protected $secret;
-
-    /** @var string */
-    protected $accessToken;
-
-    /** @var string */
-    protected $refreshToken;
+    protected ?string $apiKey = null;
+    protected ?string $secret = null;
+    protected ?string $accessToken = null;
+    protected ?string $refreshToken = null;
 
     public static function getSettingsManifest(): array
     {
@@ -65,10 +58,6 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
         return !empty($this->getAccessToken());
     }
 
-    /**
-     * @throws ConnectionFailedException
-     * @throws IntegrationException
-     */
     public function checkConnection(bool $refreshTokenIfExpired = true): bool
     {
         $client = $this->generateAuthorizedClient($refreshTokenIfExpired);
@@ -76,7 +65,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
 
         try {
             $response = $client->get($endpoint);
-            $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+            $json = json_decode((string) $response->getBody(), false);
 
             return isset($json->lists);
         } catch (RequestException $exception) {
@@ -91,10 +80,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
         }
     }
 
-    /**
-     * Do something before settings are rendered.
-     */
-    public function beforeRenderUpdate()
+    public function beforeRenderUpdate(): void
     {
         if (isset($_GET['code'])) {
             $payload = [
@@ -114,7 +100,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
                     ]
                 );
 
-                $json = \GuzzleHttp\json_decode((string) $response->getBody());
+                $json = json_decode((string) $response->getBody());
                 if (!isset($json->access_token)) {
                     throw new IntegrationException(
                         ExpressForms::t("No 'access_token' present in auth response for Constant Contact")
@@ -133,10 +119,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
         }
     }
 
-    /**
-     * Do something before settings are saved.
-     */
-    public function beforeSaveSettings()
+    public function beforeSaveSettings(): void
     {
         if (!$this->apiKey || !$this->secret) {
             $this->apiKey = null;
@@ -146,10 +129,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
         }
     }
 
-    /**
-     * Perform an OAUTH authorization.
-     */
-    public function afterSaveSettings()
+    public function afterSaveSettings(): void
     {
         try {
             if (!$this->getAccessToken()) {
@@ -162,7 +142,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
             $secret = $this->getSecret();
 
             if (!$apiKey || !$secret) {
-                return false;
+                return;
             }
 
             $payload = [
@@ -178,17 +158,11 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
         }
     }
 
-    /**
-     * @return null|string
-     */
-    public function getApiKey()
+    public function getApiKey(): ?string
     {
         return $this->apiKey;
     }
 
-    /**
-     * @param string $apiKey
-     */
     public function setApiKey(string $apiKey = null): self
     {
         $this->apiKey = $apiKey;
@@ -196,17 +170,11 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getSecret()
+    public function getSecret(): ?string
     {
         return $this->secret;
     }
 
-    /**
-     * @param string $secret
-     */
     public function setSecret(string $secret = null): self
     {
         $this->secret = $secret;
@@ -214,17 +182,11 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getAccessToken()
+    public function getAccessToken(): ?string
     {
         return $this->accessToken;
     }
 
-    /**
-     * @param string $accessToken
-     */
     public function setAccessToken(string $accessToken = null): self
     {
         $this->accessToken = $accessToken;
@@ -232,17 +194,11 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getRefreshToken()
+    public function getRefreshToken(): ?string
     {
         return $this->refreshToken;
     }
 
-    /**
-     * @param string $refreshToken
-     */
     public function setRefreshToken(string $refreshToken = null): self
     {
         $this->refreshToken = $refreshToken;
@@ -287,7 +243,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
             throw new IntegrationException(ExpressForms::t('Could not fetch mailing lists'));
         }
 
-        $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+        $json = json_decode((string) $response->getBody(), false);
 
         $lists = [];
         foreach ($json->lists as $list) {
@@ -307,12 +263,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
         return $event->getResourceList();
     }
 
-    /**
-     * @param int|string $resourceId
-     *
-     * @return ResourceField[]
-     */
-    public function fetchResourceFields($resourceId): array
+    public function fetchResourceFields(int|string $resourceId): array
     {
         $fieldList = [
             new ResourceField('Opt-in Field', self::FIELD_OPT_IN, 'bool', true),
@@ -338,7 +289,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
             throw new IntegrationException(ExpressForms::t('Could not connect to API endpoint'));
         }
 
-        $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+        $json = json_decode((string) $response->getBody(), false);
 
         if (isset($json->custom_fields)) {
             foreach ($json->custom_fields as $field) {
@@ -497,9 +448,6 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
         return 'https://idfed.constantcontact.com/as/token.oauth2';
     }
 
-    /**
-     * @throws IntegrationException
-     */
     private function getRefreshedAccessToken(): string
     {
         if (!$this->getRefreshToken() || !$this->getApiKey() || !$this->getSecret()) {
@@ -525,7 +473,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
                 ]
             );
 
-            $json = \GuzzleHttp\json_decode((string) $response->getBody());
+            $json = json_decode((string) $response->getBody());
             if (!isset($json->access_token)) {
                 throw new IntegrationException(
                     ExpressForms::t("No 'access_token' present in auth response for Constant Contact")
@@ -545,9 +493,6 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
         }
     }
 
-    /**
-     * @throws IntegrationException
-     */
     private function generateAuthorizedClient(bool $refreshTokenIfExpired = true): Client
     {
         $client = new Client(

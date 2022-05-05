@@ -14,19 +14,16 @@ use yii\web\Response;
 
 class SubmitController extends Controller
 {
-    const EVENT_REDIRECT = 'redirect';
-    const EVENT_FORM_COMPLETED = 'formCompleted';
-    const EVENT_FORM_INVALID = 'formInvalid';
-    const EVENT_BEFORE_FORM_SUBMIT = 'beforeFormSubmit';
-    const EVENT_BEFORE_AJAX_RESPONSE = 'beforeAjaxResponse';
-    const EVENT_BEFORE_AJAX_ERROR_RESPONSE = 'beforeAjaxErrorResponse';
+    public const EVENT_REDIRECT = 'redirect';
+    public const EVENT_FORM_COMPLETED = 'formCompleted';
+    public const EVENT_FORM_INVALID = 'formInvalid';
+    public const EVENT_BEFORE_FORM_SUBMIT = 'beforeFormSubmit';
+    public const EVENT_BEFORE_AJAX_RESPONSE = 'beforeAjaxResponse';
+    public const EVENT_BEFORE_AJAX_ERROR_RESPONSE = 'beforeAjaxErrorResponse';
 
-    public $allowAnonymous = true;
+    public array|int|bool $allowAnonymous = true;
 
-    /**
-     * @return Response
-     */
-    public function actionIndex()
+    public function actionIndex(): Response
     {
         $this->requirePostRequest();
         $request = Craft::$app->request;
@@ -36,7 +33,7 @@ class SubmitController extends Controller
 
         $acceptType = $request->getHeaders()->get('Accept');
         if (null !== $acceptType && '*/*' !== $acceptType) {
-            $isJsonResponse = false !== strpos($acceptType, 'application/json');
+            $isJsonResponse = str_contains($acceptType, 'application/json');
         } else {
             $isJsonResponse = $request->getIsAjax();
         }

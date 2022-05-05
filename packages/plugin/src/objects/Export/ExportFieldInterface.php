@@ -8,10 +8,5 @@ interface ExportFieldInterface
 
     public function getLabel(): string;
 
-    /**
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    public function transformValue($value);
+    public function transformValue(mixed $value);
 }

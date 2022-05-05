@@ -4,12 +4,7 @@ namespace Solspace\ExpressForms\objects\Export;
 
 class BooleanField extends ExportField
 {
-    /**
-     * @param mixed $value
-     *
-     * @return bool|mixed
-     */
-    public function transformValue($value)
+    public function transformValue(mixed $value): bool
     {
         return (bool) $value;
     }

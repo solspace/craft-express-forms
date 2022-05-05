@@ -21,10 +21,10 @@ use yii\base\UnknownPropertyException;
 
 class FieldFactory
 {
-    const EVENT_BEFORE_BUILD_FROM_ARRAY = 'beforeBuildFromArray';
-    const EVENT_AFTER_BUILD_FROM_ARRAY = 'afterBuildFromArray';
+    public const EVENT_BEFORE_BUILD_FROM_ARRAY = 'beforeBuildFromArray';
+    public const EVENT_AFTER_BUILD_FROM_ARRAY = 'afterBuildFromArray';
 
-    const TYPE_MAP = [
+    public const TYPE_MAP = [
         FieldInterface::TYPE_TEXT => Text::class,
         FieldInterface::TYPE_TEXTAREA => Textarea::class,
         FieldInterface::TYPE_CHECKBOX => Checkbox::class,
@@ -34,12 +34,7 @@ class FieldFactory
         FieldInterface::TYPE_FILE => File::class,
     ];
 
-    /**
-     * @throws FieldClassDoesNotExist
-     *
-     * @return null|BaseField|\craft\base\FieldInterface|FieldInterface
-     */
-    public function fromArray(array $data)
+    public function fromArray(array $data): ?FieldInterface
     {
         $type = $data['type'] ?? null;
         $class = self::TYPE_MAP[$type] ?? null;

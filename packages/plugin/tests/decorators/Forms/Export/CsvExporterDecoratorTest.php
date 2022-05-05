@@ -77,11 +77,11 @@ class CsvExporterDecoratorTest extends TestCase
         );
 
         $expected = <<<'STRING'
-ID,dateCreated,Title,"An Array",Boolean,False
-123,"2019-03-07 12:00:00","Some Title","one, two, four",yes,no
-456,,"Another &lt;script&gt;alert(&quot;hello&quot;);&lt;/script&gt; title","one, two, four",yes,no
+            ID,dateCreated,Title,"An Array",Boolean,False
+            123,"2019-03-07 12:00:00","Some Title","one, two, four",yes,no
+            456,,"Another &lt;script&gt;alert(&quot;hello&quot;);&lt;/script&gt; title","one, two, four",yes,no
 
-STRING;
+            STRING;
 
         self::assertSame($expected, $response->content);
     }

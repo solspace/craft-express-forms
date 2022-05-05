@@ -67,30 +67,28 @@ use yii\base\Event;
  */
 class ExpressForms extends Plugin
 {
-    const TRANSLATION_CATEGORY = 'express-forms';
+    public const TRANSLATION_CATEGORY = 'express-forms';
 
-    const VIEW_FORMS = 'dashboard';
-    const VIEW_SUBMISSIONS = 'forms';
-    const VIEW_SETTINGS = 'settings';
+    public const VIEW_FORMS = 'dashboard';
+    public const VIEW_SUBMISSIONS = 'forms';
+    public const VIEW_SETTINGS = 'settings';
 
-    const EVENT_REGISTER_SUBNAV_ITEMS = 'registerSubnavItems';
+    public const EVENT_REGISTER_SUBNAV_ITEMS = 'registerSubnavItems';
 
-    const PERMISSIONS_HELP_LINK = 'https://craft.express/forms/v1/';
-    const PERMISSION_NAMESPACE = 'Express Forms';
+    public const PERMISSIONS_HELP_LINK = 'https://craft.express/forms/v1/';
+    public const PERMISSION_NAMESPACE = 'Express Forms';
 
-    const PERMISSION_SUBMISSIONS = 'express-forms-submissions';
-    const PERMISSION_FORMS = 'express-forms-forms';
-    const PERMISSION_SETTINGS = 'express-forms-settings';
-    const PERMISSION_RESOURCES = 'express-forms-resources';
+    public const PERMISSION_SUBMISSIONS = 'express-forms-submissions';
+    public const PERMISSION_FORMS = 'express-forms-forms';
+    public const PERMISSION_SETTINGS = 'express-forms-settings';
+    public const PERMISSION_RESOURCES = 'express-forms-resources';
 
-    const EDITION_LITE = 'lite';
-    const EDITION_PRO = 'pro';
+    public const EDITION_LITE = 'lite';
+    public const EDITION_PRO = 'pro';
 
-    /** @var bool */
-    public $hasCpSection = true;
+    public bool $hasCpSection = true;
 
-    /** @var bool */
-    public $hasCpSettings = true;
+    public bool $hasCpSettings = true;
 
     private $decorators = [
         // Field decorators
@@ -149,15 +147,12 @@ class ExpressForms extends Plugin
         ];
     }
 
-    /**
-     * @param string $language
-     */
     public static function t(string $message, array $params = [], string $language = null): string
     {
         return \Craft::t(self::TRANSLATION_CATEGORY, $message, $params, $language);
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
         \Yii::setAlias('@expressforms', __DIR__);
@@ -184,10 +179,7 @@ class ExpressForms extends Plugin
         return $this->is(self::EDITION_LITE);
     }
 
-    /**
-     * @return null|array
-     */
-    public function getCpNavItem()
+    public function getCpNavItem(): ?array
     {
         $navItem = parent::getCpNavItem();
 
@@ -200,7 +192,7 @@ class ExpressForms extends Plugin
         return $navItem;
     }
 
-    public function initServices()
+    public function initServices(): void
     {
         $this->setComponents(
             [
@@ -232,17 +224,15 @@ class ExpressForms extends Plugin
         return \Craft::$app->getView()->renderTemplate('express-forms/settings/_redirect');
     }
 
-    protected function beforeUninstall(): bool
+    protected function beforeUninstall(): void
     {
         $forms = $this->forms->getAllForms();
         foreach ($forms as $form) {
             $this->forms->deleteById($form->getId());
         }
-
-        return true;
     }
 
-    private function initRoutes()
+    private function initRoutes(): void
     {
         Event::on(
             UrlManager::class,
@@ -254,7 +244,7 @@ class ExpressForms extends Plugin
         );
     }
 
-    private function initTwigVariables()
+    private function initTwigVariables(): void
     {
         Event::on(
             CraftVariable::class,
@@ -267,34 +257,28 @@ class ExpressForms extends Plugin
         \Craft::$app->view->registerTwigExtension(new ClassFilter());
     }
 
-    private function initPermissions()
+    private function initPermissions(): void
     {
         if (\Craft::$app->getEdition() >= \Craft::Pro) {
             Event::on(
                 UserPermissions::class,
                 UserPermissions::EVENT_REGISTER_PERMISSIONS,
                 function (RegisterUserPermissionsEvent $event) {
-                    $permissions = [
-                        self::PERMISSION_FORMS => ['label' => self::t('Access & Manage Forms')],
-                        self::PERMISSION_SUBMISSIONS => ['label' => self::t('Access & Export Submissions')],
-                        self::PERMISSION_SETTINGS => ['label' => self::t('Access & Manage Settings')],
-                        self::PERMISSION_RESOURCES => ['label' => self::t('Access Resources')],
+                    $event->permissions[] = [
+                        'heading' => $this->name,
+                        'permissions' => [
+                            self::PERMISSION_FORMS => ['label' => self::t('Access & Manage Forms')],
+                            self::PERMISSION_SUBMISSIONS => ['label' => self::t('Access & Export Submissions')],
+                            self::PERMISSION_SETTINGS => ['label' => self::t('Access & Manage Settings')],
+                            self::PERMISSION_RESOURCES => ['label' => self::t('Access Resources')],
+                        ],
                     ];
-
-                    if (!isset($event->permissions[self::PERMISSION_NAMESPACE])) {
-                        $event->permissions[self::PERMISSION_NAMESPACE] = [];
-                    }
-
-                    $event->permissions[self::PERMISSION_NAMESPACE] = array_merge(
-                        $event->permissions[self::PERMISSION_NAMESPACE],
-                        $permissions
-                    );
                 }
             );
         }
     }
 
-    private function initWidgets()
+    private function initWidgets(): void
     {
         if ($this->isPro()) {
             Event::on(
@@ -307,7 +291,7 @@ class ExpressForms extends Plugin
         }
     }
 
-    private function initDecorators()
+    private function initDecorators(): void
     {
         foreach ($this->decorators as $decorator) {
             $reflection = new \ReflectionClass($decorator);

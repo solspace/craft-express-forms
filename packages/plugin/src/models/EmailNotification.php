@@ -3,6 +3,7 @@
 namespace Solspace\ExpressForms\models;
 
 use craft\base\Model;
+use PhpParser\Node\Param;
 use Solspace\ExpressForms\exceptions\EmailNotifications\CouldNotParseNotificationException;
 use Solspace\ExpressForms\exceptions\EmailNotifications\EmailNotificationsException;
 use Solspace\ExpressForms\exceptions\EmailNotifications\NotificationNotFound;
@@ -12,53 +13,27 @@ use Symfony\Component\Yaml\Yaml;
 
 class EmailNotification extends Model
 {
-    const REQUIRED_METADATA = [
+    public const REQUIRED_METADATA = [
         'fromName',
         'fromEmail',
     ];
 
-    const ALLOWED_FILE_EXTENSIONS = ['twig', 'html'];
-    const DEFAULT_FILE_EXTENSION = 'twig';
+    public const ALLOWED_FILE_EXTENSIONS = ['twig', 'html'];
+    public const DEFAULT_FILE_EXTENSION = 'twig';
 
-    /** @var string */
-    public $name;
+    public ?string $name = null;
+    public ?string $fromName = null;
+    public ?string $fromEmail = null;
+    public ?string $replyTo = null;
+    public ?string $cc = null;
+    public ?string $bcc = null;
+    public ?string $subject = null;
+    public ?string $body = null;
+    public ?bool $includeAttachments = false;
+    public ?string $fileName = null;
+    private ?string $description = null;
+    private ParameterBag $parameterBag;
 
-    /** @var string */
-    public $fromName;
-
-    /** @var string */
-    public $fromEmail;
-
-    /** @var string */
-    public $replyTo;
-
-    /** @var string */
-    public $cc;
-
-    /** @var string */
-    public $bcc;
-
-    /** @var string */
-    public $subject;
-
-    /** @var string */
-    public $body;
-
-    /** @var bool */
-    public $includeAttachments = false;
-
-    /** @var string */
-    public $fileName;
-
-    /** @var string */
-    private $description;
-
-    /** @var ParameterBag */
-    private $parameterBag;
-
-    /**
-     * EmailNotification constructor.
-     */
     public function __construct()
     {
         $this->parameterBag = new ParameterBag();
@@ -78,18 +53,12 @@ class EmailNotification extends Model
 
     /**
      * @param string $name
-     *
-     * @return bool
      */
-    public function __isset($name)
+    public function __isset($name): bool
     {
         return $this->parameterBag->has($name);
     }
 
-    /**
-     * @throws EmailNotificationsException
-     * @throws NotificationTemplateFolderNotSetException
-     */
     public static function create(
         string $directory,
         string $fileName = 'template',
@@ -137,25 +106,20 @@ class EmailNotification extends Model
             ->setDescription('A description of what this template does.')
             ->setBody(
                 <<<'DATA'
-<p>The following submission came in on {{ dateCreated|date('l, F j, Y \\a\\t g:ia') }}.</p>
+                    <p>The following submission came in on {{ dateCreated|date('l, F j, Y \\a\\t g:ia') }}.</p>
 
-<ul>
-    {% for field in form.fields %}
-        <li>{{ field.label }}: {{ field.valueAsString }}</li>
-    {% endfor %}
-</ul>
-DATA
+                    <ul>
+                        {% for field in form.fields %}
+                            <li>{{ field.label }}: {{ field.valueAsString }}</li>
+                        {% endfor %}
+                    </ul>
+                    DATA
             )
         ;
 
         return $notification;
     }
 
-    /**
-     * @throws CouldNotParseNotificationException
-     * @throws EmailNotificationsException
-     * @throws NotificationNotFound
-     */
     public static function fromFile(string $filePath = null): self
     {
         if (null === $filePath) {
@@ -206,10 +170,7 @@ DATA
         ];
     }
 
-    /**
-     * @return null|string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -221,10 +182,7 @@ DATA
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getFileName()
+    public function getFileName(): ?string
     {
         return $this->fileName;
     }
@@ -243,10 +201,7 @@ DATA
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -282,10 +237,7 @@ DATA
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getReplyTo()
+    public function getReplyTo(): ?string
     {
         return $this->replyTo;
     }
@@ -297,46 +249,31 @@ DATA
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getCc()
+    public function getCc(): ?string
     {
         return $this->cc ?: null;
     }
 
-    /**
-     * @param string $cc
-     */
-    public function setCc(string $cc = null): self
+    public function setCc(?string $cc): self
     {
         $this->cc = $cc;
 
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getBcc()
+    public function getBcc(): ?string
     {
         return $this->bcc ?: null;
     }
 
-    /**
-     * @param string $bcc
-     */
-    public function setBcc(string $bcc = null): self
+    public function setBcc(?string $bcc): self
     {
         $this->bcc = $bcc;
 
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -372,10 +309,7 @@ DATA
         return $this;
     }
 
-    /**
-     * @return null|bool
-     */
-    public function writeToFile(string $filePath)
+    public function writeToFile(string $filePath): ?bool
     {
         $handle = fopen($filePath, 'w');
 

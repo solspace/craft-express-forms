@@ -8,34 +8,20 @@ interface HashingInterface
 
     public function getUuid4(): string;
 
-    /**
-     * @param string $value
-     * @param string $secret
-     */
-    public function hash($value, $secret): string;
+    public function hash(string $value, string $secret): string;
 
     /**
      * Returns the validated data as string, or FALSE.
-     *
-     * @return bool|string
      */
-    public function deHash(string $value, string $secret);
+    public function deHash(string $value, string $secret): false|string;
 
     /**
      * Encrypts a string of data with the project secret + salt if provided.
-     *
-     * @param string $salt
-     *
-     * @return null|string
      */
-    public function encrypt(string $value, string $salt = null);
+    public function encrypt(string $value, string $salt = null): ?string;
 
     /**
      * Decrypts a string of data with the project secret + salt if provided.
-     *
-     * @param string $salt
-     *
-     * @return null|string
      */
-    public function decrypt(string $value, string $salt = null);
+    public function decrypt(string $value, string $salt = null): false|string;
 }

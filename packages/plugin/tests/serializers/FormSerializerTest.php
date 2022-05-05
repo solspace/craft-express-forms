@@ -42,7 +42,7 @@ class FormSerializerTest extends TestCase
         $this->fieldSerializerMock
             ->expects($this->once())
             ->method('toArray')
-            ->willReturn('bogus')
+            ->willReturn([])
         ;
 
         $result = $this->formSerializer->toArray($form);
@@ -60,7 +60,7 @@ class FormSerializerTest extends TestCase
             'adminEmails' => null,
             'submitterNotification' => null,
             'submitterEmailField' => null,
-            'fields' => ['bogus'],
+            'fields' => [[]],
             'integrations' => [],
             'spamCount' => 0,
         ];
@@ -82,14 +82,14 @@ class FormSerializerTest extends TestCase
         $this->fieldSerializerMock
             ->expects($this->once())
             ->method('toArray')
-            ->willReturn('bogus')
+            ->willReturn([])
         ;
 
         $result = $this->formSerializer->toJson($form);
 
         $uuid = $form->getUuid();
         self::assertEquals(
-            '{"id":null,"uuid":"'.$uuid.'","name":"Test form","handle":null,"description":null,"color":"hash","submissionTitle":"{{ dateCreated|date(\"Y-m-d H:i:s\") }}","saveSubmissions":true,"adminNotification":null,"adminEmails":null,"submitterNotification":null,"submitterEmailField":null,"fields":["bogus"],"integrations":[],"spamCount":0}',
+            '{"id":null,"uuid":"'.$uuid.'","name":"Test form","handle":null,"description":null,"color":"hash","submissionTitle":"{{ dateCreated|date(\"Y-m-d H:i:s\") }}","saveSubmissions":true,"adminNotification":null,"adminEmails":null,"submitterNotification":null,"submitterEmailField":null,"fields":[[]],"integrations":[],"spamCount":0}',
             $result
         );
     }

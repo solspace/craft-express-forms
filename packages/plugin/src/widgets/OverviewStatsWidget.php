@@ -18,23 +18,12 @@ use Solspace\ExpressForms\services\Widgets;
 
 class OverviewStatsWidget extends Widget
 {
-    /** @var string */
-    public $title;
-
-    /** @var array */
-    public $formIds;
-
-    /** @var bool */
-    public $aggregate;
-
-    /** @var string */
-    public $dateRange;
-
-    /** @var int */
-    public $chartHeight;
-
-    /** @var string */
-    public $chartType;
+    public ?string $title;
+    public ?array $formIds;
+    public ?bool $aggregate;
+    public ?string $dateRange;
+    public ?int $chartHeight;
+    public ?string $chartType;
 
     public static function displayName(): string
     {
@@ -51,10 +40,7 @@ class OverviewStatsWidget extends Widget
         return $this->title ?: static::displayName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -83,10 +69,7 @@ class OverviewStatsWidget extends Widget
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['formIds'], 'required'],
@@ -105,33 +88,12 @@ class OverviewStatsWidget extends Widget
         \Craft::$app->view->registerAssetBundle(OverviewStatsWidgetBundle::class);
         $data = $this->getChartData();
 
-        switch ($this->dateRange) {
-            case Widgets::RANGE_LAST_7_DAYS:
-                $incrementSkip = 1;
-
-                break;
-
-            case Widgets::RANGE_LAST_30_DAYS:
-                $incrementSkip = 3;
-
-                break;
-
-            case Widgets::RANGE_LAST_60_DAYS:
-                $incrementSkip = 6;
-
-                break;
-
-            case Widgets::RANGE_LAST_90_DAYS:
-                $incrementSkip = 10;
-
-                break;
-
-            case Widgets::RANGE_LAST_24_HOURS:
-            default:
-                $incrementSkip = 1;
-
-                break;
-        }
+        $incrementSkip = match ($this->dateRange) {
+            Widgets::RANGE_LAST_30_DAYS => 3,
+            Widgets::RANGE_LAST_60_DAYS => 6,
+            Widgets::RANGE_LAST_90_DAYS => 10,
+            default => 1,
+        };
 
         return \Craft::$app->view->renderTemplate(
             'express-forms/_widgets/overview-stats/body',
@@ -165,9 +127,6 @@ class OverviewStatsWidget extends Widget
         );
     }
 
-    /**
-     * @throws \Exception
-     */
     public function getLinearSubmissionChartData(
         Carbon $rangeStart,
         Carbon $rangeEnd,
@@ -253,7 +212,7 @@ class OverviewStatsWidget extends Widget
 
     private function getChartData(): LinearChartData
     {
-        list($rangeStart, $rangeEnd) = $this->getWidgetsService()->getRange($this->dateRange);
+        [$rangeStart, $rangeEnd] = $this->getWidgetsService()->getRange($this->dateRange);
 
         $formIds = $this->formIds;
         if ('*' === $formIds) {
@@ -282,9 +241,6 @@ class OverviewStatsWidget extends Widget
         return ExpressForms::getInstance()->forms;
     }
 
-    /**
-     * @throws \Exception
-     */
     private function getCompiledChartData(array $labels, array $datasets): LinearChartData
     {
         $chartData = new LinearChartData();

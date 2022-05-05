@@ -15,15 +15,8 @@ use yii\base\Event;
 
 class IntegrationPreviewDecorator extends AbstractDecorator
 {
-    /** @var IntegrationTypeProviderInterface */
-    private $integrationTypes;
-
-    /**
-     * IntegrationsDecorator constructor.
-     */
-    public function __construct(IntegrationTypeProviderInterface $integrationTypes)
+    public function __construct(private IntegrationTypeProviderInterface $integrationTypes)
     {
-        $this->integrationTypes = $integrationTypes;
     }
 
     public function getEventListenerList(): array
@@ -34,12 +27,12 @@ class IntegrationPreviewDecorator extends AbstractDecorator
         ];
     }
 
-    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event)
+    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event): void
     {
         $event->addItem('API Integrations');
     }
 
-    public function renderSettings(RenderSettingsEvent $event)
+    public function renderSettings(RenderSettingsEvent $event): void
     {
         if ('api-integrations' !== $event->getSelectedItem() || ExpressForms::getInstance()->isPro()) {
             return;

@@ -18,12 +18,12 @@ class JsonExporterDecorator extends AbstractDecorator implements ExtraBundle
         ];
     }
 
-    public function registerType(RegisterExportTypesEvent $event)
+    public function registerType(RegisterExportTypesEvent $event): void
     {
         $event->addType('JSON');
     }
 
-    public function exportSubmissions(ExportSubmissionsEvent $event)
+    public function exportSubmissions(ExportSubmissionsEvent $event): void
     {
         if ('json' !== $event->getType()) {
             return;

@@ -7,12 +7,7 @@ use Solspace\ExpressForms\models\Form;
 
 class ExpressFormsVariable
 {
-    /**
-     * @param int|string $idOrHandle
-     *
-     * @return null|Form
-     */
-    public function form($idOrHandle)
+    public function form(int|string $idOrHandle): ?Form
     {
         return ExpressForms::getInstance()->forms->getFormByIdOrHandle($idOrHandle);
     }

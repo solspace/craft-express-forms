@@ -6,12 +6,7 @@ use craft\base\ElementInterface;
 
 abstract class MultipleValueField extends BaseField implements MultipleValueInterface
 {
-    /**
-     * @param $value
-     *
-     * @return mixed
-     */
-    public function normalizeValue($value, ElementInterface $element = null)
+    public function normalizeValue($value, ?ElementInterface $element = null): mixed
     {
         if ($value && \is_string($value) && preg_match('/^\[|\{.*\]|\}$/', $value)) {
             $value = \GuzzleHttp\json_decode($value, true);
@@ -20,12 +15,7 @@ abstract class MultipleValueField extends BaseField implements MultipleValueInte
         return $value;
     }
 
-    /**
-     * @param $value
-     *
-     * @return null|array|mixed|string
-     */
-    public function serializeValue($value, ElementInterface $element = null)
+    public function serializeValue($value, ?ElementInterface $element = null): string
     {
         if (!\is_array($value)) {
             if (null === $value) {
@@ -35,6 +25,6 @@ abstract class MultipleValueField extends BaseField implements MultipleValueInte
             }
         }
 
-        return \GuzzleHttp\json_encode($value);
+        return json_encode($value);
     }
 }

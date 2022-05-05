@@ -16,19 +16,14 @@ use Solspace\ExpressForms\objects\Export\ExportFieldInterface;
 use Solspace\ExpressForms\objects\Export\IntField;
 use Solspace\ExpressForms\objects\Export\StringField;
 use Solspace\ExpressForms\records\FormRecord;
+use yii\web\Response;
 
 class ExportController extends Controller
 {
-    const EVENT_COMPILE_EXPORTABLE_FIELDS = 'compileExportableFields';
-    const EVENT_BUILD_QUERY = 'buildQuery';
+    public const EVENT_COMPILE_EXPORTABLE_FIELDS = 'compileExportableFields';
+    public const EVENT_BUILD_QUERY = 'buildQuery';
 
-    /**
-     * @throws FormsNotFoundException
-     * @throws \yii\web\BadRequestHttpException
-     *
-     * @return \craft\web\Response|\yii\console\Response
-     */
-    public function actionIndex()
+    public function actionIndex(): Response
     {
         $this->requirePostRequest();
         $request = \Craft::$app->request;

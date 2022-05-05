@@ -9,19 +9,10 @@ use Solspace\ExpressForms\fields\MultipleValueInterface;
 
 abstract class ExportField implements ExportFieldInterface
 {
-    /** @var string */
-    private $handle;
-
-    /** @var string */
-    private $label;
-
-    /**
-     * ExportField constructor.
-     */
-    public function __construct(string $handle, string $label)
-    {
-        $this->handle = $handle;
-        $this->label = $label;
+    public function __construct(
+        private string $handle,
+        private string $label
+    ) {
     }
 
     /**

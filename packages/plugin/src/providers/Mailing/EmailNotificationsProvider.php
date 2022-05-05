@@ -3,16 +3,12 @@
 namespace Solspace\ExpressForms\providers\Mailing;
 
 use Solspace\ExpressForms\elements\Submission;
-use Solspace\ExpressForms\exceptions\EmailNotifications\NotificationTemplateFolderNotSetException;
 use Solspace\ExpressForms\ExpressForms;
 use Solspace\ExpressForms\models\EmailNotification;
 use Solspace\ExpressForms\models\Form;
 
 class EmailNotificationsProvider implements EmailNotificationsProviderInterface
 {
-    /**
-     * @throws NotificationTemplateFolderNotSetException
-     */
     public function getNotification(string $fileName): EmailNotification
     {
         return ExpressForms::getInstance()->emailNotifications->getNotification($fileName);

@@ -6,28 +6,13 @@ use Twig\Markup;
 
 class Recaptcha
 {
-    /** @var string */
-    private $key;
+    private array $errors = [];
+    private bool $rendered = false;
 
-    /** @var string */
-    private $theme;
-
-    /** @var array */
-    private $errors = [];
-
-    /** @var bool */
-    private $rendered = false;
-
-    /**
-     * Recaptcha constructor.
-     *
-     * @param string $key
-     * @param string $theme
-     */
-    public function __construct(string $key = null, string $theme = null)
-    {
-        $this->key = $key;
-        $this->theme = $theme;
+    public function __construct(
+        private ?string $key,
+        private ?string $theme
+    ) {
     }
 
     public function __toString(): string

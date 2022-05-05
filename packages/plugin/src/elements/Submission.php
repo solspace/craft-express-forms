@@ -21,29 +21,18 @@ use yii\base\Exception;
 
 class Submission extends Element
 {
-    const TABLE_STD = 'expressforms_submissions';
-    const TABLE = '{{%expressforms_submissions}}';
+    public const TABLE_STD = 'expressforms_submissions';
+    public const TABLE = '{{%expressforms_submissions}}';
 
-    /** @var int */
-    public $formId;
+    public ?int $formId = null;
+    public ?string $formName = null;
+    public ?int $incrementalId = null;
 
-    /** @var string */
-    public $formName;
-
-    /** @var int */
-    public $incrementalId;
-
-    /**
-     * @return null|string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->title;
     }
 
-    /**
-     * @return ElementQueryInterface|SubmissionQuery
-     */
     public static function find(): ElementQueryInterface
     {
         return new SubmissionQuery(self::class);
@@ -69,33 +58,21 @@ class Submission extends Element
         return 'expressforms:'.$id;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function hasContent(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function hasTitles(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function isLocalized(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function displayName(): string
     {
         return ExpressForms::t('Submission');
@@ -108,10 +85,7 @@ class Submission extends Element
         return $formService->getFormById((int) $this->formId);
     }
 
-    /**
-     * @return null|FieldLayout
-     */
-    public function getFieldLayout()
+    public function getFieldLayout(): ?FieldLayout
     {
         return $this->getForm()->getFieldLayout();
     }
@@ -126,17 +100,11 @@ class Submission extends Element
         return self::getContentTableName($this->getForm());
     }
 
-    /**
-     * @return null|string
-     */
-    public function getCpEditUrl()
+    public function getCpEditUrl(): ?string
     {
         return UrlHelper::cpUrl('express-forms/submissions/'.$this->id);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function defaultTableAttributes(string $source): array
     {
         if (!preg_match('/form:(\d+)$/', $source, $matches)) {
@@ -160,7 +128,8 @@ class Submission extends Element
     public function getTableAttributeHtml(string $attribute): string
     {
         if (preg_match('/^field:(\d+)$/', $attribute, $matches)) {
-            list($_, $id) = $matches;
+            [$_, $id] = $matches;
+
             /** @var BaseField $field */
             $field = \Craft::$app->getFields()->getFieldById($id);
 
@@ -191,15 +160,14 @@ class Submission extends Element
                     return implode(', ', $value);
                 }
             }
+
+            return $value;
         }
 
         return parent::getTableAttributeHtml($attribute);
     }
 
-    /**
-     * @throws \yii\db\Exception
-     */
-    public function afterSave(bool $isNew)
+    public function afterSave(bool $isNew): void
     {
         if ($isNew) {
             $insertData = [
@@ -217,9 +185,6 @@ class Submission extends Element
         parent::afterSave($isNew);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     protected static function defineSources(string $context = null): array
     {
         static $sources;
@@ -253,17 +218,11 @@ class Submission extends Element
         return $sources;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected static function defineSearchableAttributes(): array
     {
         return ['id', 'title', 'formName'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected static function defineSortOptions(): array
     {
         return [
@@ -276,9 +235,6 @@ class Submission extends Element
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected static function defineTableAttributes(): array
     {
         $attributes = [

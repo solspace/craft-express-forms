@@ -14,24 +14,12 @@ use Solspace\ExpressForms\providers\Files\FileUploadInterface;
 
 class FileUploadDecorator extends AbstractTranslatableDecorator
 {
-    /** @var FileTypeProviderInterface */
-    private $fileTypeProvider;
-
-    /** @var FileUploadInterface */
-    private $fileUploadProvider;
-
-    /**
-     * FileUploadDecorator constructor.
-     */
     public function __construct(
         TranslatorInterface $translator,
-        FileTypeProviderInterface $fileTypeProvider,
-        FileUploadInterface $fileUploadProvider
+        private FileTypeProviderInterface $fileTypeProvider,
+        private FileUploadInterface $fileUploadProvider
     ) {
         parent::__construct($translator);
-
-        $this->fileTypeProvider = $fileTypeProvider;
-        $this->fileUploadProvider = $fileUploadProvider;
     }
 
     public function getEventListenerList(): array
@@ -43,7 +31,7 @@ class FileUploadDecorator extends AbstractTranslatableDecorator
         ];
     }
 
-    public function attachFormEncType(FormCompileTagAttributesEvent $event)
+    public function attachFormEncType(FormCompileTagAttributesEvent $event): void
     {
         $form = $event->getForm();
         foreach ($form->getFields() as $field) {
@@ -55,9 +43,6 @@ class FileUploadDecorator extends AbstractTranslatableDecorator
         }
     }
 
-    /**
-     * @return null|array|void
-     */
     public function validateUploadedFields(FieldValidateEvent $event)
     {
         $field = $event->getField();

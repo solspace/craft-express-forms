@@ -21,14 +21,11 @@ use yii\base\Event;
 
 class CampaignMonitor extends AbstractIntegrationType implements MailingListTypeInterface
 {
-    const FIELD_TARGET_EMAIL = 'campaignMonitorTargetEmail';
-    const FIELD_OPT_IN = 'campaignMonitorOptIn';
+    public const FIELD_TARGET_EMAIL = 'campaignMonitorTargetEmail';
+    public const FIELD_OPT_IN = 'campaignMonitorOptIn';
 
-    /** @var string */
-    protected $apiKey;
-
-    /** @var string */
-    protected $clientId;
+    protected ?string $apiKey = null;
+    protected ?string $clientId = null;
 
     public static function getSettingsManifest(): array
     {
@@ -58,16 +55,13 @@ class CampaignMonitor extends AbstractIntegrationType implements MailingListType
         return !empty($this->getApiKey());
     }
 
-    /**
-     * @throws ConnectionFailedException
-     */
     public function checkConnection(): bool
     {
         $client = $this->generateAuthorizedClient();
 
         try {
             $response = $client->get($this->getEndpoint('/clients/'.$this->getClientId().'.json'));
-            $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+            $json = json_decode((string) $response->getBody(), false);
 
             return isset($json->ApiKey) && !empty($json->ApiKey);
         } catch (RequestException $e) {
@@ -75,17 +69,11 @@ class CampaignMonitor extends AbstractIntegrationType implements MailingListType
         }
     }
 
-    /**
-     * @return null|string
-     */
-    public function getApiKey()
+    public function getApiKey(): ?string
     {
         return $this->apiKey;
     }
 
-    /**
-     * @param string $apiKey
-     */
     public function setApiKey(string $apiKey = null): self
     {
         $this->apiKey = $apiKey;
@@ -93,17 +81,11 @@ class CampaignMonitor extends AbstractIntegrationType implements MailingListType
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getClientId()
+    public function getClientId(): ?string
     {
         return $this->clientId;
     }
 
-    /**
-     * @param string $clientId
-     */
     public function setClientId(string $clientId = null): self
     {
         $this->clientId = $clientId;
@@ -145,7 +127,7 @@ class CampaignMonitor extends AbstractIntegrationType implements MailingListType
             );
         }
 
-        $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+        $json = json_decode((string) $response->getBody(), false);
 
         $lists = [];
         if (\is_array($json)) {
@@ -167,12 +149,7 @@ class CampaignMonitor extends AbstractIntegrationType implements MailingListType
         return $event->getResourceList();
     }
 
-    /**
-     * @param int|string $resourceId
-     *
-     * @return ResourceField[]
-     */
-    public function fetchResourceFields($resourceId): array
+    public function fetchResourceFields(int|string $resourceId): array
     {
         $client = $this->generateAuthorizedClient();
         $endpoint = $this->getEndpoint("/lists/{$resourceId}/customfields.json");
@@ -188,7 +165,7 @@ class CampaignMonitor extends AbstractIntegrationType implements MailingListType
             );
         }
 
-        $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+        $json = json_decode((string) $response->getBody(), false);
 
         $fieldList = [
             new ResourceField('Opt-in Field', self::FIELD_OPT_IN, 'bool', true),

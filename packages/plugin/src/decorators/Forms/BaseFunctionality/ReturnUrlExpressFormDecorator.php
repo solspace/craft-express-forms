@@ -13,23 +13,12 @@ use Solspace\ExpressForms\providers\View\RenderProviderInterface;
 
 class ReturnUrlExpressFormDecorator extends AbstractDecorator
 {
-    const RETURN_URL_KEY = 'return';
+    public const RETURN_URL_KEY = 'return';
 
-    /** @var RenderProviderInterface */
-    private $renderer;
-
-    /** @var LoggerProviderInterface */
-    private $logger;
-
-    /**
-     * ReturnUrlExpressFormDecorator constructor.
-     */
     public function __construct(
-        RenderProviderInterface $renderer,
-        LoggerProviderInterface $logger
+        private RenderProviderInterface $renderer,
+        private LoggerProviderInterface $logger
     ) {
-        $this->renderer = $renderer;
-        $this->logger = $logger;
     }
 
     public function getEventListenerList(): array
@@ -39,7 +28,7 @@ class ReturnUrlExpressFormDecorator extends AbstractDecorator
         ];
     }
 
-    public function redirectPageAfterSubmit(FormRedirectEvent $event)
+    public function redirectPageAfterSubmit(FormRedirectEvent $event): void
     {
         $returnUrl = $event->getForm()->getParameters()->get(self::RETURN_URL_KEY);
         if ($returnUrl) {
@@ -73,7 +62,7 @@ class ReturnUrlExpressFormDecorator extends AbstractDecorator
         }
     }
 
-    public function registerIntegrationTypes(RegisterIntegrationTypes $event)
+    public function registerIntegrationTypes(RegisterIntegrationTypes $event): void
     {
         $event->addType(MailChimp::class);
     }

@@ -16,15 +16,12 @@ class Forms extends BaseService
 {
     use SchemaBuilderTrait;
 
-    private static $allFormsLoaded = false;
-    private static $formIdCache = [];
-    private static $formUuidCache = [];
-    private static $formHandleCache = [];
+    private static bool $allFormsLoaded = false;
+    private static array $formIdCache = [];
+    private static array $formUuidCache = [];
+    private static array $formHandleCache = [];
 
-    /**
-     * @return null|Form
-     */
-    public function getFormById(int $id)
+    public function getFormById(int $id): ?Form
     {
         if (!isset(self::$formIdCache[$id])) {
             $result = $this->getQuery()
@@ -46,10 +43,7 @@ class Forms extends BaseService
         return self::$formIdCache[$id];
     }
 
-    /**
-     * @return null|Form
-     */
-    public function getFormByHandle(string $handle)
+    public function getFormByHandle(string $handle): ?Form
     {
         if (!isset(self::$formHandleCache[$handle])) {
             $result = $this->getQuery()
@@ -71,10 +65,7 @@ class Forms extends BaseService
         return self::$formHandleCache[$handle];
     }
 
-    /**
-     * @return null|Form
-     */
-    public function getFormByUuid(string $uuid)
+    public function getFormByUuid(string $uuid): ?Form
     {
         if (!isset(self::$formUuidCache[$uuid])) {
             $result = $this->getQuery()
@@ -96,12 +87,7 @@ class Forms extends BaseService
         return self::$formUuidCache[$uuid];
     }
 
-    /**
-     * @param int|string $idOrHandle
-     *
-     * @return null|Form
-     */
-    public function getFormByIdOrHandle($idOrHandle)
+    public function getFormByIdOrHandle(int|string $idOrHandle): ?Form
     {
         if (is_numeric($idOrHandle)) {
             return $this->getFormById($idOrHandle);
@@ -120,10 +106,9 @@ class Forms extends BaseService
 
             foreach ($resultItems as $result) {
                 $form = $this->createFormFromDbData($result);
-                if (null !== $form) {
-                    self::$formIdCache[$form->getId()] = $form;
-                    self::$formHandleCache[$form->getHandle()] = $form;
-                }
+
+                self::$formIdCache[$form->getId()] = $form;
+                self::$formHandleCache[$form->getHandle()] = $form;
             }
 
             self::$allFormsLoaded = true;
@@ -167,7 +152,7 @@ class Forms extends BaseService
         return $response;
     }
 
-    public function incrementSpamCount(Form $form)
+    public function incrementSpamCount(Form $form): void
     {
         $this->getDb()
             ->createCommand()
@@ -192,9 +177,6 @@ class Forms extends BaseService
         return false;
     }
 
-    /**
-     * @return \craft\db\Connection
-     */
     protected function getDb(): Connection
     {
         return \Craft::$app->getDb();
@@ -202,7 +184,7 @@ class Forms extends BaseService
 
     private function createFormFromDbData(array $data): Form
     {
-        $data['integrations'] = \GuzzleHttp\json_decode($data['integrations'] ?? '[]', true);
+        $data['integrations'] = json_decode($data['integrations'] ?? '[]', true);
 
         $form = ExpressForms::container()->formFactory()->populateFromArray(new Form(), $data);
         $this->attachSubmissionCount($form);
@@ -240,7 +222,7 @@ class Forms extends BaseService
         ;
     }
 
-    private function attachSubmissionCount(Form $form)
+    private function attachSubmissionCount(Form $form): void
     {
         $elements = Table::ELEMENTS;
         $submissions = Submission::TABLE;

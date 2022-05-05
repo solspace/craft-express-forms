@@ -13,10 +13,10 @@ use yii\base\Event;
 
 class IntegrationMappingFactory
 {
-    const EVENT_BEFORE_BUILD_FROM_ARRAY = 'beforeBuildFromArray';
-    const EVENT_AFTER_BUILD_FROM_ARRAY = 'afterBuildFromArray';
+    public const EVENT_BEFORE_BUILD_FROM_ARRAY = 'beforeBuildFromArray';
+    public const EVENT_AFTER_BUILD_FROM_ARRAY = 'afterBuildFromArray';
 
-    public function fromArray(Form $form, array $data): IntegrationMappingCollection
+    public function fromArray(Form $form, array $data): ?IntegrationMappingCollection
     {
         $event = new MappingBuildFromArrayEvent($form, $data);
         Event::trigger($this, self::EVENT_BEFORE_BUILD_FROM_ARRAY, $event);

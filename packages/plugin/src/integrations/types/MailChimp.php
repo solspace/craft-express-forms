@@ -21,17 +21,12 @@ use yii\base\Event;
 
 class MailChimp extends AbstractIntegrationType implements MailingListTypeInterface
 {
-    const FIELD_TARGET_EMAIL = 'mailchimpTargetEmail';
-    const FIELD_DOUBLE_OPT_IN = 'mailchimpOptIn';
+    public const FIELD_TARGET_EMAIL = 'mailchimpTargetEmail';
+    public const FIELD_DOUBLE_OPT_IN = 'mailchimpOptIn';
 
-    /** @var string */
-    protected $apiKey;
-
-    /** @var bool */
-    protected $doubleOptIn;
-
-    /** @var string */
-    protected $dataCenter;
+    protected ?string $apiKey = null;
+    protected ?bool $doubleOptIn = null;
+    protected ?string $dataCenter = null;
 
     public static function getSettingsManifest(): array
     {
@@ -61,16 +56,13 @@ class MailChimp extends AbstractIntegrationType implements MailingListTypeInterf
         return !empty($this->getApiKey());
     }
 
-    /**
-     * @throws ConnectionFailedException
-     */
     public function checkConnection(): bool
     {
         $client = $this->generateAuthorizedClient();
 
         try {
             $response = $client->get($this->getEndpoint('/'));
-            $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+            $json = json_decode((string) $response->getBody(), false);
 
             if (isset($json->error) && !empty($json->error)) {
                 throw new ConnectionFailedException($json->error);
@@ -82,7 +74,7 @@ class MailChimp extends AbstractIntegrationType implements MailingListTypeInterf
         }
     }
 
-    public function beforeSaveSettings()
+    public function beforeSaveSettings(): void
     {
         $this->dataCenter = null;
         if (preg_match('/-([a-zA-Z]+[\d]+)$/', $this->getApiKey(), $matches)) {
@@ -90,10 +82,7 @@ class MailChimp extends AbstractIntegrationType implements MailingListTypeInterf
         }
     }
 
-    /**
-     * @return null|string
-     */
-    public function getApiKey()
+    public function getApiKey(): ?string
     {
         return $this->apiKey;
     }
@@ -117,17 +106,11 @@ class MailChimp extends AbstractIntegrationType implements MailingListTypeInterf
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getDataCenter()
+    public function getDataCenter(): ?string
     {
         return $this->dataCenter;
     }
 
-    /**
-     * @param string $dataCenter
-     */
     public function setDataCenter(string $dataCenter = null): self
     {
         $this->dataCenter = $dataCenter;
@@ -178,7 +161,7 @@ class MailChimp extends AbstractIntegrationType implements MailingListTypeInterf
             );
         }
 
-        $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+        $json = json_decode((string) $response->getBody(), false);
 
         $lists = [];
         if (isset($json->lists)) {
@@ -214,7 +197,7 @@ class MailChimp extends AbstractIntegrationType implements MailingListTypeInterf
             throw new ConnectionFailedException($e->getMessage(), $e->getCode(), $e);
         }
 
-        $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+        $json = json_decode((string) $response->getBody(), false);
 
         $fieldList = [
             new ResourceField('Opt-in Field', 'mailchimpOptIn', 'bool', true),
@@ -304,7 +287,7 @@ class MailChimp extends AbstractIntegrationType implements MailingListTypeInterf
             return false;
         }
 
-        $jsonResponse = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+        $jsonResponse = json_decode((string) $response->getBody(), false);
         if (isset($jsonResponse->error_count) && $jsonResponse->error_count > 0) {
             $this->getLogger()->error(json_encode($jsonResponse->errors), ['response' => $jsonResponse]);
 

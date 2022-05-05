@@ -7,15 +7,8 @@ use Solspace\ExpressForms\ExpressForms;
 
 abstract class AbstractTranslatableDecorator extends AbstractDecorator
 {
-    /** @var TranslatorInterface */
-    private $translator;
-
-    /**
-     * AbstractTranslatableDecorator constructor.
-     */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     protected function translate(string $message, array $variables = []): string

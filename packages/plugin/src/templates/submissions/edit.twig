@@ -74,28 +74,30 @@
                         <label>{{ field.label }}</label>
                     </div>
                     <div class="file-preview">
-                        {% for asset in craft.assets.id(submissionValue).all if submissionValue %}
-                            {% set thumbSizes = [30, 60, 100, 200] %}
-                            {% set srcset = "" %}
-                            {%- for size in thumbSizes -%}
-                                {% set srcset = srcset ~ ", " ~ asset.thumbUrl(size) ~ " " ~ size ~ "w" %}
-                            {%- endfor -%}
-                            {% set srcset = srcset|trim(", ") %}
+                        {% if submissionValue %}
+                            {% for asset in craft.assets.id(submissionValue).all %}
+                                {% set thumbSizes = [30, 60, 100, 200] %}
+                                {% set srcset = "" %}
+                                {%- for size in thumbSizes -%}
+                                    {% set srcset = srcset ~ ", " ~ asset.thumbUrl(size) ~ " " ~ size ~ "w" %}
+                                {%- endfor -%}
+                                {% set srcset = srcset|trim(", ") %}
 
-                            <div class="element small hasthumb">
-                                <input type="hidden" name="{{ field.handle }}[]" value="{{ asset.id }}">
-                                <div class="elementthumb">
-                                    <img sizes="30px" srcset="{{ srcset }}" alt="">
+                                <div class="element small hasthumb">
+                                    <input type="hidden" name="{{ field.handle }}[]" value="{{ asset.id }}">
+                                    <div class="elementthumb">
+                                        <img sizes="30px" srcset="{{ srcset }}" alt="">
+                                    </div>
+                                    <label>
+                                        <a href="javascript:;" data-asset-id="{{ asset.id }}">
+                                            {{ asset.title }}
+                                        </a>
+                                    </label>
                                 </div>
-                                <label>
-                                    <a href="javascript:;" data-asset-id="{{ asset.id }}">
-                                        {{ asset.title }}
-                                    </a>
-                                </label>
-                            </div>
+                            {% endfor %}
                         {% else %}
                             {{ "No files uploaded"|t('express-forms') }}
-                        {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
 

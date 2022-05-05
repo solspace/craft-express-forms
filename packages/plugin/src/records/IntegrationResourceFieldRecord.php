@@ -19,7 +19,7 @@ use craft\db\ActiveRecord;
  */
 class IntegrationResourceFieldRecord extends ActiveRecord
 {
-    const TABLE = '{{%expressforms_resource_fields}}';
+    public const TABLE = '{{%expressforms_resource_fields}}';
 
     public static function tableName(): string
     {

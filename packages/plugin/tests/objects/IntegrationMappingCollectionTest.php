@@ -3,6 +3,7 @@
 namespace Solspace\Tests\ExpressForms\objects;
 
 use PHPUnit\Framework\TestCase;
+use Solspace\ExpressForms\fields\FieldInterface;
 use Solspace\ExpressForms\integrations\IntegrationMappingInterface;
 use Solspace\ExpressForms\integrations\IntegrationTypeInterface;
 use Solspace\ExpressForms\objects\Collections\IntegrationMappingCollection;
@@ -14,7 +15,7 @@ use Solspace\ExpressForms\objects\Collections\ResourceFieldCollection;
  */
 class IntegrationMappingCollectionTest extends TestCase
 {
-    private $type;
+    private ?IntegrationTypeInterface $type = null;
 
     protected function setUp(): void
     {
@@ -73,13 +74,10 @@ class IntegrationMappingCollectionTest extends TestCase
 
 class TestMapping implements IntegrationMappingInterface
 {
-    private $handle;
-    private $type;
-
-    public function __construct(string $handle, IntegrationTypeInterface $type)
-    {
-        $this->handle = $handle;
-        $this->type = $type;
+    public function __construct(
+        private string $handle,
+        private IntegrationTypeInterface $type
+    ) {
     }
 
     public function getHandle(): string
@@ -102,12 +100,12 @@ class TestMapping implements IntegrationMappingInterface
         return [];
     }
 
-    public function getField(string $mappingHandle)
+    public function getField(string $mappingHandle): ?FieldInterface
     {
         return null;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [];
     }

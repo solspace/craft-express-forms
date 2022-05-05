@@ -20,12 +20,12 @@ class ExcelExporterDecorator extends AbstractDecorator implements ExtraBundle
         ];
     }
 
-    public function registerType(RegisterExportTypesEvent $event)
+    public function registerType(RegisterExportTypesEvent $event): void
     {
         $event->addType('Excel');
     }
 
-    public function exportSubmissions(ExportSubmissionsEvent $event)
+    public function exportSubmissions(ExportSubmissionsEvent $event): void
     {
         if ('excel' !== $event->getType()) {
             return;

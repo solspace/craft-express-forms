@@ -8,36 +8,19 @@ use Solspace\ExpressForms\objects\Collections\ResourceFieldCollection;
 
 class IntegrationMapping implements IntegrationMappingInterface
 {
-    /** @var Form */
-    private $form;
-
-    /** @var IntegrationTypeInterface */
-    private $type;
-
-    /** @var string */
-    private $resourceId;
-
-    /** @var ResourceFieldCollection */
-    private $resourceFields;
-
     /** @var FieldInterface[] */
-    private $fieldMappings = [];
+    private array $fieldMappings = [];
 
     /**
      * IntegrationMapping constructor.
      */
     public function __construct(
-        Form $form,
-        IntegrationTypeInterface $type,
-        string $resourceId,
-        ResourceFieldCollection $resourceFields,
+        private Form $form,
+        private IntegrationTypeInterface $type,
+        private string $resourceId,
+        private ResourceFieldCollection $resourceFields,
         array $mappingData
     ) {
-        $this->form = $form;
-        $this->type = $type;
-        $this->resourceId = $resourceId;
-        $this->resourceFields = $resourceFields;
-
         foreach ($mappingData as $fieldName => $expressFieldUid) {
             if (null === $expressFieldUid) {
                 continue;
@@ -85,10 +68,7 @@ class IntegrationMapping implements IntegrationMappingInterface
         return $this->fieldMappings;
     }
 
-    /**
-     * @return null|FieldInterface
-     */
-    public function getField(string $mappingHandle)
+    public function getField(string $mappingHandle): ?FieldInterface
     {
         return $this->fieldMappings[$mappingHandle] ?? null;
     }
@@ -98,10 +78,7 @@ class IntegrationMapping implements IntegrationMappingInterface
         return $this->getType()->pushData($this, $postedData);
     }
 
-    /**
-     * @return array|mixed
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $fieldMap = [];
 

@@ -25,104 +25,50 @@ use yii\base\Event;
  */
 class Form
 {
-    const VALIDATION_ERROR_KEY = 'expressformsValidationErrors';
+    public const VALIDATION_ERROR_KEY = 'expressformsValidationErrors';
 
-    const EVENT_BEFORE_SUBMIT = 'beforeSubmit';
-    const EVENT_AFTER_SUBMIT = 'afterSubmit';
+    public const EVENT_BEFORE_SUBMIT = 'beforeSubmit';
+    public const EVENT_AFTER_SUBMIT = 'afterSubmit';
 
-    const EVENT_VALIDATE_FIELD = 'onFieldValidate';
-    const EVENT_VALIDATE_FORM = 'onFormValidate';
+    public const EVENT_VALIDATE_FIELD = 'onFieldValidate';
+    public const EVENT_VALIDATE_FORM = 'onFormValidate';
 
-    const EVENT_RENDER_OPENING_TAG = 'onRenderOpeningTag';
-    const EVENT_RENDER_CLOSING_TAG = 'onRenderClosingTag';
+    public const EVENT_RENDER_OPENING_TAG = 'onRenderOpeningTag';
+    public const EVENT_RENDER_CLOSING_TAG = 'onRenderClosingTag';
 
-    const EVENT_COMPILE_HTML_ATTRIBUTES = 'onCompileHtmlAttributes';
+    public const EVENT_COMPILE_HTML_ATTRIBUTES = 'onCompileHtmlAttributes';
 
-    const DEFAULT_HTML_ATTRIBUTES = [
+    public const DEFAULT_HTML_ATTRIBUTES = [
         'method' => 'post',
     ];
 
-    /** @var int */
-    private $id;
+    private ?int $id = null;
+    private ?string $uuid;
+    private ?int $fieldLayoutId = null;
+    private ?string $name = null;
+    private ?string $handle = null;
+    private ?string $description = null;
+    private ?string $color;
+    private ?string $submissionTitle = '{{ dateCreated|date("Y-m-d H:i:s") }}';
+    private ?bool $saveSubmissions = null;
+    private ?string $adminNotification = null;
+    private ?string $adminEmails = null;
+    private ?string $submitterNotification = null;
+    private ?string $submitterEmailField = null;
+    private ?IntegrationMappingCollection $integrations = null;
+    private ?int $spamCount = 0;
+    private ?int $submissionCount = 0;
+    private ?FieldCollection $fields = null;
+    private ?bool $submitted = false;
+    private ?bool $valid = true;
+    private ?bool $success = false;
+    private ParameterBag $parameters;
+    private ParameterBag $htmlAttributes;
+    private ?array $errors = [];
+    private ?bool $markedAsSpam = false;
+    private ?bool $skipped = false;
+    private ParameterBag $extraParameters;
 
-    /** @var string */
-    private $uuid;
-
-    /** @var int */
-    private $fieldLayoutId;
-
-    /** @var string */
-    private $name;
-
-    /** @var string */
-    private $handle;
-
-    /** @var string */
-    private $description;
-
-    /** @var string */
-    private $color;
-
-    /** @var string */
-    private $submissionTitle = '{{ dateCreated|date("Y-m-d H:i:s") }}';
-
-    /** @var bool */
-    private $saveSubmissions;
-
-    /** @var string */
-    private $adminNotification;
-
-    /** @var string */
-    private $adminEmails;
-
-    /** @var string */
-    private $submitterNotification;
-
-    /** @var string[] */
-    private $submitterEmailField;
-
-    /** @var IntegrationMappingCollection */
-    private $integrations;
-
-    /** @var int */
-    private $spamCount = 0;
-
-    /** @var int */
-    private $submissionCount = 0;
-
-    /** @var FieldCollection */
-    private $fields;
-
-    /** @var bool */
-    private $submitted = false;
-
-    /** @var bool */
-    private $valid = true;
-
-    /** @var bool */
-    private $success = false;
-
-    /** @var ParameterBag */
-    private $parameters;
-
-    /** @var ParameterBag */
-    private $htmlAttributes;
-
-    /** @var array */
-    private $errors = [];
-
-    /** @var bool */
-    private $markedAsSpam = false;
-
-    /** @var bool */
-    private $skipped = false;
-
-    /** @var ParameterBag */
-    private $extraParameters;
-
-    /**
-     * Form constructor.
-     */
     public function __construct()
     {
         $this->uuid = \craft\helpers\StringHelper::UUID();
@@ -137,36 +83,24 @@ class Form
         return $this->getExtraParameters()->has($name);
     }
 
-    /**
-     * @return mixed
-     */
     public function __get(string $name)
     {
         return $this->getExtraParameters()->get($name);
     }
 
-    /**
-     * @return null|int
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
-    public function setId(int $id = null): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getUuid()
+    public function getUuid(): ?string
     {
         return $this->uuid;
     }
@@ -178,28 +112,19 @@ class Form
         return $this;
     }
 
-    /**
-     * @return null|int
-     */
-    public function getFieldLayoutId()
+    public function getFieldLayoutId(): ?int
     {
         return $this->fieldLayoutId;
     }
 
-    /**
-     * @param int $fieldLayoutId
-     */
-    public function setFieldLayoutId(int $fieldLayoutId = null): self
+    public function setFieldLayoutId(?int $fieldLayoutId): self
     {
         $this->fieldLayoutId = $fieldLayoutId;
 
         return $this;
     }
 
-    /**
-     * @return null|FieldLayout
-     */
-    public function getFieldLayout()
+    public function getFieldLayout(): ?FieldLayout
     {
         if (!$this->getFieldLayoutId()) {
             return null;
@@ -208,90 +133,60 @@ class Form
         return \Craft::$app->fields->getLayoutById($this->getFieldLayoutId());
     }
 
-    /**
-     * @return null|string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name = null): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getHandle()
+    public function getHandle(): ?string
     {
         return $this->handle;
     }
 
-    /**
-     * @param string $handle
-     */
-    public function setHandle(string $handle = null): self
+    public function setHandle(?string $handle): self
     {
         $this->handle = $handle;
 
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description = null): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getColor()
+    public function getColor(): ?string
     {
         return $this->color;
     }
 
-    /**
-     * @param string $color
-     */
-    public function setColor(string $color = null): self
+    public function setColor(?string $color): self
     {
         $this->color = $color;
 
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getSubmissionTitle()
+    public function getSubmissionTitle(): ?string
     {
         return $this->submissionTitle;
     }
 
-    /**
-     * @param string $submissionTitle
-     */
-    public function setSubmissionTitle(string $submissionTitle = null): self
+    public function setSubmissionTitle(?string $submissionTitle): self
     {
         $this->submissionTitle = $submissionTitle;
 
@@ -310,48 +205,31 @@ class Form
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getAdminNotification()
+    public function getAdminNotification(): ?string
     {
         return $this->adminNotification;
     }
 
-    /**
-     * @param string $adminNotification
-     */
-    public function setAdminNotification(string $adminNotification = null): self
+    public function setAdminNotification(?string $adminNotification): self
     {
         $this->adminNotification = $adminNotification;
 
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getAdminEmails()
+    public function getAdminEmails(): ?string
     {
         return $this->adminEmails;
     }
 
-    /**
-     * @param string $emails
-     *
-     * @return $this
-     */
-    public function setAdminEmails(string $emails = null): self
+    public function setAdminEmails(?string $emails): self
     {
         $this->adminEmails = $emails;
 
         return $this;
     }
 
-    /**
-     * @param string $adminEmail
-     */
-    public function addAdminEmail($adminEmail = null): self
+    public function addAdminEmail(?string $adminEmail): self
     {
         if (null !== $adminEmail) {
             $this->adminEmails = $this->adminEmails."\n".$adminEmail;
@@ -360,36 +238,24 @@ class Form
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getSubmitterNotification()
+    public function getSubmitterNotification(): ?string
     {
         return $this->submitterNotification;
     }
 
-    /**
-     * @param string $submitterNotification
-     */
-    public function setSubmitterNotification(string $submitterNotification = null): self
+    public function setSubmitterNotification(?string $submitterNotification): self
     {
         $this->submitterNotification = $submitterNotification;
 
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getSubmitterEmailField()
+    public function getSubmitterEmailField(): array|string|null
     {
         return $this->submitterEmailField;
     }
 
-    /**
-     * @param string $submitterEmailField
-     */
-    public function setSubmitterEmailField(string $submitterEmailField = null): self
+    public function setSubmitterEmailField(?string $submitterEmailField): self
     {
         $this->submitterEmailField = $submitterEmailField;
 
@@ -404,10 +270,7 @@ class Form
         return $this->integrations ?? new IntegrationMappingCollection();
     }
 
-    /**
-     * @return $this
-     */
-    public function setIntegrations(IntegrationMappingCollection $collection): self
+    public function setIntegrations(?IntegrationMappingCollection $collection): self
     {
         $this->integrations = $collection;
 
@@ -448,7 +311,7 @@ class Form
             $this->fields = new FieldCollection();
 
             if ($layout) {
-                foreach ($layout->getFields() as $field) {
+                foreach ($layout->getCustomFields() as $field) {
                     if ($field instanceof FieldInterface) {
                         $this->fields->addField($field);
                     }
@@ -459,10 +322,7 @@ class Form
         return $this->fields;
     }
 
-    /**
-     * @param FieldInterface $field
-     */
-    public function addField(FieldInterface $field = null): self
+    public function addField(?FieldInterface $field): self
     {
         if (null !== $field) {
             $this->getFields()->addField($field);
@@ -545,10 +405,7 @@ class Form
         return new Markup($event->getOutput(), 'utf-8');
     }
 
-    /**
-     * @throws FormAlreadySubmittedException
-     */
-    public function submit(array $submittedData)
+    public function submit(array $submittedData): void
     {
         if ($this->submitted) {
             throw new FormAlreadySubmittedException('Form has already been submitted');
@@ -633,7 +490,7 @@ class Form
         return $this;
     }
 
-    private function parseConfig(array $config)
+    private function parseConfig(array $config): void
     {
         if (isset($config['attributes'])) {
             $this->getHtmlAttributes()->merge($config['attributes']);

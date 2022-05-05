@@ -4,12 +4,7 @@ namespace Solspace\ExpressForms\objects\Export;
 
 class AssetField extends ArrayField
 {
-    /**
-     * @param mixed $value
-     *
-     * @return null|array
-     */
-    public function transformValue($value)
+    public function transformValue(mixed $value): ?array
     {
         $values = parent::transformValue($value);
 

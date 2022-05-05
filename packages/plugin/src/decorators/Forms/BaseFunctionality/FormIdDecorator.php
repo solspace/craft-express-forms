@@ -11,11 +11,11 @@ class FormIdDecorator extends AbstractDecorator
     public function getEventListenerList(): array
     {
         return [
-            [Form:: class, Form::EVENT_RENDER_OPENING_TAG, [$this, 'attachFormIdInput']],
+            [Form::class, Form::EVENT_RENDER_OPENING_TAG, [$this, 'attachFormIdInput']],
         ];
     }
 
-    public function attachFormIdInput(FormRenderTagEvent $event)
+    public function attachFormIdInput(FormRenderTagEvent $event): void
     {
         $output = '<input type="hidden" name="formId" value="'.$event->getForm()->getUuid().'" />';
 

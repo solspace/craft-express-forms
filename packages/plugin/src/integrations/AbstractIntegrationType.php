@@ -8,15 +8,10 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 abstract class AbstractIntegrationType implements IntegrationTypeInterface
 {
-    /** @var LoggerInterface */
-    private static $logger;
+    private static ?LoggerInterface $logger = null;
 
-    /** @var bool */
-    private $markedForUpdate = false;
+    private bool $markedForUpdate = false;
 
-    /**
-     * AbstractIntegrationType constructor.
-     */
     public function __construct(array $settings = [])
     {
         $propertyAccess = PropertyAccess::createPropertyAccessor();
@@ -30,21 +25,21 @@ abstract class AbstractIntegrationType implements IntegrationTypeInterface
     /**
      * Do something before settings are rendered.
      */
-    public function beforeRenderUpdate()
+    public function beforeRenderUpdate(): void
     {
     }
 
     /**
      * Do something before settings are saved.
      */
-    public function beforeSaveSettings()
+    public function beforeSaveSettings(): void
     {
     }
 
     /**
      * Do something after settings are saved.
      */
-    public function afterSaveSettings()
+    public function afterSaveSettings(): void
     {
     }
 
@@ -53,9 +48,6 @@ abstract class AbstractIntegrationType implements IntegrationTypeInterface
         return $this->markedForUpdate;
     }
 
-    /**
-     * @return $this
-     */
     public function markForUpdate(): self
     {
         $this->markedForUpdate = true;
@@ -63,10 +55,7 @@ abstract class AbstractIntegrationType implements IntegrationTypeInterface
         return $this;
     }
 
-    /**
-     * @return array|mixed
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'name' => $this->getName(),

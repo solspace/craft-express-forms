@@ -20,12 +20,12 @@ class GeneralSettingsDecorator extends AbstractDecorator
         ];
     }
 
-    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event)
+    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event): void
     {
         $event->addItem('General');
     }
 
-    public function renderSettings(RenderSettingsEvent $event)
+    public function renderSettings(RenderSettingsEvent $event): void
     {
         if ('general' !== $event->getSelectedItem()) {
             return;
@@ -40,7 +40,7 @@ class GeneralSettingsDecorator extends AbstractDecorator
         );
     }
 
-    public function storeSettings(SaveSettingsEvent $event)
+    public function storeSettings(SaveSettingsEvent $event): void
     {
         $post = Craft::$app->getRequest()->post('general');
 

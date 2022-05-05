@@ -12,17 +12,10 @@ use Solspace\ExpressForms\providers\Session\FlashBagProviderInterface;
 
 class SubmitFlashMessageDecorator extends AbstractDecorator
 {
-    const FORM_SUCCESSFUL_SUBMIT_KEY = 'submittedSuccessfully';
+    public const FORM_SUCCESSFUL_SUBMIT_KEY = 'submittedSuccessfully';
 
-    /** @var FlashBagProviderInterface */
-    private $flashBag;
-
-    /**
-     * SubmitFlashMessageDecorator constructor.
-     */
-    public function __construct(FlashBagProviderInterface $flashBag)
+    public function __construct(private FlashBagProviderInterface $flashBag)
     {
-        $this->flashBag = $flashBag;
     }
 
     public function getEventListenerList(): array
@@ -33,7 +26,7 @@ class SubmitFlashMessageDecorator extends AbstractDecorator
         ];
     }
 
-    public function attachParameterToForm(FormBuildFromArrayEvent $event)
+    public function attachParameterToForm(FormBuildFromArrayEvent $event): void
     {
         try {
             $isSubmittedSuccessfully = $this->flashBag->get($this->getFlashBagKey($event->getForm()), false);
@@ -44,7 +37,7 @@ class SubmitFlashMessageDecorator extends AbstractDecorator
         $event->getForm()->getExtraParameters()->add(self::FORM_SUCCESSFUL_SUBMIT_KEY, $isSubmittedSuccessfully);
     }
 
-    public function setFlashVariable(FormCompletedEvent $event)
+    public function setFlashVariable(FormCompletedEvent $event): void
     {
         $this->flashBag->set($this->getFlashBagKey($event->getForm()), true);
     }

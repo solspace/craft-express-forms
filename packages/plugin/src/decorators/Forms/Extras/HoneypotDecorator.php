@@ -47,12 +47,12 @@ class HoneypotDecorator extends AbstractDecorator
         ];
     }
 
-    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event)
+    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event): void
     {
         $event->addItem('Spam');
     }
 
-    public function renderSettings(RenderSettingsEvent $event)
+    public function renderSettings(RenderSettingsEvent $event): void
     {
         if ('spam' !== $event->getSelectedItem()) {
             return;
@@ -67,7 +67,7 @@ class HoneypotDecorator extends AbstractDecorator
         );
     }
 
-    public function storeSettings(SaveSettingsEvent $event)
+    public function storeSettings(SaveSettingsEvent $event): void
     {
         $post = Craft::$app->getRequest()->post('honeypot');
 
@@ -82,7 +82,7 @@ class HoneypotDecorator extends AbstractDecorator
         }
     }
 
-    public function attachHoneypotToFormTag(FormRenderTagEvent $event)
+    public function attachHoneypotToFormTag(FormRenderTagEvent $event): void
     {
         $settings = $this->settings->get();
         if (!$settings->honeypotEnabled) {
@@ -109,7 +109,7 @@ class HoneypotDecorator extends AbstractDecorator
         $event->appendToOutput($output);
     }
 
-    public function validateHoneypot(FormValidateEvent $event)
+    public function validateHoneypot(FormValidateEvent $event): void
     {
         $settings = $this->settings->get();
         if (!$settings->honeypotEnabled) {
@@ -130,7 +130,7 @@ class HoneypotDecorator extends AbstractDecorator
         }
     }
 
-    public function redirectForm(FormRedirectEvent $event)
+    public function redirectForm(FormRedirectEvent $event): void
     {
         $settings = $this->settings->get();
         if (!$settings->honeypotEnabled || Honeypot::BEHAVIOUR_RELOAD_FORM !== $settings->honeypotBehaviour) {

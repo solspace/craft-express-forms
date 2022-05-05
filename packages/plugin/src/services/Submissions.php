@@ -13,21 +13,16 @@ use Solspace\ExpressForms\models\Form;
 
 class Submissions extends BaseService
 {
-    const EVENT_BEFORE_BUILD_SUBMISSION_TITLE = 'beforeBuildSubmissionTitle';
-    const EVENT_AFTER_BUILD_SUBMISSION = 'afterBuildSubmission';
-    const EVENT_BEFORE_SAVE_SUBMISSION = 'beforeSaveSubmission';
-    const EVENT_AFTER_SAVE_SUBMISSION = 'afterSaveSubmission';
+    public const EVENT_BEFORE_BUILD_SUBMISSION_TITLE = 'beforeBuildSubmissionTitle';
+    public const EVENT_AFTER_BUILD_SUBMISSION = 'afterBuildSubmission';
+    public const EVENT_BEFORE_SAVE_SUBMISSION = 'beforeSaveSubmission';
+    public const EVENT_AFTER_SAVE_SUBMISSION = 'afterSaveSubmission';
 
     /** @var Submission[] */
     private static $submissionCache = [];
     private static $submissionsByFormId = [];
 
-    /**
-     * @param int $id
-     *
-     * @return null|Submission
-     */
-    public function getSubmissionById(int $id = null)
+    public function getSubmissionById(?int $id): ?Submission
     {
         if (!isset(self::$submissionCache[$id])) {
             self::$submissionCache[$id] = Submission::find()->id($id)->one();

@@ -12,23 +12,14 @@ use Solspace\ExpressForms\providers\Mailing\EmailNotificationsProviderInterface;
 
 class DynamicRecipientsDecorator extends AbstractDecorator
 {
-    const DYNAMIC_RECIPIENTS_KEY = 'dynamicRecipients';
+    public const DYNAMIC_RECIPIENTS_KEY = 'dynamicRecipients';
 
-    const LOG_CATEGORY = 'Dynamic Recipients';
+    public const LOG_CATEGORY = 'Dynamic Recipients';
 
-    /** @var LoggerProviderInterface */
-    private $logger;
-
-    /** @var EmailNotificationsProviderInterface */
-    private $notifications;
-
-    /**
-     * ReturnUrlExpressFormDecorator constructor.
-     */
-    public function __construct(LoggerProviderInterface $logger, EmailNotificationsProviderInterface $notifications)
-    {
-        $this->logger = $logger;
-        $this->notifications = $notifications;
+    public function __construct(
+        private LoggerProviderInterface $logger,
+        private EmailNotificationsProviderInterface $notifications
+    ) {
     }
 
     public function getEventListenerList(): array
@@ -38,7 +29,7 @@ class DynamicRecipientsDecorator extends AbstractDecorator
         ];
     }
 
-    public function sendEmails(FormCompletedEvent $event)
+    public function sendEmails(FormCompletedEvent $event): void
     {
         $form = $event->getForm();
         if ($form->isMarkedAsSpam() || $form->isSkipped()) {

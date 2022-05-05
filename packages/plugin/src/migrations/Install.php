@@ -32,6 +32,7 @@ class Install extends StreamlinedInstallMigration
                 ->addIndex(['sortOrder'])
                 ->addIndex(['handle'], true)
                 ->addForeignKey('fieldLayoutId', 'fieldlayouts', 'id', ForeignKey::CASCADE),
+
             (new Table('expressforms_submissions'))
                 ->addField('id', $this->primaryKey())
                 ->addField('formId', $this->integer()->notNull())
@@ -39,6 +40,7 @@ class Install extends StreamlinedInstallMigration
                 ->addIndex(['incrementalId'], true)
                 ->addForeignKey('id', 'elements', 'id', ForeignKey::CASCADE)
                 ->addForeignKey('formId', 'expressforms_forms', 'id', ForeignKey::CASCADE),
+
             (new Table('expressforms_resources'))
                 ->addField('id', $this->primaryKey())
                 ->addField('typeClass', $this->string()->notNull())
@@ -48,6 +50,7 @@ class Install extends StreamlinedInstallMigration
                 ->addField('sortOrder', $this->integer()->notNull()->defaultValue(0))
                 ->addIndex(['sortOrder'])
                 ->addIndex(['typeClass', 'handle'], true),
+
             (new Table('expressforms_resource_fields'))
                 ->addField('id', $this->primaryKey())
                 ->addField('resourceId', $this->integer()->notNull())

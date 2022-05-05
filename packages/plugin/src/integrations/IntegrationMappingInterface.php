@@ -20,10 +20,7 @@ interface IntegrationMappingInterface extends \JsonSerializable
      */
     public function getFieldMappings(): array;
 
-    /**
-     * @return null|FieldInterface
-     */
-    public function getField(string $mappingHandle);
+    public function getField(string $mappingHandle): ?FieldInterface;
 
     public function pushData(array $postedData): bool;
 }

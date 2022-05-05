@@ -15,7 +15,7 @@ class CsrfFormDecorator extends AbstractDecorator
         ];
     }
 
-    public function attachCsrfTokenToForm(FormRenderTagEvent $event)
+    public function attachCsrfTokenToForm(FormRenderTagEvent $event): void
     {
         if (\Craft::$app->config->general->enableCsrfProtection) {
             $csrfTokenName = \Craft::$app->config->general->csrfTokenName;

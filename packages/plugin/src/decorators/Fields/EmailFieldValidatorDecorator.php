@@ -16,7 +16,7 @@ class EmailFieldValidatorDecorator extends AbstractTranslatableDecorator
         ];
     }
 
-    public function validateEmailField(FieldValidateEvent $event)
+    public function validateEmailField(FieldValidateEvent $event): void
     {
         $field = $event->getField();
 

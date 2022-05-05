@@ -6,31 +6,17 @@ use Solspace\ExpressForms\models\Form;
 
 class FormSerializer
 {
-    /** @var FieldSerializer */
-    private $fieldSerializer;
-
-    /**
-     * FormSerializer constructor.
-     */
-    public function __construct(FieldSerializer $fieldSerializer)
+    public function __construct(private FieldSerializer $fieldSerializer)
     {
-        $this->fieldSerializer = $fieldSerializer;
     }
 
     public function toJson(Form $form): string
     {
-        return \GuzzleHttp\json_encode($this->toArray($form));
+        return json_encode($this->toArray($form));
     }
 
-    /**
-     * @return null|array
-     */
-    public function toArray(Form $form)
+    public function toArray(Form $form): array
     {
-        if (null === $form) {
-            return null;
-        }
-
         $serialziedFields = [];
         foreach ($form->getFields() as $field) {
             $serialziedFields[] = $this->fieldSerializer->toArray($field);

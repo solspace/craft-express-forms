@@ -15,7 +15,7 @@ class DefaultActionDecorator extends AbstractDecorator
         ];
     }
 
-    public function attachDefaultActionInput(FormRenderTagEvent $event)
+    public function attachDefaultActionInput(FormRenderTagEvent $event): void
     {
         if (!$event->getForm()->getHtmlAttributes()->get('action')) {
             $output = '<input type="hidden" name="action" value="express-forms/submit" />';

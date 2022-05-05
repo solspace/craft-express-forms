@@ -11,8 +11,5 @@ interface IntegrationTypeProviderInterface
      */
     public function getIntegrationTypes(): array;
 
-    /**
-     * @return null|IntegrationTypeInterface
-     */
-    public function getIntegrationByClass(string $class);
+    public function getIntegrationByClass(string $class): ?IntegrationTypeInterface;
 }

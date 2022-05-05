@@ -19,10 +19,9 @@ use yii\base\Event;
 
 class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
 {
-    const RESOURCE_DEAL_COMPANY_CONTACT = 'deal_company_contact';
+    public const RESOURCE_DEAL_COMPANY_CONTACT = 'deal_company_contact';
 
-    /** @var string */
-    protected $apiKey;
+    protected ?string $apiKey = null;
 
     public static function getSettingsManifest(): array
     {
@@ -58,7 +57,7 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
 
         try {
             $response = $client->get($endpoint);
-            $json = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+            $json = json_decode((string) $response->getBody(), true);
 
             return isset($json['contacts']);
         } catch (RequestException $e) {
@@ -66,10 +65,7 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
         }
     }
 
-    /**
-     * @return null|string
-     */
-    public function getApiKey()
+    public function getApiKey(): ?string
     {
         return $this->apiKey;
     }
@@ -103,12 +99,7 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
         return $event->getResourceList();
     }
 
-    /**
-     * @param int|string $resourceId
-     *
-     * @return ResourceField[]
-     */
-    public function fetchResourceFields($resourceId): array
+    public function fetchResourceFields(int|string $resourceId): array
     {
         $fieldList = [];
 
@@ -198,7 +189,7 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
                     ['json' => ['properties' => $contactProps]]
                 );
 
-                $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+                $json = json_decode((string) $response->getBody(), false);
                 if (isset($json->vid)) {
                     $contactId = $json->vid;
                 }
@@ -206,7 +197,7 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
                 Event::trigger($this, self::EVENT_AFTER_RESPONSE, new PushResponseEvent($response));
             } catch (RequestException $e) {
                 if ($e->getResponse()) {
-                    $json = \GuzzleHttp\json_decode((string) $e->getResponse()->getBody(), false);
+                    $json = json_decode((string) $e->getResponse()->getBody(), false);
                     if (isset($json->error, $json->identityProfile) && 'CONTACT_EXISTS' === $json->error) {
                         $contactId = $json->identityProfile->vid;
                     } else {
@@ -228,7 +219,7 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
                     ['json' => ['properties' => $companyProps]]
                 );
 
-                $json = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+                $json = json_decode((string) $response->getBody(), false);
                 if (isset($json->companyId)) {
                     $companyId = $json->companyId;
                 }
@@ -276,12 +267,12 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
         return new Client(['query' => ['hapikey' => $this->getApiKey()]]);
     }
 
-    private function extractCustomFields(string $endpoint, string $dataType, array &$fieldList)
+    private function extractCustomFields(string $endpoint, string $dataType, array &$fieldList): void
     {
         $client = $this->generateAuthorizedClient();
         $response = $client->get($this->getEndpoint($endpoint));
 
-        $data = \GuzzleHttp\json_decode((string) $response->getBody(), false);
+        $data = json_decode((string) $response->getBody(), false);
 
         foreach ($data as $field) {
             if (

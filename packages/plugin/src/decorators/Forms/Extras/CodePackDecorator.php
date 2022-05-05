@@ -23,9 +23,9 @@ use Solspace\ExpressForms\utilities\CodePack\CodePack;
 
 class CodePackDecorator extends AbstractDecorator
 {
-    const FLASH_VAR_KEY = 'code_pack_prefix';
-    const DEMO_FORM_HANDLE = 'express-forms-demo';
-    const DEMO_EMAIL_NOTIFICATION = 'express_forms_demo_notification.twig';
+    public const FLASH_VAR_KEY = 'code_pack_prefix';
+    public const DEMO_FORM_HANDLE = 'express-forms-demo';
+    public const DEMO_EMAIL_NOTIFICATION = 'express_forms_demo_notification.twig';
 
     public function getEventListenerList(): array
     {
@@ -36,12 +36,12 @@ class CodePackDecorator extends AbstractDecorator
         ];
     }
 
-    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event)
+    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event): void
     {
         $event->addItem('Demo');
     }
 
-    public function renderSettings(RenderSettingsEvent $event)
+    public function renderSettings(RenderSettingsEvent $event): void
     {
         if ('demo' !== $event->getSelectedItem()) {
             return;
@@ -78,7 +78,7 @@ class CodePackDecorator extends AbstractDecorator
         }
     }
 
-    public function storeSettings(SaveSettingsEvent $event)
+    public function storeSettings(SaveSettingsEvent $event): void
     {
         $post = Craft::$app->getRequest()->post('codePack');
 
@@ -97,7 +97,7 @@ class CodePackDecorator extends AbstractDecorator
         }
     }
 
-    public function installEmailNotifications(string $prefix)
+    public function installEmailNotifications(string $prefix): void
     {
         $templateName = self::DEMO_EMAIL_NOTIFICATION;
 
@@ -118,7 +118,7 @@ class CodePackDecorator extends AbstractDecorator
         $notification->writeToFile($path.'/'.$templateName);
     }
 
-    private function installDemoForm()
+    private function installDemoForm(): void
     {
         $oldForm = ExpressForms::getInstance()->forms->getFormByHandle(self::DEMO_FORM_HANDLE);
         if ($oldForm) {

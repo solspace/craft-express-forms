@@ -17,8 +17,8 @@ use yii\web\Response;
 
 class EmailNotificationsController extends Controller
 {
-    const EVENT_BEFORE_SAVE_NOTIFICATION = 'beforeSaveNotification';
-    const EVENT_AFTER_SAVE_NOTIFICATION = 'afterSaveNotification';
+    public const EVENT_BEFORE_SAVE_NOTIFICATION = 'beforeSaveNotification';
+    public const EVENT_AFTER_SAVE_NOTIFICATION = 'afterSaveNotification';
 
     public function actionEdit(string $fileName): Response
     {

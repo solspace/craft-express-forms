@@ -4,20 +4,9 @@ namespace Solspace\ExpressForms\providers\Session;
 
 interface SessionProviderInterface
 {
-    /**
-     * @param null $defaultValue
-     *
-     * @return mixed
-     */
-    public function get(string $key, $defaultValue = null);
+    public function get(string $key, mixed $defaultValue = null): mixed;
 
-    /**
-     * @param mixed $value
-     */
-    public function set(string $key, $value): self;
+    public function set(string $key, mixed $value): self;
 
-    /**
-     * @return mixed
-     */
-    public function remove(string $key);
+    public function remove(string $key): mixed;
 }

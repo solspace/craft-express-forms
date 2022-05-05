@@ -2,7 +2,6 @@
 
 namespace Solspace\ExpressForms\services;
 
-use Solspace\ExpressForms\elements\Submission;
 use Solspace\ExpressForms\events\export\ExportSubmissionsEvent;
 use Solspace\ExpressForms\events\export\RegisterExportTypesEvent;
 use Solspace\ExpressForms\models\Form;
@@ -10,11 +9,10 @@ use yii\web\Response;
 
 class Export extends BaseService
 {
-    const EVENT_REGISTER_EXPORT_TYPES = 'registerExportTypes';
-    const EVENT_EXPORT_SUBMISSIONS = 'exportSubmissions';
+    public const EVENT_REGISTER_EXPORT_TYPES = 'registerExportTypes';
+    public const EVENT_EXPORT_SUBMISSIONS = 'exportSubmissions';
 
-    /** @var array */
-    private $types;
+    private ?array $types = null;
 
     public function getExportTypes(): array
     {
@@ -28,9 +26,6 @@ class Export extends BaseService
         return $this->types;
     }
 
-    /**
-     * @param Submission[] $submissions
-     */
     public function exportSubmissions(string $type, Form $form, array $submissions, Response $response): Response
     {
         $this->trigger(

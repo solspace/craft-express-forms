@@ -10,13 +10,12 @@ use Solspace\ExpressForms\models\Settings as SettingsModel;
 
 class Settings extends BaseService
 {
-    const EVENT_BEFORE_SAVE_SETTINGS = 'beforeSaveSettings';
-    const EVENT_AFTER_SAVE_SETTINGS = 'afterSaveSettings';
-    const EVENT_REGISTER_SETTING_SIDEBAR_ITEMS = 'registerSettingSidebarItems';
-    const EVENT_RENDER_SETTINGS = 'renderSettings';
+    public const EVENT_BEFORE_SAVE_SETTINGS = 'beforeSaveSettings';
+    public const EVENT_AFTER_SAVE_SETTINGS = 'afterSaveSettings';
+    public const EVENT_REGISTER_SETTING_SIDEBAR_ITEMS = 'registerSettingSidebarItems';
+    public const EVENT_RENDER_SETTINGS = 'renderSettings';
 
-    /** @var array */
-    private $sidebarItems;
+    private ?array $sidebarItems = null;
 
     public function getSettingsModel(): SettingsModel
     {

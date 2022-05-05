@@ -22,14 +22,14 @@ class ErrorLogDecorator extends AbstractDecorator
         ];
     }
 
-    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event)
+    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event): void
     {
         $count = $this->getLogReader()->count();
         $event->addItem('General', 'general', 0);
         $event->addItem("Error Log ({$count})", 'error-log');
     }
 
-    public function renderSettings(RenderSettingsEvent $event)
+    public function renderSettings(RenderSettingsEvent $event): void
     {
         if ('error-log' === $event->getSelectedItem()) {
             $event->setAllowViewingWithoutAdminChanges(true);
@@ -61,7 +61,7 @@ class ErrorLogDecorator extends AbstractDecorator
         }
     }
 
-    public function storeSettings(SaveSettingsEvent $event)
+    public function storeSettings(SaveSettingsEvent $event): void
     {
         $post = Craft::$app->getRequest()->post('general');
 

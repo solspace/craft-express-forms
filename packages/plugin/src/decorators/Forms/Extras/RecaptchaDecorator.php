@@ -22,25 +22,13 @@ use Solspace\ExpressForms\services\Settings;
 
 class RecaptchaDecorator extends AbstractTranslatableDecorator
 {
-    const FORM_RECAPTCHA_KEY = 'recaptcha';
+    public const FORM_RECAPTCHA_KEY = 'recaptcha';
 
-    /** @var RequestProviderInterface */
-    private $request;
-
-    /** @var SettingsProviderInterface */
-    private $settings;
-
-    /**
-     * RecaptchaDecorator constructor.
-     */
     public function __construct(
-        RequestProviderInterface $request,
-        SettingsProviderInterface $settings,
+        private RequestProviderInterface $request,
+        private SettingsProviderInterface $settings,
         TranslatorInterface $translator
     ) {
-        $this->request = $request;
-        $this->settings = $settings;
-
         parent::__construct($translator);
     }
 
@@ -56,12 +44,12 @@ class RecaptchaDecorator extends AbstractTranslatableDecorator
         ];
     }
 
-    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event)
+    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event): void
     {
         $event->addItem('Spam');
     }
 
-    public function renderSettings(RenderSettingsEvent $event)
+    public function renderSettings(RenderSettingsEvent $event): void
     {
         if ('spam' !== $event->getSelectedItem()) {
             return;
@@ -76,7 +64,7 @@ class RecaptchaDecorator extends AbstractTranslatableDecorator
         );
     }
 
-    public function storeSettings(SaveSettingsEvent $event)
+    public function storeSettings(SaveSettingsEvent $event): void
     {
         $post = Craft::$app->getRequest()->post('recaptcha');
 
@@ -89,7 +77,7 @@ class RecaptchaDecorator extends AbstractTranslatableDecorator
         }
     }
 
-    public function attachRecaptchaToForm(FormBuildFromArrayEvent $event)
+    public function attachRecaptchaToForm(FormBuildFromArrayEvent $event): void
     {
         $key = $this->isRecaptchaEnabled() ? $this->getSettings()->recaptchaSiteKey : null;
         $theme = $this->isRecaptchaEnabled() ? $this->getSettings()->recaptchaTheme : null;
@@ -97,7 +85,7 @@ class RecaptchaDecorator extends AbstractTranslatableDecorator
         $event->getForm()->getExtraParameters()->add(self::FORM_RECAPTCHA_KEY, new Recaptcha($key, $theme));
     }
 
-    public function addRecaptchaScript(FormRenderTagEvent $event)
+    public function addRecaptchaScript(FormRenderTagEvent $event): void
     {
         $settings = $this->getSettings();
         if ($settings->recaptchaEnabled && $settings->recaptchaLoadScript) {
@@ -112,7 +100,7 @@ class RecaptchaDecorator extends AbstractTranslatableDecorator
         }
     }
 
-    public function validateRecaptcha(FormValidateEvent $event)
+    public function validateRecaptcha(FormValidateEvent $event): void
     {
         $settings = $this->getSettings();
         $form = $event->getForm();

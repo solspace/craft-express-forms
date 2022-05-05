@@ -8,30 +8,27 @@ use Solspace\ExpressForms\utilities\Path;
 
 class Settings extends Model
 {
-    const DEFAULT_CATEGORY_NAME = 'Default';
+    public const DEFAULT_CATEGORY_NAME = 'Default';
 
-    public $name;
-    public $enhancedUI = true;
-    public $showErrorLogBanner = true;
+    public ?string $name = null;
+    public bool $enhancedUI = true;
+    public bool $showErrorLogBanner = true;
 
-    public $honeypotEnabled = false;
-    public $honeypotBehaviour = Honeypot::BEHAVIOUR_SIMULATE_SUCCESS;
-    public $honeypotInputName = 'form_handler';
+    public bool $honeypotEnabled = false;
+    public string $honeypotBehaviour = Honeypot::BEHAVIOUR_SIMULATE_SUCCESS;
+    public string $honeypotInputName = 'form_handler';
 
-    public $recaptchaEnabled = false;
-    public $recaptchaLoadScript = true;
-    public $recaptchaSiteKey;
-    public $recaptchaSecretKey;
-    public $recaptchaTheme = 'light';
+    public bool $recaptchaEnabled = false;
+    public bool $recaptchaLoadScript = true;
+    public ?string $recaptchaSiteKey = null;
+    public ?string $recaptchaSecretKey = null;
+    public string $recaptchaTheme = 'light';
 
-    public $emailNotificationsDirectoryPath;
+    public ?string $emailNotificationsDirectoryPath = null;
 
-    public $duplicatePreventionEnabled = true;
+    public bool $duplicatePreventionEnabled = true;
 
-    /**
-     * @return null|string
-     */
-    public function getEmailNotificationsPath()
+    public function getEmailNotificationsPath(): ?string
     {
         if (!$this->emailNotificationsDirectoryPath) {
             return null;

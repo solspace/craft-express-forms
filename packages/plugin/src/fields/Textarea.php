@@ -11,9 +11,6 @@ class Textarea extends BaseField
         return self::TYPE_TEXTAREA;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getContentColumnType(): string
     {
         return Schema::TYPE_TEXT;

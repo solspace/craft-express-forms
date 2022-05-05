@@ -8,12 +8,9 @@ use Traversable;
 class ResourceFieldCollection implements \IteratorAggregate, \ArrayAccess
 {
     /** @var ResourceField[] */
-    private $fields = [];
+    private array $fields = [];
 
-    /**
-     * @return null|ResourceField
-     */
-    public function get(string $identificator)
+    public function get(string $identificator): ?ResourceField
     {
         return $this->fields[$identificator] ?? null;
     }
@@ -34,25 +31,22 @@ class ResourceFieldCollection implements \IteratorAggregate, \ArrayAccess
         return $this->fields;
     }
 
-    /**
-     * @return \ArrayIterator|Traversable
-     */
-    public function getIterator()
+    public function getIterator(): Traversable|\ArrayIterator
     {
         return new \ArrayIterator($this->fields);
     }
 
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->fieldsByHandle[$offset]);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): ?ResourceField
     {
         return $this->fields[$offset];
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if (null === $offset) {
             $this->fields[] = $value;
@@ -61,7 +55,7 @@ class ResourceFieldCollection implements \IteratorAggregate, \ArrayAccess
         }
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->fields[$offset]);
     }

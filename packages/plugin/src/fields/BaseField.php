@@ -10,23 +10,13 @@ use yii\base\Event;
 
 abstract class BaseField extends Field implements FieldInterface, PreviewableFieldInterface
 {
-    /** @var int */
-    public $id;
+    public int|string|null $id = null;
+    public ?string $name = null;
+    public ?string $handle = null;
+    public ?bool $required = false;
 
-    /** @var string */
-    public $name;
-
-    /** @var string */
-    public $handle;
-
-    /** @var bool */
-    public $required;
-
-    /** @var mixed */
-    protected $value;
-
-    /** @var bool */
-    protected $valid = true;
+    protected mixed $value = null;
+    protected bool $valid = true;
 
     public function __toString(): string
     {
@@ -43,10 +33,7 @@ abstract class BaseField extends Field implements FieldInterface, PreviewableFie
         return $this instanceof MultipleValueInterface;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }
@@ -62,10 +49,7 @@ abstract class BaseField extends Field implements FieldInterface, PreviewableFie
         return $value ?? '';
     }
 
-    /**
-     * @param $value
-     */
-    public function setValue($value): FieldInterface
+    public function setValue(mixed $value): FieldInterface
     {
         $event = new FieldSetValueEvent($this, $value);
         Event::trigger($this, self::EVENT_BEFORE_SET_VALUE, $event);
@@ -79,10 +63,7 @@ abstract class BaseField extends Field implements FieldInterface, PreviewableFie
         return $this;
     }
 
-    /**
-     * @return null|int
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -92,28 +73,20 @@ abstract class BaseField extends Field implements FieldInterface, PreviewableFie
         return $this->uid;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
      * Alias for ::getName().
-     *
-     * @return null|string
      */
-    public function getLabel()
+    public function getLabel(): ?string
     {
         return $this->getName();
     }
 
-    /**
-     * @return null|string
-     */
-    public function getHandle()
+    public function getHandle(): ?string
     {
         return $this->handle;
     }
@@ -138,12 +111,7 @@ abstract class BaseField extends Field implements FieldInterface, PreviewableFie
         return $this;
     }
 
-    /**
-     * @param bool $validationErrorsOnly
-     *
-     * @return array|string
-     */
-    public function getErrors($validationErrorsOnly = true)
+    public function getErrors($validationErrorsOnly = true): array
     {
         $errors = parent::getErrors();
 
@@ -159,10 +127,7 @@ abstract class BaseField extends Field implements FieldInterface, PreviewableFie
         return implode(', ', $this->getErrors());
     }
 
-    /**
-     * @return array|mixed
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $items = [
             'id' => $this->getId(),
@@ -188,7 +153,7 @@ abstract class BaseField extends Field implements FieldInterface, PreviewableFie
      *
      * @return \yii\validators\Validator[] the validators applicable to the current [[scenario]]
      */
-    public function getActiveValidators($attribute = null)
+    public function getActiveValidators($attribute = null): array
     {
         $validators = parent::getActiveValidators($attribute);
 

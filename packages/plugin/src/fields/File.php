@@ -4,20 +4,11 @@ namespace Solspace\ExpressForms\fields;
 
 class File extends MultipleValueField
 {
-    /** @var int */
-    private $maxFileSizeKB = 2000;
-
-    /** @var bool */
-    private $restrictFileKinds = true;
-
-    /** @var array */
-    private $fileKinds = [];
-
-    /** @var int */
-    private $fileCount = 1;
-
-    /** @var int */
-    private $volumeId;
+    private int $maxFileSizeKB = 2000;
+    private bool $restrictFileKinds = true;
+    private array $fileKinds = [];
+    private int $fileCount = 1;
+    private ?int $volumeId = null;
 
     public function settingsAttributes(): array
     {
@@ -37,9 +28,6 @@ class File extends MultipleValueField
         return $this->maxFileSizeKB;
     }
 
-    /**
-     * @param int $maxFileSizeKB
-     */
     public function setMaxFileSizeKB(int $maxFileSizeKB = null): self
     {
         $this->maxFileSizeKB = $maxFileSizeKB;
@@ -52,17 +40,11 @@ class File extends MultipleValueField
         return $this->restrictFileKinds;
     }
 
-    /**
-     * An alias for ::isRestrictFileKinds().
-     */
     public function getRestrictFileKinds(): bool
     {
         return $this->isRestrictFileKinds();
     }
 
-    /**
-     * @param bool $restrictFileKinds
-     */
     public function setRestrictFileKinds(bool $restrictFileKinds = null): self
     {
         $this->restrictFileKinds = $restrictFileKinds ?? false;
@@ -75,9 +57,6 @@ class File extends MultipleValueField
         return $this->fileKinds;
     }
 
-    /**
-     * @param array $fileKinds
-     */
     public function setFileKinds(array $fileKinds = null): self
     {
         $this->fileKinds = $fileKinds;
@@ -90,9 +69,6 @@ class File extends MultipleValueField
         return $this->fileCount;
     }
 
-    /**
-     * @param int $fileCount
-     */
     public function setFileCount(int $fileCount = null): self
     {
         $this->fileCount = $fileCount;
@@ -100,17 +76,11 @@ class File extends MultipleValueField
         return $this;
     }
 
-    /**
-     * @return null|int
-     */
-    public function getVolumeId()
+    public function getVolumeId(): ?int
     {
         return $this->volumeId;
     }
 
-    /**
-     * @param int $volumeId
-     */
     public function setVolumeId(int $volumeId = null): self
     {
         $this->volumeId = $volumeId;

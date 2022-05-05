@@ -4,30 +4,19 @@ namespace Solspace\ExpressForms\providers\Session;
 
 class SessionProvider implements SessionProviderInterface
 {
-    /**
-     * @param null $defaultValue
-     *
-     * @return mixed
-     */
-    public function get(string $key, $defaultValue = null)
+    public function get(string $key, mixed $defaultValue = null): mixed
     {
         return \Craft::$app->getSession()->get($key, $defaultValue);
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function set(string $key, $value): SessionProviderInterface
+    public function set(string $key, mixed $value): SessionProviderInterface
     {
         \Craft::$app->getSession()->set($key, $value);
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function remove(string $key)
+    public function remove(string $key): mixed
     {
         return \Craft::$app->getSession()->remove($key);
     }

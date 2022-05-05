@@ -2,6 +2,7 @@
 
 namespace Solspace\ExpressForms\services;
 
+use craft\helpers\App;
 use craft\mail\Message;
 use DateTime;
 use Solspace\Commons\Helpers\StringHelper;
@@ -9,9 +10,7 @@ use Solspace\ExpressForms\elements\Submission;
 use Solspace\ExpressForms\events\emailNotifications\RenderEmailValuesEvent;
 use Solspace\ExpressForms\events\emailNotifications\SendEmailEvent;
 use Solspace\ExpressForms\events\forms\FormCompletedEvent;
-use Solspace\ExpressForms\exceptions\EmailNotifications\CouldNotParseNotificationException;
 use Solspace\ExpressForms\exceptions\EmailNotifications\EmailNotificationsException;
-use Solspace\ExpressForms\exceptions\EmailNotifications\NotificationNotFound;
 use Solspace\ExpressForms\exceptions\EmailNotifications\NotificationTemplateFolderNotSetException;
 use Solspace\ExpressForms\ExpressForms;
 use Solspace\ExpressForms\fields\File;
@@ -23,9 +22,9 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class EmailNotifications extends BaseService
 {
-    const EVENT_BEFORE_RENDER = 'beforeRender';
-    const EVENT_BEFORE_SEND = 'beforeSend';
-    const EVENT_AFTER_SEND = 'afterSend';
+    public const EVENT_BEFORE_RENDER = 'beforeRender';
+    public const EVENT_BEFORE_SEND = 'beforeSend';
+    public const EVENT_AFTER_SEND = 'afterSend';
 
     /**
      * @return EmailNotification[]
@@ -75,12 +74,6 @@ class EmailNotifications extends BaseService
         return $notifications;
     }
 
-    /**
-     * @throws EmailNotificationsException
-     * @throws NotificationTemplateFolderNotSetException
-     * @throws CouldNotParseNotificationException
-     * @throws NotificationNotFound
-     */
     public function getNotification(string $fileName): EmailNotification
     {
         $settings = $this->getSettingsService()->getSettingsModel();
@@ -255,10 +248,7 @@ class EmailNotifications extends BaseService
         return false;
     }
 
-    /**
-     * @return null|EmailNotification
-     */
-    private function getEmailNotification(string $filename)
+    private function getEmailNotification(string $filename): ?EmailNotification
     {
         try {
             return ExpressForms::getInstance()->emailNotifications->getNotification($filename);
@@ -281,31 +271,19 @@ class EmailNotifications extends BaseService
         ];
     }
 
-    /**
-     * @throws \Throwable
-     * @throws \yii\base\Exception
-     *
-     * @return null|bool|string
-     */
-    private function renderString(string $string, array $fieldValues, array $templateVariables)
+    private function renderString(string $string, array $fieldValues, array $templateVariables): bool|string|null
     {
         $view = \Craft::$app->view;
 
         $value = $view->renderObjectTemplate($string, $fieldValues, $templateVariables);
-        if (preg_match('/^\$(\w+)$/', $value, $matches)) {
-            $value = \Craft::parseEnv($value);
+        if (preg_match('/^\$(\w+)$/', $value)) {
+            $value = App::parseEnv($value);
         }
 
         return $value;
     }
 
-    /**
-     * @param array $emails
-     * @param mixed $parseEnv
-     *
-     * @return array|bool
-     */
-    private function validateEmails($emails, $parseEnv = false)
+    private function validateEmails(mixed $emails, bool $parseEnv = false): bool|array
     {
         if (!$emails) {
             return false;
@@ -315,7 +293,7 @@ class EmailNotifications extends BaseService
 
         foreach ($emails as $email) {
             if ($parseEnv && preg_match('/^\$(\w+)$/', $email)) {
-                $email = \Craft::parseEnv($email);
+                $email = App::parseEnv($email);
             }
 
             if (filter_var($email, \FILTER_VALIDATE_EMAIL)) {

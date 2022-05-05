@@ -14,18 +14,12 @@ use Solspace\ExpressForms\providers\Security\HashingInterface;
 
 class FormPayloadDecorator extends AbstractDecorator
 {
-    const PAYLOAD_INPUT_NAME = 'formPayload';
+    public const PAYLOAD_INPUT_NAME = 'formPayload';
 
-    /** @var HashingInterface */
-    private $hashing;
-
-    /** @var LoggerProviderInterface */
-    private $logger;
-
-    public function __construct(HashingInterface $hashing, LoggerProviderInterface $logger)
-    {
-        $this->hashing = $hashing;
-        $this->logger = $logger;
+    public function __construct(
+        private HashingInterface $hashing,
+        private LoggerProviderInterface $logger
+    ) {
     }
 
     public function getEventListenerList(): array
@@ -36,7 +30,7 @@ class FormPayloadDecorator extends AbstractDecorator
         ];
     }
 
-    public function attachPayloadToForm(FormRenderTagEvent $event)
+    public function attachPayloadToForm(FormRenderTagEvent $event): void
     {
         $form = $event->getForm();
 
@@ -57,7 +51,7 @@ class FormPayloadDecorator extends AbstractDecorator
         $event->prependToOutput($output);
     }
 
-    public function parsePayload(FormSubmitEvent $event)
+    public function parsePayload(FormSubmitEvent $event): void
     {
         $submittedData = $event->getSubmittedData();
         $payload = $submittedData[self::PAYLOAD_INPUT_NAME] ?? null;

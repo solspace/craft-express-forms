@@ -11,10 +11,6 @@ use yii\web\Response;
 
 class IntegrationsController extends Controller
 {
-    /**
-     * @throws NotFoundHttpException
-     * @throws \yii\web\BadRequestHttpException
-     */
     public function actionCheckConnection(): Response
     {
         $this->requirePostRequest();
@@ -38,10 +34,6 @@ class IntegrationsController extends Controller
         return $this->asJson(['success' => true]);
     }
 
-    /**
-     * @throws NotFoundHttpException
-     * @throws \yii\web\BadRequestHttpException
-     */
     public function actionRefreshResources(): Response
     {
         $this->requirePostRequest();
@@ -66,22 +58,14 @@ class IntegrationsController extends Controller
         return $this->asJson(['success' => true, 'resources' => $metadata['resources'] ?? []]);
     }
 
-    /**
-     * @throws NotFoundHttpException
-     */
-    private function forceAjax()
+    private function forceAjax(): void
     {
         if (!\Craft::$app->request->isAjax) {
             throw new NotFoundHttpException('Page not found');
         }
     }
 
-    /**
-     * @param null $value
-     *
-     * @return array|mixed
-     */
-    private function post(string $name, $value = null)
+    private function post(string $name, mixed $value = null): mixed
     {
         return \Craft::$app->request->post($name, $value);
     }

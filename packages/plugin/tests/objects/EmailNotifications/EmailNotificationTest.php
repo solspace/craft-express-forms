@@ -155,26 +155,26 @@ class EmailNotificationTest extends TestCase
         $notification->writeToFile($path.'/template.twig');
 
         $expected = <<<'CONTENT'
----
-name: 'Email Notification Template'
-description: 'A description of what this template does.'
-fromName: '{{ craft.app.systemSettings.getSettings("email").fromName }}'
-fromEmail: '{{ craft.app.systemSettings.getSettings("email").fromEmail }}'
-replyTo: '{{ craft.app.systemSettings.getSettings("email").fromEmail }}'
-cc: null
-bcc: null
-subject: 'New submission from your {{ form.name }} form'
-includeAttachments: true
----
-<p>The following submission came in on {{ dateCreated|date('l, F j, Y \\a\\t g:ia') }}.</p>
+            ---
+            name: 'Email Notification Template'
+            description: 'A description of what this template does.'
+            fromName: '{{ craft.app.systemSettings.getSettings("email").fromName }}'
+            fromEmail: '{{ craft.app.systemSettings.getSettings("email").fromEmail }}'
+            replyTo: '{{ craft.app.systemSettings.getSettings("email").fromEmail }}'
+            cc: null
+            bcc: null
+            subject: 'New submission from your {{ form.name }} form'
+            includeAttachments: true
+            ---
+            <p>The following submission came in on {{ dateCreated|date('l, F j, Y \\a\\t g:ia') }}.</p>
 
-<ul>
-    {% for field in form.fields %}
-        <li>{{ field.label }}: {{ field.valueAsString }}</li>
-    {% endfor %}
-</ul>
+            <ul>
+                {% for field in form.fields %}
+                    <li>{{ field.label }}: {{ field.valueAsString }}</li>
+                {% endfor %}
+            </ul>
 
-CONTENT;
+            CONTENT;
 
         self::assertStringEqualsFile("{$path}/template.twig", $expected);
     }

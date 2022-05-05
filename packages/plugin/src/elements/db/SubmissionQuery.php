@@ -12,45 +12,27 @@ use Solspace\ExpressForms\records\FormRecord;
 
 class SubmissionQuery extends ElementQuery
 {
-    /** @var int */
-    public $formId;
+    public ?int $formId = null;
+    public ?string $form = null;
+    public ?int $incrementalId = null;
 
-    /** @var string */
-    public $form;
-
-    /** @var int */
-    public $incrementalId;
-
-    /**
-     * @param mixed $value
-     *
-     * @return $this
-     */
-    public function formId($value): self
+    public function formId(int $value): self
     {
         $this->formId = $value;
 
         return $this;
     }
 
-    /**
-     * @return $this
-     */
-    public function form(string $value): self
+    public function form(mixed $value): self
     {
         $this->form = $value;
 
         return $this;
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @return $this
-     */
-    public function incrementalId($value): self
+    public function incrementalId(int $value): self
     {
-        $this->incrementalId = (int) $value;
+        $this->incrementalId = $value;
 
         return $this;
     }

@@ -4,8 +4,10 @@ namespace Solspace\ExpressForms\services;
 
 use Craft;
 use craft\base\Field as CraftField;
-use craft\models\FieldLayoutTab;
+use craft\fieldlayoutelements\CustomField;
+use craft\helpers\StringHelper;
 use Solspace\ExpressForms\elements\Submission;
+use Solspace\ExpressForms\fields\FieldInterface;
 use Solspace\ExpressForms\models\Form;
 use Solspace\ExpressForms\records\FormRecord;
 
@@ -44,7 +46,6 @@ class Fields extends BaseService
 
             if ($formField->id) {
                 $savableFields[] = $formField;
-                $savableFieldIds[] = $formField->id;
             }
         }
 
@@ -52,19 +53,35 @@ class Fields extends BaseService
             $fieldsService->deleteFieldById($id);
         }
 
-        $layout = $form->getFieldLayout();
-        if (!$layout) {
-            $layout = Craft::$app->fields->assembleLayout(['Default' => $savableFieldIds]);
-            $layout->type = Form::class;
-        } else {
-            $tab = new FieldLayoutTab();
-            $tab->name = 'Default';
-            $tab->sortOrder = 1;
-            $tab->setFields($savableFields);
+        $layoutPost = [
+            'uid' => $form->getFieldLayout()?->uid ?? StringHelper::UUID(),
+            'tabs' => [
+                [
+                    'name' => 'Default',
+                    'uid' => StringHelper::UUID(),
+                    'elements' => array_map(
+                        fn (FieldInterface $field) => [
+                            'type' => CustomField::class,
+                            'label' => $field->getName(),
+                            'instructions' => null,
+                            'tip' => null,
+                            'warning' => null,
+                            'required' => $field->isRequired(),
+                            'width' => 100,
+                            'uid' => StringHelper::UUID(),
+                            'fieldUid' => $field->getUid(),
+                        ],
+                        $savableFields,
+                    ),
+                ],
+            ],
+        ];
 
-            $layout->setTabs([$tab]);
-            $layout->setFields($savableFields);
-        }
+        Craft::$app->request->setBodyParams(['express-forms.fieldLayout' => json_encode($layoutPost)]);
+        $_POST['express-forms.fieldLayout'] = $layoutPost;
+
+        $layout = Craft::$app->fields->assembleLayoutFromPost('express-forms.');
+        $layout->type = Form::class;
 
         Craft::$app->fields->saveLayout($layout);
 

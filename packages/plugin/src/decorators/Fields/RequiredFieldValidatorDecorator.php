@@ -16,7 +16,7 @@ class RequiredFieldValidatorDecorator extends AbstractDecorator
         ];
     }
 
-    public function validateRequiredField(FieldValidateEvent $event)
+    public function validateRequiredField(FieldValidateEvent $event): void
     {
         $field = $event->getField();
 
@@ -31,7 +31,7 @@ class RequiredFieldValidatorDecorator extends AbstractDecorator
         $value = $field->getValue();
 
         if (!\is_array($value)) {
-            $value = trim($value);
+            $value = trim($value ?? '');
         }
 
         if (!empty($value)) {

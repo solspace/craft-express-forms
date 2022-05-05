@@ -4,39 +4,16 @@ namespace Solspace\ExpressForms\objects\Integrations;
 
 class Setting
 {
-    const TYPE_TEXT = 'text';
-    const TYPE_BOOLEAN = 'boolean';
+    public const TYPE_TEXT = 'text';
+    public const TYPE_BOOLEAN = 'boolean';
 
-    /** @var string */
-    private $label;
-
-    /** @var string */
-    private $handle;
-
-    /** @var string */
-    private $description;
-
-    /** @var string */
-    private $type;
-
-    /** @var bool */
-    private $required;
-
-    /**
-     * Setting constructor.
-     */
     public function __construct(
-        string $label,
-        string $handle,
-        string $description = null,
-        string $type = self::TYPE_TEXT,
-        bool $required = false
+        private string $label,
+        private string $handle,
+        private ?string $description = null,
+        private string $type = self::TYPE_TEXT,
+        private bool $required = false
     ) {
-        $this->label = $label;
-        $this->handle = $handle;
-        $this->description = $description;
-        $this->type = $type;
-        $this->required = $required;
     }
 
     public function getLabel(): string
@@ -49,10 +26,7 @@ class Setting
         return $this->handle;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }

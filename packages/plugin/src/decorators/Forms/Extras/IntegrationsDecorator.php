@@ -32,15 +32,8 @@ use yii\web\NotFoundHttpException;
 
 class IntegrationsDecorator extends AbstractDecorator implements ExtraBundle
 {
-    /** @var IntegrationTypeProviderInterface */
-    private $integrationTypes;
-
-    /**
-     * IntegrationsDecorator constructor.
-     */
-    public function __construct(IntegrationTypeProviderInterface $integrationTypes)
+    public function __construct(private IntegrationTypeProviderInterface $integrationTypes)
     {
-        $this->integrationTypes = $integrationTypes;
     }
 
     public function getEventListenerList(): array
@@ -55,12 +48,12 @@ class IntegrationsDecorator extends AbstractDecorator implements ExtraBundle
         ];
     }
 
-    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event)
+    public function registerSettingItems(RegisterSettingSidebarItemsEvent $event): void
     {
         $event->addItem('API Integrations');
     }
 
-    public function registerIntegrationTypes(RegisterIntegrationTypes $event)
+    public function registerIntegrationTypes(RegisterIntegrationTypes $event): void
     {
         $event
             ->addType(CampaignMonitor::class)
@@ -71,7 +64,7 @@ class IntegrationsDecorator extends AbstractDecorator implements ExtraBundle
         ;
     }
 
-    public function renderSettings(RenderSettingsEvent $event)
+    public function renderSettings(RenderSettingsEvent $event): void
     {
         if ('api-integrations' !== $event->getSelectedItem()) {
             return;
@@ -125,7 +118,7 @@ class IntegrationsDecorator extends AbstractDecorator implements ExtraBundle
         );
     }
 
-    public function storeSettings(SaveSettingsEvent $event)
+    public function storeSettings(SaveSettingsEvent $event): void
     {
         $post = Craft::$app->getRequest()->post('integrations');
 
@@ -172,7 +165,7 @@ class IntegrationsDecorator extends AbstractDecorator implements ExtraBundle
         }
     }
 
-    public function registerUrl(RegisterUrlRulesEvent $event)
+    public function registerUrl(RegisterUrlRulesEvent $event): void
     {
         $editRule = 'express-forms/settings/api-integrations/<handle:(?:[^\/]*)>';
         $event->rules[$editRule] = 'express-forms/settings/index';
@@ -184,7 +177,7 @@ class IntegrationsDecorator extends AbstractDecorator implements ExtraBundle
         $event->rules[$queryRule] = $queryRule;
     }
 
-    public function pushData(FormCompletedEvent $event)
+    public function pushData(FormCompletedEvent $event): void
     {
         $form = $event->getForm();
         if ($form->isMarkedAsSpam() || $form->isSkipped()) {

@@ -10,13 +10,13 @@ use Traversable;
 class IntegrationMappingCollection implements \IteratorAggregate, \ArrayAccess, \JsonSerializable
 {
     /** @var IntegrationMappingInterface[] */
-    private $integrationMappings = [];
+    private array $integrationMappings = [];
 
     /** @var IntegrationMappingInterface[] */
-    private $mailingListMappings = [];
+    private array $mailingListMappings = [];
 
     /** @var IntegrationMappingInterface[] */
-    private $crmMappings = [];
+    private array $crmMappings = [];
 
     /**
      * @return null|IntegrationMappingInterface
@@ -65,18 +65,12 @@ class IntegrationMappingCollection implements \IteratorAggregate, \ArrayAccess, 
         return $this->integrationMappings;
     }
 
-    /**
-     * @return array|mixed
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->asArray();
     }
 
-    /**
-     * @return \ArrayIterator|Traversable
-     */
-    public function getIterator()
+    public function getIterator(): Traversable|\ArrayIterator
     {
         return new \ArrayIterator($this->integrationMappings);
     }
@@ -86,12 +80,12 @@ class IntegrationMappingCollection implements \IteratorAggregate, \ArrayAccess, 
         return isset($this->fieldsByHandle[$offset]);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet($offset): ?IntegrationMappingInterface
     {
         return $this->integrationMappings[$offset];
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if (null === $offset) {
             $this->integrationMappings[] = $value;
@@ -100,7 +94,7 @@ class IntegrationMappingCollection implements \IteratorAggregate, \ArrayAccess, 
         }
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->integrationMappings[$offset]);
     }

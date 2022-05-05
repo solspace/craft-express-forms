@@ -6,18 +6,10 @@ use Solspace\ExpressForms\models\Form;
 
 class FormSaveResponse
 {
-    /** @var Form */
-    private $form;
+    private array $errors;
 
-    /** @var array */
-    private $errors;
-
-    /**
-     * FormSaveResponse constructor.
-     */
-    public function __construct(Form $form)
+    public function __construct(private Form $form)
     {
-        $this->form = $form;
     }
 
     public function getForm(): Form

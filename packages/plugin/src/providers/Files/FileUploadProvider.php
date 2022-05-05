@@ -12,13 +12,10 @@ use yii\base\Event;
 
 class FileUploadProvider implements FileUploadInterface
 {
-    const EVENT_BEFORE_UPLOAD = 'beforeUpload';
-    const EVENT_AFTER_UPLOAD = 'afterUpload';
+    public const EVENT_BEFORE_UPLOAD = 'beforeUpload';
+    public const EVENT_AFTER_UPLOAD = 'afterUpload';
 
-    /**
-     * @return null|array
-     */
-    public function upload(File $field)
+    public function upload(File $field): ?array
     {
         if (!$_FILES || !isset($_FILES[$field->getHandle()]) || empty($_FILES[$field->getHandle()]['name'])) {
             return null;

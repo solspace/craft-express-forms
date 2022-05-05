@@ -6,27 +6,12 @@ use Solspace\ExpressForms\integrations\IntegrationTypeInterface;
 
 class Resource
 {
-    /** @var IntegrationTypeInterface */
-    private $type;
-
-    /** @var string */
-    private $name;
-
-    /** @var string */
-    private $handle;
-
-    /** @var array */
-    private $settings;
-
-    /**
-     * MailingList constructor.
-     */
-    public function __construct(IntegrationTypeInterface $type, string $name, string $handle, array $settings = [])
-    {
-        $this->type = $type;
-        $this->name = $name;
-        $this->handle = $handle;
-        $this->settings = $settings;
+    public function __construct(
+        private IntegrationTypeInterface $type,
+        private string $name,
+        private string $handle,
+        private array $settings = []
+    ) {
     }
 
     public function getType(): IntegrationTypeInterface

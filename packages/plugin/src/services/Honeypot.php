@@ -4,9 +4,9 @@ namespace Solspace\ExpressForms\services;
 
 class Honeypot extends BaseService
 {
-    const DEFAULT_NAME = 'form_handler';
+    public const DEFAULT_NAME = 'form_handler';
 
-    const BEHAVIOUR_SIMULATE_SUCCESS = 'simulate_success';
-    const BEHAVIOUR_SHOW_ERRORS = 'display_errors';
-    const BEHAVIOUR_RELOAD_FORM = 'reload_form';
+    public const BEHAVIOUR_SIMULATE_SUCCESS = 'simulate_success';
+    public const BEHAVIOUR_SHOW_ERRORS = 'display_errors';
+    public const BEHAVIOUR_RELOAD_FORM = 'reload_form';
 }

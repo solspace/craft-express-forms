@@ -2,25 +2,21 @@
 
 namespace Solspace\ExpressForms\objects\Collections;
 
-use craft\base\Field;
 use Solspace\ExpressForms\fields\FieldInterface;
 use Traversable;
 
 class FieldCollection implements \IteratorAggregate, \ArrayAccess
 {
     /** @var FieldInterface[] */
-    private $fields = [];
+    private array $fields = [];
 
     /** @var FieldInterface[] */
-    private $fieldsByHandle = [];
+    private array $fieldsByHandle = [];
 
     /** @var FieldInterface[] */
-    private $fieldsByUid = [];
+    private array $fieldsByUid = [];
 
-    /**
-     * @return null|Field|FieldInterface
-     */
-    public function get(string $identificator)
+    public function get(string $identificator): ?FieldInterface
     {
         return $this->fieldsByUid[$identificator] ?? $this->fieldsByHandle[$identificator] ?? null;
     }
@@ -48,25 +44,22 @@ class FieldCollection implements \IteratorAggregate, \ArrayAccess
         return $this->fieldsByHandle;
     }
 
-    /**
-     * @return \ArrayIterator|Traversable
-     */
-    public function getIterator()
+    public function getIterator(): Traversable|\ArrayIterator
     {
         return new \ArrayIterator($this->fieldsByHandle);
     }
 
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->fieldsByHandle[$offset]);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->fieldsByHandle[$offset];
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if (null === $offset) {
             $this->fieldsByHandle[] = $value;
@@ -75,7 +68,7 @@ class FieldCollection implements \IteratorAggregate, \ArrayAccess
         }
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->fieldsByHandle[$offset]);
     }

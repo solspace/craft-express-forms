@@ -19,17 +19,17 @@ use Solspace\ExpressForms\ExpressForms;
 
 class Widgets extends Component
 {
-    const CHART_LINE = 'line';
-    const CHART_BAR = 'bar';
-    const CHART_DONUT = 'doughnut';
-    const CHART_PIE = 'pie';
-    const CHART_POLAR_AREA = 'polarArea';
+    public const CHART_LINE = 'line';
+    public const CHART_BAR = 'bar';
+    public const CHART_DONUT = 'doughnut';
+    public const CHART_PIE = 'pie';
+    public const CHART_POLAR_AREA = 'polarArea';
 
-    const RANGE_LAST_24_HOURS = 'last_24_hours';
-    const RANGE_LAST_7_DAYS = 'last_7_days';
-    const RANGE_LAST_30_DAYS = 'last_30_days';
-    const RANGE_LAST_60_DAYS = 'last_60_days';
-    const RANGE_LAST_90_DAYS = 'last_90_days';
+    public const RANGE_LAST_24_HOURS = 'last_24_hours';
+    public const RANGE_LAST_7_DAYS = 'last_7_days';
+    public const RANGE_LAST_30_DAYS = 'last_30_days';
+    public const RANGE_LAST_60_DAYS = 'last_60_days';
+    public const RANGE_LAST_90_DAYS = 'last_90_days';
 
     /** @var array */
     private static $dateRanges = [
@@ -55,13 +55,9 @@ class Widgets extends Component
     }
 
     /**
-     * @param string $rangeType
-     *
-     * @throws ExpressFormsException
-     *
      * @return array - [$dateRangeStart, $dateRangeEnd]
      */
-    public function getRange($rangeType): array
+    public function getRange(string $rangeType): array
     {
         if (!\array_key_exists($rangeType, self::$dateRanges)) {
             throw new ExpressFormsException(sprintf("Range type '%s' not supported", $rangeType));

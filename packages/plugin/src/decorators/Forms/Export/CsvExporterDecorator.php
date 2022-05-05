@@ -17,12 +17,12 @@ class CsvExporterDecorator extends AbstractDecorator
         ];
     }
 
-    public function registerType(RegisterExportTypesEvent $event)
+    public function registerType(RegisterExportTypesEvent $event): void
     {
         $event->addType('CSV');
     }
 
-    public function exportSubmissions(ExportSubmissionsEvent $event)
+    public function exportSubmissions(ExportSubmissionsEvent $event): void
     {
         if ('csv' !== $event->getType()) {
             return;
@@ -44,7 +44,7 @@ class CsvExporterDecorator extends AbstractDecorator
                         $value = $value ? 'yes' : 'no';
                     }
 
-                    $value = htmlentities($value);
+                    $value = htmlentities($value ?? '');
                 }
                 unset($value);
 

@@ -2,19 +2,17 @@
 
 namespace Solspace\ExpressForms\integrations;
 
-use Solspace\ExpressForms\exceptions\Integrations\ConnectionFailedException;
-use Solspace\ExpressForms\integrations\dto\ResourceField;
 use Solspace\ExpressForms\objects\Integrations\Setting;
 
 interface IntegrationTypeInterface extends \JsonSerializable
 {
-    const EVENT_AFTER_RESPONSE = 'afterResponse';
-    const EVENT_AFTER_SET_MAPPING = 'afterSetMapping';
-    const EVENT_FETCH_RESOURCES = 'fetchResources';
-    const EVENT_FETCH_RESOURCE_FIELDS = 'fetchResourceFields';
+    public const EVENT_AFTER_RESPONSE = 'afterResponse';
+    public const EVENT_AFTER_SET_MAPPING = 'afterSetMapping';
+    public const EVENT_FETCH_RESOURCES = 'fetchResources';
+    public const EVENT_FETCH_RESOURCE_FIELDS = 'fetchResourceFields';
 
-    const TYPE_CRM = 'crm';
-    const TYPE_MAILING_LIST = 'mailing-list';
+    public const TYPE_CRM = 'crm';
+    public const TYPE_MAILING_LIST = 'mailing-list';
 
     /**
      * Return an array of Setting objects to provide users with
@@ -35,42 +33,27 @@ interface IntegrationTypeInterface extends \JsonSerializable
     /**
      * Do something before settings are rendered.
      */
-    public function beforeRenderUpdate();
+    public function beforeRenderUpdate(): void;
 
     /**
      * Do something before settings are saved.
      */
-    public function beforeSaveSettings();
+    public function beforeSaveSettings(): void;
 
     /**
      * Do something after settings are saved.
      */
-    public function afterSaveSettings();
+    public function afterSaveSettings(): void;
 
-    /**
-     * @throws ConnectionFailedException
-     */
     public function checkConnection(): bool;
 
     public function serializeSettings(): array;
 
     public function isMarkedForUpdate(): bool;
 
-    /**
-     * @throws ConnectionFailedException
-     *
-     * @return resource[]
-     */
     public function fetchResources(): array;
 
-    /**
-     * @param int|string $resourceId
-     *
-     * @throws ConnectionFailedException
-     *
-     * @return ResourceField[]
-     */
-    public function fetchResourceFields($resourceId): array;
+    public function fetchResourceFields(int|string $resourceId): array;
 
     public function pushData(IntegrationMappingInterface $mapping, array $postedData = []): bool;
 }

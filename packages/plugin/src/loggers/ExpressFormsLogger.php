@@ -7,13 +7,13 @@ use Solspace\Commons\Loggers\LoggerFactory;
 
 class ExpressFormsLogger
 {
-    const EXPRESS_FORMS = 'Express Forms';
-    const FORM = 'Form';
-    const EMAIL_NOTIFICATION = 'Email Notification';
-    const INTEGRATIONS = 'Integrations';
-    const FILE_UPLOAD = 'File Upload';
+    public const EXPRESS_FORMS = 'Express Forms';
+    public const FORM = 'Form';
+    public const EMAIL_NOTIFICATION = 'Email Notification';
+    public const INTEGRATIONS = 'Integrations';
+    public const FILE_UPLOAD = 'File Upload';
 
-    private static $levelColorMap = [
+    private static array $levelColorMap = [
         'DEBUG' => '#CCCCCC',
         'INFO' => '#6c757d',
         'NOTICE' => '#28a745',
@@ -25,7 +25,7 @@ class ExpressFormsLogger
     ];
 
     /** @var LoggerInterface[] */
-    private static $loggers = [];
+    private static array $loggers = [];
 
     public static function getInstance(string $category): LoggerInterface
     {

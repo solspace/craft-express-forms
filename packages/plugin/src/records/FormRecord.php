@@ -30,8 +30,8 @@ use Solspace\ExpressForms\elements\Submission;
  */
 class FormRecord extends ActiveRecord
 {
-    const TABLE = '{{%expressforms_forms}}';
-    const TABLE_STD = 'expressforms_forms';
+    public const TABLE = '{{%expressforms_forms}}';
+    public const TABLE_STD = 'expressforms_forms';
 
     public static function tableName(): string
     {
@@ -131,7 +131,7 @@ class FormRecord extends ActiveRecord
 
         $layout = $fields->getLayoutById($this->fieldLayoutId ?? 0);
         if ($layout) {
-            foreach ($layout->getFields() as $field) {
+            foreach ($layout->getCustomFields() as $field) {
                 $fields->deleteFieldById($field->id);
             }
 

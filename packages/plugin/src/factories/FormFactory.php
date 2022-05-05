@@ -9,21 +9,14 @@ use yii\base\Event;
 
 class FormFactory
 {
-    const EVENT_BEFORE_BUILD_FROM_ARRAY = 'beforeBuildFromArray';
-    const EVENT_AFTER_BUILD_FROM_ARRAY = 'afterBuildFromArray';
+    public const EVENT_BEFORE_BUILD_FROM_ARRAY = 'beforeBuildFromArray';
+    public const EVENT_AFTER_BUILD_FROM_ARRAY = 'afterBuildFromArray';
 
-    /** @var IntegrationMappingFactory */
-    private $mappingFactory;
-
-    /**
-     * FormFactory constructor.
-     */
-    public function __construct(IntegrationMappingFactory $mappingFactory)
+    public function __construct(private IntegrationMappingFactory $mappingFactory)
     {
-        $this->mappingFactory = $mappingFactory;
     }
 
-    public function populateFromArray(Form $form, array $data): Form
+    public function populateFromArray(Form $form, array $data): ?Form
     {
         $event = new FormBuildFromArrayEvent(['form' => $form, 'data' => $data]);
         Event::trigger($this, self::EVENT_BEFORE_BUILD_FROM_ARRAY, $event);

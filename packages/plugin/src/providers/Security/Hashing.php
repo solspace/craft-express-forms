@@ -16,37 +16,24 @@ class Hashing implements HashingInterface
         return StringHelper::UUID();
     }
 
-    /**
-     * @param string $value
-     * @param string $secret
-     */
-    public function hash($value, $secret): string
+    public function hash(string $value, string $secret): string
     {
         return \Craft::$app->getSecurity()->hashData($value, $secret);
     }
 
-    /**
-     * @return bool|string
-     */
-    public function deHash(string $value, string $secret)
+    public function deHash(string $value, string $secret): false|string
     {
         return \Craft::$app->getSecurity()->validateData($value, $secret);
     }
 
-    /**
-     * @return null|string
-     */
-    public function encrypt(string $value, string $salt = null, bool $baseEncode = true)
+    public function encrypt(string $value, string $salt = null, bool $baseEncode = true): ?string
     {
         $encrypted = \Craft::$app->getSecurity()->encryptByKey($value, $this->getProjectSecretKey().$salt);
 
         return $baseEncode ? base64_encode($encrypted) : $encrypted;
     }
 
-    /**
-     * @return bool|string
-     */
-    public function decrypt(string $value, string $salt = null, bool $baseDecode = true)
+    public function decrypt(string $value, string $salt = null, bool $baseDecode = true): string|false
     {
         $decoded = $baseDecode ? base64_decode($value) : $value;
 

@@ -15,7 +15,7 @@ class SkipSubmissionStorageDecorator extends AbstractDecorator
         ];
     }
 
-    public function skipSubmissionSaveIfOpted(SaveSubmissionEvent $event)
+    public function skipSubmissionSaveIfOpted(SaveSubmissionEvent $event): void
     {
         if (!$event->getSubmission()->getForm()->isSaveSubmissions()) {
             $event->isValid = false;

@@ -16,14 +16,14 @@ use Solspace\ExpressForms\records\IntegrationResourceRecord;
 
 class Integrations extends BaseService
 {
-    const EVENT_BEFORE_BUILD_INTEGRATION = 'beforeBuildIntegration';
-    const EVENT_AFTER_BUILD_INTEGRATION = 'afterBuildIntegration';
-    const EVENT_REGISTER_INTEGRATIONS = 'registerIntegrations';
+    public const EVENT_BEFORE_BUILD_INTEGRATION = 'beforeBuildIntegration';
+    public const EVENT_AFTER_BUILD_INTEGRATION = 'afterBuildIntegration';
+    public const EVENT_REGISTER_INTEGRATIONS = 'registerIntegrations';
 
-    const CONFIG_NAME = 'express-forms-integrations';
+    public const CONFIG_NAME = 'express-forms-integrations';
 
     /** @var IntegrationTypeInterface[] */
-    private $integrationTypeCache;
+    private ?array $integrationTypeCache = null;
 
     /**
      * @return IntegrationTypeInterface[]
@@ -40,10 +40,7 @@ class Integrations extends BaseService
         return $this->integrationTypeCache;
     }
 
-    /**
-     * @return null|IntegrationTypeInterface
-     */
-    public function getIntegrationByClass(string $class)
+    public function getIntegrationByClass(string $class): ?IntegrationTypeInterface
     {
         foreach ($this->getIntegrationTypes() as $type) {
             if ($type instanceof $class) {
@@ -54,12 +51,7 @@ class Integrations extends BaseService
         return null;
     }
 
-    /**
-     * @param string $handle
-     *
-     * @return null|IntegrationTypeInterface
-     */
-    public function getIntegrationByHandle(string $handle = null)
+    public function getIntegrationByHandle(?string $handle): ?IntegrationTypeInterface
     {
         foreach ($this->getIntegrationTypes() as $type) {
             if ($type->getHandle() === $handle) {
@@ -143,7 +135,7 @@ class Integrations extends BaseService
         ];
     }
 
-    public function storeConfig(IntegrationTypeInterface $integrationType)
+    public function storeConfig(IntegrationTypeInterface $integrationType): void
     {
         $integrationType->beforeSaveSettings();
 
@@ -192,10 +184,6 @@ class Integrations extends BaseService
         return $fields;
     }
 
-    /**
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     */
     public function fetchData(IntegrationTypeInterface $type)
     {
         $resources = $type->fetchResources();
@@ -273,10 +261,6 @@ class Integrations extends BaseService
         }
     }
 
-    /**
-     * @throws \yii\base\InvalidConfigException
-     * @throws \yii\di\NotInstantiableException
-     */
     private function getConfig(): array
     {
         /** @var ConfigProviderInterface $configProvider */

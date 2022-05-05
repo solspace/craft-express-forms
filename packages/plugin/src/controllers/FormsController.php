@@ -20,12 +20,7 @@ use yii\web\Response;
 
 class FormsController extends Controller
 {
-    /**
-     * Initializes the object.
-     * This method is invoked at the end of the constructor after the object is initialized with the
-     * given configuration.
-     */
-    public function init()
+    public function init(): void
     {
         PermissionHelper::requirePermission(ExpressForms::PERMISSION_FORMS);
 
@@ -73,7 +68,7 @@ class FormsController extends Controller
     public function actionSave(): Response
     {
         $this->requirePostRequest();
-        $post = \GuzzleHttp\json_decode(\Craft::$app->request->getRawBody(), true);
+        $post = json_decode(\Craft::$app->request->getRawBody(), true);
         unset($post['id']);
 
         $formFactory = ExpressForms::container()->formFactory();
@@ -109,11 +104,6 @@ class FormsController extends Controller
         return $this->asJson($jsonData);
     }
 
-    /**
-     * @throws NotFoundHttpException
-     * @throws \Solspace\ExpressForms\exceptions\Field\FieldClassDoesNotExist
-     * @throws \yii\web\BadRequestHttpException
-     */
     public function actionDuplicate(): Response
     {
         $this->requirePostRequest();
@@ -164,11 +154,6 @@ class FormsController extends Controller
         throw new NotFoundHttpException();
     }
 
-    /**
-     * @throws NotFoundHttpException
-     * @throws \yii\db\Exception
-     * @throws \yii\web\BadRequestHttpException
-     */
     public function actionResetSpam(): Response
     {
         $this->requirePostRequest();
@@ -193,9 +178,6 @@ class FormsController extends Controller
         throw new NotFoundHttpException();
     }
 
-    /**
-     * @throws NotFoundHttpException
-     */
     public function actionSort(): Response
     {
         $this->requirePostRequest();
@@ -220,9 +202,6 @@ class FormsController extends Controller
         throw new NotFoundHttpException();
     }
 
-    /**
-     * @throws NotFoundHttpException
-     */
     public function actionDelete(): Response
     {
         $this->requirePostRequest();
