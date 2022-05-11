@@ -75,7 +75,7 @@ class ExpressForms extends Plugin
 
     public const EVENT_REGISTER_SUBNAV_ITEMS = 'registerSubnavItems';
 
-    public const PERMISSIONS_HELP_LINK = 'https://craft.express/forms/v1/';
+    public const PERMISSIONS_HELP_LINK = 'https://docs.solspace.com/craft/express-forms/v2/';
     public const PERMISSION_NAMESPACE = 'Express Forms';
 
     public const PERMISSION_SUBMISSIONS = 'express-forms-submissions';

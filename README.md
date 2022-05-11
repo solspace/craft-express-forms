@@ -1,4 +1,4 @@
-# Solspace Express Forms plugin for Craft CMS 3.x
+# Solspace Express Forms plugin for Craft CMS 4.x
 
 Express Forms is an intuitive and lightweight form builder that gets the job done but doesn’t get in your way.
 
@@ -19,7 +19,7 @@ Express Forms is a FREE reliable form building plugin for Craft CMS. It contains
 
 Compare the key features for Express Forms between _Lite_ and _Pro_ editions. The FREE _Lite_ edition includes all the essentials for creating and managing forms for most websites. Upgrade to _Pro_ edition if you need additional functionality for your forms.
 
-For a full feature comparison to **Freeform** and the native Craft **Contact Form** plugin, [check out the Compare page](https://craft.express/forms/v1/compare.html)!
+For a full feature comparison to **Freeform** and the native Craft **Contact Form** plugin, [check out the Compare page](https://docs.solspace.com/craft/express-forms/v2/compare.html)!
 
 | Feature                                                  | Description                                                                                         | **Lite** | **Pro** |
 | :------------------------------------------------------- | :-------------------------------------------------------------------------------------------------- | :------: | :-----: |
@@ -65,16 +65,16 @@ Check out the chart below to help you choose the right version for your needs.
 
 ## Requirements
 
-Solspace Express Forms mostly meets the same requirements as listed on the [Craft Requirements](https://docs.craftcms.com/v3/requirements.html) page.
+Solspace Express Forms mostly meets the same requirements as listed on the [Craft Requirements](https://craftcms.com/docs/4.x/requirements.html) page.
 
-- **Craft 3.1.0 or later**
-- PHP 7.0+
-- MySQL 5.5+ with InnoDB, MariaDB 5.5+, or PostgreSQL 9.5+
-- Windows and OS X browsers:
-  - Chrome 29 or later
-  - Firefox 28 or later
-  - Safari 9.0 or later
-  - Microsoft Edge
+- **Craft 4.0.0+**
+- PHP 8.0.2+
+- MySQL 5.7.8+ with InnoDB, MariaDB 10.2.7+, or PostgreSQL 9.5+
+- Windows and macOS browsers:
+	- Chrome 63+
+	- Firefox 67+
+	- Safari 11.1+
+	- Edge 79+
 
 ## Installation
 
@@ -93,4 +93,4 @@ Express Forms can also be installed manually through Composer:
 
 ## Documentation
 
-Full documentation for Express Forms can be found on the [Craft Express documentation website](https://craft.express/forms/v1/).
+Full documentation for Express Forms can be found on the [Craft Express documentation website](https://docs.solspace.com/craft/express-forms/v2/).

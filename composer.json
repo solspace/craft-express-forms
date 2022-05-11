@@ -19,10 +19,10 @@
     "email": "support@solspace.com",
     "issues": "https://github.com/solspace/craft-express-forms/issues?state=open",
     "source": "https://github.com/solspace/craft-express-forms",
-    "docs": "https://craft.express/forms/v1/"
+    "docs": "https://docs.solspace.com/craft/express-forms/v2/"
   },
   "require": {
-    "craftcms/cms": "^4.0.0-alpha",
+    "craftcms/cms": "^4.0.0",
     "solspace/craft3-commons": "^1.0.19",
     "symfony/property-access": "^2.8|^3.0|^4.0|^5.0",
     "symfony/finder": "^2.8|^3.0|^4.0|^5.0",
@@ -56,8 +56,8 @@
     "handle": "express-forms",
     "name": "Express Forms",
     "developer": "Solspace",
-    "developerUrl": "https://craft.express/forms/v1/",
-    "documentationUrl": "https://craft.express/forms/v1/",
+    "developerUrl": "https://docs.solspace.com/craft/express-forms/v2/",
+    "documentationUrl": "https://docs.solspace.com/craft/express-forms/v2/",
     "changelogUrl": "https://raw.githubusercontent.com/solspace/craft-express-forms/master/CHANGELOG.md",
     "hooks": {
       "pre-commit": [

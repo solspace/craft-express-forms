@@ -7,10 +7,10 @@ contact_links:
     url: https://github.com/solspace/craft-express-forms/discussions
     about: Ask a question about Express Forms (e.g. whether or not ____ can be done, etc).
   - name: Private Support Ticket
-    url: https://craft.express/forms/v1/support.html
+    url: https://docs.solspace.com/craft/express-forms/v2/support.html
     about: Create a private support ticket.
   - name: Express Forms Documentation
-    url: https://craft.express/forms/v1/
+    url: https://docs.solspace.com/craft/express-forms/v2/
     about: Read the official documentation.
   - name: Craft Stack Exchange
     url: https://craftcms.stackexchange.com/questions/tagged/solspace

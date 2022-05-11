@@ -3,9 +3,9 @@
  * Express Forms for Craft.
  *
  * @author        Solspace, Inc.
- * @copyright     Copyright (c) 2019-2020, Solspace, Inc.
+ * @copyright     Copyright (c) 2019-2022, Solspace, Inc.
  *
- * @see          https://craft.express/forms/v1/
+ * @see           https://docs.solspace.com/craft/express-forms/v2/
  *
  * @license       https://docs.solspace.com/license-agreement/
  */
