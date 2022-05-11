@@ -19,49 +19,47 @@ Express Forms is a FREE reliable form building plugin for Craft CMS. It contains
 
 Compare the key features for Express Forms between _Lite_ and _Pro_ editions. The FREE _Lite_ edition includes all the essentials for creating and managing forms for most websites. Upgrade to _Pro_ edition if you need additional functionality for your forms.
 
-For a full feature comparison to **Freeform** and the native Craft **Contact Form** plugin, [check out the Compare page](https://docs.solspace.com/craft/express-forms/v2/compare.html)!
-
-| Feature                                                  | Description                                                                                         | **Lite** | **Pro** |
-| :------------------------------------------------------- | :-------------------------------------------------------------------------------------------------- | :------: | :-----: |
-| Unlimited forms                                          | Create and manage as many forms as you need                                                         |    ✓     |  **✓**  |
-| Unlimited email notifications and template choices       | Almost every conceivable option for sending HTML email(s), all customizable                         |    ✓     |  **✓**  |
-| Email notifications saved as HTML files                  | Save email notification templates as HTML files, but also manage from directly inside control panel |    ✓     |  **✓**  |
-| Beautiful and simplified Form Builder                    | Simple yet powerful, and easy to use                                                                |    ✓     |  **✓**  |
-| All basic browser field types                            | Choose between a variety of regular field types                                                     |    ✓     |  **✓**  |
-| Upload/attach files to submissions                       | Allow users to upload files which are validated and stored as Assets                                |    ✓     |  **✓**  |
-| Manage submissions                                       | View, edit, delete or export form submissions                                                       |    ✓     |  **✓**  |
-| Save submissions to database, or not                     | Choose to store submission data, or never keep it on your site                                      |    ✓     |  **✓**  |
-| GDPR compliant                                           | All the tools you need to make your forms GDPR compliant                                            |    ✓     |  **✓**  |
-| CSV Exporting                                            | Export all submissions for a form as a CSV file                                                     |    ✓     |  **✓**  |
-| XML, JSON and Excel Exporting                            | Export all submissions for a form as a XML, JSON or Excel file                                      |          |  **✓**  |
-| Built-in Honeypot spam protection                        | Powerful and effective advanced spam control built right in                                         |    ✓     |  **✓**  |
-| reCAPTCHA v2 Checkbox                                    | Fight spam with reCAPTCHA v2 Checkbox                                                               |    ✓     |  **✓**  |
-| Clean and simplified templating and available automation | Full control with regular Twig/HTML templates to customize layouts                                  |    ✓     |  **✓**  |
-| Inline errors                                            | Display error messages and validation per field upon submit                                         |    ✓     |  **✓**  |
-| Demo templates                                           | Just 1 click and you have an example form and a real-world set of working templates                 |    ✓     |  **✓**  |
-| Basic permission controls                                | Basic user group and user permission controls for each section of plugin                            |    ✓     |  **✓**  |
-| Developer-friendly                                       | Extensive developer events for all your needs                                                       |    ✓     |  **✓**  |
-| Translatable                                             | Translate fields for front end with translation files                                               |    ✓     |  **✓**  |
-| Popular CRM API integrations                             | Currently includes Salesforce Lead, Salesforce Opportunity and HubSpot                              |          |  **✓**  |
-| Popular Mailing List API integrations                    | Currently includes MailChimp, Campaign Monitor, and Constant Contact                                |          |  **✓**  |
-| Dashboard Widgets                                        | Includes a dashboard widget that displays stats for your form submissions                           |          |  **✓**  |
-| Rename plugin                                            | Rename the plugin name (throughout CP) to whatever you like                                         |          |  **✓**  |
+| Feature | Description | **Lite** | **Pro** |
+| :------ | :---------- | :------: | :-----: |
+| Unlimited forms | Create and manage as many forms as you need | ✓ | **✓** |
+| Unlimited email notifications and template choices | Almost every conceivable option for sending HTML email(s), all customizable | ✓ | **✓** |
+| Email notifications saved as HTML files | Save email notification templates as HTML files, but also manage from directly inside control panel | ✓ | **✓** |
+| Beautiful and simplified Form Builder | Simple yet powerful, and easy to use | ✓ | **✓** |
+| All basic browser field types | Choose between a variety of regular field types | ✓ | **✓** |
+| Upload/attach files to submissions | Allow users to upload files which are validated and stored as Assets | ✓ | **✓** |
+| Manage submissions | View, edit, delete or export form submissions | ✓ | **✓** |
+| Save submissions to database, or not | Choose to store submission data, or never keep it on your site | ✓ | **✓** |
+| GDPR compliant | All the tools you need to make your forms GDPR compliant | ✓ | **✓** |
+| CSV Exporting | Export all submissions for a form as a CSV file | ✓ | **✓** |
+| XML, JSON and Excel Exporting | Export all submissions for a form as a XML, JSON or Excel file | | **✓** |
+| Built-in Honeypot spam protection | Powerful and effective advanced spam control built right in | ✓ | **✓** |
+| reCAPTCHA v2 Checkbox | Fight spam with reCAPTCHA v2 Checkbox | ✓ | **✓** |
+| Clean and simplified templating and available automation | Full control with regular Twig/HTML templates to customize layouts | ✓ | **✓** |
+| Inline errors | Display error messages and validation per field upon submit | ✓ | **✓** |
+| Demo templates | Just 1 click and you have an example form and a real-world set of working templates | ✓ | **✓** |
+| Basic permission controls | Basic user group and user permission controls for each section of plugin | ✓ | **✓** |
+| Developer-friendly | Extensive developer events for all your needs | ✓ | **✓** |
+| Translatable | Translate fields for front end with translation files | ✓ | **✓** |
+| Popular CRM API integrations | Currently includes Salesforce Lead, Salesforce Opportunity and HubSpot | | **✓** |
+| Popular Mailing List API integrations | Currently includes MailChimp, Campaign Monitor, and Constant Contact | | **✓** |
+| Dashboard Widgets | Includes a dashboard widget that displays stats for your form submissions | | **✓** |
+| Rename plugin | Rename the plugin name (throughout CP) to whatever you like | | **✓** |
 
 ## Pricing & Support
 
 Check out the chart below to help you choose the right version for your needs.
 
-|                                                                                                                                                             |                          **Lite**                           |                      **Pro**                       |
-| :---------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------: | :------------------------------------------------: |
-| Price                                                                                                                                                       |                            FREE                             |                      **$49**                       |
-| Number of sites (including dev/staging)                                                                                                                     |                           1 site                            |                     **1 site**                     |
-| Support Level<br /><small><em>† Support tickets will typically receive first response within this timeframe or sooner, based on business days.</em></small> |                          3-5 days†                          |                    **2 days†**                     |
-| Support term                                                                                                                                                |                             N/A                             |                     **1 year**                     |
-| Updates available                                                                                                                                           |                             N/A                             |                     **1 year**                     |
-| Renewal (optional)                                                                                                                                          |                             N/A                             |                     **$29/yr**                     |
-| Compatibility                                                                                                                                               |                         Craft 3.1+                          |                   **Craft 3.1+**                   |
-| Refund policy                                                                                                                                               |                             N/A                             |                    **30 days**                     |
-| <small><a href="https://plugins.craftcms.com/express-forms">TRY IT TODAY!</a></small>                                                                       | [Install Free!](https://plugins.craftcms.com/express-forms) | [Buy!](https://plugins.craftcms.com/express-forms) |
+|      | **Lite** | **Pro** |
+| :--- | :------: | :-----: |
+| Price | FREE | **$49** |
+| Number of sites (including dev/staging) | 1 site | **1 site** |
+| Support Level<br /><small><em>† Support tickets will typically receive first response within this timeframe or sooner, based on business days.</em></small> | 3-5 days† | **2 days†** |
+| Support term | N/A | **1 year** |
+| Updates available | N/A | **1 year** |
+| Renewal (optional) | N/A | **$29/yr** |
+| Compatibility | Craft 4.0+ | **Craft 4.0+** |
+| Refund policy | N/A | **30 days** |
+| <small><a href="https://plugins.craftcms.com/express-forms">TRY IT TODAY!</a></small> | [Install Free!](https://plugins.craftcms.com/express-forms) | [Buy!](https://plugins.craftcms.com/express-forms) |
 
 ## Requirements
 
