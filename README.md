@@ -1,6 +1,6 @@
 # Solspace Express Forms plugin for Craft CMS 4.x
 
-Express Forms is an intuitive and lightweight form builder that gets the job done but doesn’t get in your way.
+Express Forms is an intuitive and lightweight form builder that gets the job done but doesn't get in your way.
 
 ![Screenshot](packages/plugin/src/icon.svg)
 
@@ -13,7 +13,7 @@ Express Forms is an intuitive and lightweight form builder that gets the job don
 
 ## Overview
 
-Express Forms is a FREE reliable form building plugin for Craft CMS. It contains every feature available to the native Craft Contact Form plugin and more. It's simple and intuitive to use, and doesn't get in your way if you're wanting to build simple forms or handle your own templating and custom features. It was developed with a "developer first" mentality, so it’s highly extendable. It also contains several built-in popular API integrations. Stop wasting valuable development hours wrestling with alternative form plugins. Express Forms makes form building smooth.
+Express Forms is a FREE reliable form building plugin for Craft CMS. It contains every feature available to the native Craft Contact Form plugin and more. It's simple and intuitive to use, and doesn't get in your way if you're wanting to build simple forms or handle your own templating and custom features. It was developed with a "developer first" mentality, so it's highly extendable. It also contains several built-in popular API integrations. Stop wasting valuable development hours wrestling with alternative form plugins. Express Forms makes form building smooth.
 
 ## Key Features
 
