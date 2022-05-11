@@ -1,5 +1,10 @@
 # Solspace Express Forms Changelog
 
+## 4.0.0-beta.1 - 2022-05-11
+
+### Added
+- Added compatibility with Craft 4.x.
+
 ## 1.1.2 - 2022-01-10
 
 ### Fixed
