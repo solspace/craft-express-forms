@@ -23,7 +23,7 @@ class SubmitController extends Controller
 
     public array|int|bool $allowAnonymous = true;
 
-    public function actionIndex(): Response
+    public function actionIndex(): ?Response
     {
         $this->requirePostRequest();
         $request = Craft::$app->request;
@@ -102,5 +102,7 @@ class SubmitController extends Controller
                 return $this->asJson($event->getAjaxResponseData());
             }
         }
+
+        return null;
     }
 }
