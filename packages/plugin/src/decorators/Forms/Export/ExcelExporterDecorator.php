@@ -15,8 +15,8 @@ class ExcelExporterDecorator extends AbstractDecorator implements ExtraBundle
     public function getEventListenerList(): array
     {
         return [
-            [Export::class, Export::EVENT_REGISTER_EXPORT_TYPES, [$this, 'registerType']],
-            [Export::class, Export::EVENT_EXPORT_SUBMISSIONS, [$this, 'exportSubmissions']],
+            // [Export::class, Export::EVENT_REGISTER_EXPORT_TYPES, [$this, 'registerType']],
+            // [Export::class, Export::EVENT_EXPORT_SUBMISSIONS, [$this, 'exportSubmissions']],
         ];
     }
 
