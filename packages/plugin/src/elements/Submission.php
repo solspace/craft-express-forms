@@ -161,7 +161,7 @@ class Submission extends Element
                 }
             }
 
-            return $value;
+            return $value ?? '';
         }
 
         return parent::getTableAttributeHtml($attribute);
