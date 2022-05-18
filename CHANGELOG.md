@@ -1,5 +1,13 @@
 # Solspace Express Forms Changelog
 
+## 2.0.0-beta.2 - 2022-05-18
+
+### Fixed
+- Fixed a bug where an error could sometimes occur while viewing submissions in the control panel.
+
+### Removed
+- Removed the `phpoffice/phpspreadsheet` dependency to prevent install conflicts. Excel exporting inside Express Forms is temporarily disabled until a new library is implemented.
+
 ## 2.0.0-beta.1 - 2022-05-11
 
 ### Added
