@@ -18,12 +18,12 @@ use Solspace\ExpressForms\services\Widgets;
 
 class OverviewStatsWidget extends Widget
 {
-    public ?string $title;
-    public ?array $formIds;
-    public ?bool $aggregate;
-    public ?string $dateRange;
-    public ?int $chartHeight;
-    public ?string $chartType;
+    public ?string $title = null;
+    public ?array $formIds = null;
+    public ?bool $aggregate = null;
+    public ?string $dateRange = null;
+    public ?int $chartHeight = null;
+    public ?string $chartType = null;
 
     public static function displayName(): string
     {
