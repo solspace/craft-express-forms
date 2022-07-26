@@ -3,6 +3,7 @@
 namespace Solspace\ExpressForms\services;
 
 use craft\helpers\App;
+use craft\helpers\ImageTransforms as TransformHelper;
 use craft\mail\Message;
 use DateTime;
 use Solspace\Commons\Helpers\StringHelper;
@@ -219,7 +220,11 @@ class EmailNotifications extends BaseService
                 foreach ($assetIds as $assetId) {
                     $asset = \Craft::$app->assets->getAssetById((int) $assetId);
                     if ($asset) {
-                        $email->attach($asset->getTransformSource());
+                        if (method_exists($asset, 'getTransformSource')) {
+                            $email->attach($asset->getTransformSource());
+                        } else {
+                            $email->attach(TransformHelper::getLocalImageSource($asset));
+                        }
                     }
                 }
             }
