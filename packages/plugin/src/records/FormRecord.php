@@ -141,7 +141,7 @@ class FormRecord extends ActiveRecord
         \Craft::$app->db->createCommand()
             ->dropTableIfExists(Submission::getContentTableNameFromHandle($this->handle))
             ->execute()
-            ;
+        ;
 
         Craft::$app->getContent()->contentTable = $oldContentTable;
         Craft::$app->getContent()->fieldColumnPrefix = $oldFieldColumnPrefix;

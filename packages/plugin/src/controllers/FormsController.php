@@ -169,7 +169,7 @@ class FormsController extends Controller
                         ['uuid' => $uuid]
                     )
                     ->execute()
-            ;
+                ;
             }
 
             return $this->asJson(['success' => true]);
@@ -193,7 +193,7 @@ class FormsController extends Controller
                         ['id' => $id]
                     )
                     ->execute()
-            ;
+                ;
             }
 
             return $this->asJson(['success' => true]);

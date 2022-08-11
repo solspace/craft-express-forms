@@ -154,7 +154,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
 
             header('Location: '.$this->getAuthorizeUrl().'?'.http_build_query($payload));
 
-            exit();
+            exit;
         }
     }
 

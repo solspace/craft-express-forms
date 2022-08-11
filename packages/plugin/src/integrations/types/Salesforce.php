@@ -186,7 +186,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
 
             header('Location: '.$this->getAuthorizeUrl().'?'.http_build_query($payload));
 
-            exit();
+            exit;
         }
     }
 

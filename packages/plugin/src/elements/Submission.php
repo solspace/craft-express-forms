@@ -179,7 +179,7 @@ class Submission extends Element
             \Craft::$app->db->createCommand()
                 ->insert(self::TABLE, $insertData)
                 ->execute()
-                ;
+            ;
         }
 
         parent::afterSave($isNew);

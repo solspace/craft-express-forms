@@ -91,7 +91,7 @@ class IntegrationsDecorator extends AbstractDecorator implements ExtraBundle
                 ExpressForms::getInstance()->integrations->storeConfig($integrationType);
                 header('Location: '.UrlHelper::cpUrl('express-forms/settings/api-integrations'));
 
-                exit();
+                exit;
             }
 
             $event->addContent(

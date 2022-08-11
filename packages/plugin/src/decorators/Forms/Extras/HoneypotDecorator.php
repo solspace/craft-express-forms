@@ -98,7 +98,7 @@ class HoneypotDecorator extends AbstractDecorator
         $output .= '<label for="'.$id.'" aria-hidden="true" tabindex="-1">Leave this alone</label>';
         $output .= '<input type="text"';
         $output .= ' name="'.$honeypotName.'"';
-        $output .= ' autocomplete="express-form '.($honeypotName).'"';
+        $output .= ' autocomplete="express-form '.$honeypotName.'"';
         $output .= ' value=""';
         $output .= ' id="'.$id.'"';
         $output .= ' tabindex="-1"';

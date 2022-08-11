@@ -19,7 +19,7 @@ use yii\base\Event;
 
 class HubSpotV1 extends AbstractIntegrationType implements CrmTypeInterface
 {
-    const RESOURCE_DEAL_COMPANY_CONTACT = 'deal_company_contact';
+    public const RESOURCE_DEAL_COMPANY_CONTACT = 'deal_company_contact';
 
     /** @var string */
     protected $apiKey;
