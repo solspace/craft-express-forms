@@ -17,7 +17,7 @@ use Solspace\ExpressForms\integrations\IntegrationMappingInterface;
 use Solspace\ExpressForms\objects\Integrations\Setting;
 use yii\base\Event;
 
-class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
+class HubSpotV1 extends AbstractIntegrationType implements CrmTypeInterface
 {
     const RESOURCE_DEAL_COMPANY_CONTACT = 'deal_company_contact';
 
@@ -27,13 +27,13 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
     public static function getSettingsManifest(): array
     {
         return [
-            new Setting('API Key', 'apiKey'),
+            new Setting('Private App Key', 'apiKey'),
         ];
     }
 
     public function getName(): string
     {
-        return 'HubSpot (Legacy)';
+        return 'HubSpot (v1)';
     }
 
     public function getHandle(): string
@@ -273,7 +273,12 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
 
     private function generateAuthorizedClient(): Client
     {
-        return new Client(['query' => ['hapikey' => $this->getApiKey()]]);
+        return new Client([
+            'headers' => [
+                'Authorization' => 'Bearer '.$this->getApiKey(),
+                'Content-Type' => 'application/json',
+            ],
+        ]);
     }
 
     private function extractCustomFields(string $endpoint, string $dataType, array &$fieldList)
