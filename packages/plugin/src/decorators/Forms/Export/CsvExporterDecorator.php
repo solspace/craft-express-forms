@@ -44,7 +44,7 @@ class CsvExporterDecorator extends AbstractDecorator
                         $value = $value ? 'yes' : 'no';
                     }
 
-                    $value = htmlentities($value);
+                    $value = $value ? htmlentities($value) : $value;
                 }
                 unset($value);
 

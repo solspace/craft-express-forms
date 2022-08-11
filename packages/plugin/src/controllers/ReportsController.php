@@ -207,6 +207,7 @@ class ReportsController extends Controller
         // If this is an element query, modify the prepared query directly
         if ($query instanceof ElementQueryInterface) {
             $query = $query->prepare(\Craft::$app->getDb()->getQueryBuilder());
+
             /** @var Query $subQuery */
             $subQuery = $query->from['subquery'];
             $subQuery

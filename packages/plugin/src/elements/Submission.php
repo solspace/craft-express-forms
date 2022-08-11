@@ -161,6 +161,7 @@ class Submission extends Element
     {
         if (preg_match('/^field:(\d+)$/', $attribute, $matches)) {
             list($_, $id) = $matches;
+
             /** @var BaseField $field */
             $field = \Craft::$app->getFields()->getFieldById($id);
 
