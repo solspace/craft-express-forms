@@ -20,6 +20,7 @@ use Solspace\ExpressForms\integrations\IntegrationMappingInterface;
 use Solspace\ExpressForms\integrations\types\CampaignMonitor;
 use Solspace\ExpressForms\integrations\types\ConstantContact;
 use Solspace\ExpressForms\integrations\types\HubSpot;
+use Solspace\ExpressForms\integrations\types\HubSpotV1;
 use Solspace\ExpressForms\integrations\types\MailChimp;
 use Solspace\ExpressForms\integrations\types\Salesforce;
 use Solspace\ExpressForms\objects\Integrations\Setting;
@@ -59,6 +60,7 @@ class IntegrationsDecorator extends AbstractDecorator implements ExtraBundle
             ->addType(CampaignMonitor::class)
             ->addType(ConstantContact::class)
             ->addType(HubSpot::class)
+            ->addType(HubSpotV1::class)
             ->addType(MailChimp::class)
             ->addType(Salesforce::class)
         ;
