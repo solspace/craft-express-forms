@@ -124,8 +124,8 @@
 
     > span
       position relative;
-      top 4px
-      left 0
+      top 5px
+      left 5px
 
       justify-self stretch
       align-self stretch
@@ -137,8 +137,8 @@
       transition all $animationSpeed $ease
 
       svg
-        width $size - 10
-        height $size - 10
+        width $size - 15
+        height $size - 15
 
     &:hover > div
       transform scale(1.2)
@@ -215,8 +215,9 @@
 
     svg
       margin-top 5px
-      width $size - 10
-      height $size - 10
+      margin-left 5px
+      width $size - 15
+      height $size - 15
 
     &[data-field-type="text"]:before
       background-image url(./icons/fieldtype-text.svg)
