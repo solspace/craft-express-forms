@@ -1,7 +1,7 @@
 {
   "name": "solspace/craft-express-forms",
   "description": "Intuitive and lightweight form builder that gets the job done but doesn't get in your way.",
-  "version": "2.0.0-beta.2",
+  "version": "2.0.0-beta.3",
   "type": "craft-plugin",
   "keywords": [
     "forms",
@@ -50,7 +50,7 @@
     "post-update-cmd": "cghooks update"
   },
   "extra": {
-    "schemaVersion": "1.0.1",
+    "schemaVersion": "1.0.2",
     "class": "Solspace\\ExpressForms\\ExpressForms",
     "handle": "express-forms",
     "name": "Express Forms",

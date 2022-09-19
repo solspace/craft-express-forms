@@ -21,8 +21,7 @@ class HubSpotV1 extends AbstractIntegrationType implements CrmTypeInterface
 {
     public const RESOURCE_DEAL_COMPANY_CONTACT = 'deal_company_contact';
 
-    /** @var string */
-    protected $apiKey;
+    protected ?string $apiKey = null;
 
     public static function getSettingsManifest(): array
     {
@@ -38,7 +37,7 @@ class HubSpotV1 extends AbstractIntegrationType implements CrmTypeInterface
 
     public function getHandle(): string
     {
-        return 'hubspot';
+        return 'hubspot_v1';
     }
 
     public function getDescription(): string
@@ -58,7 +57,7 @@ class HubSpotV1 extends AbstractIntegrationType implements CrmTypeInterface
 
         try {
             $response = $client->get($endpoint);
-            $json = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+            $json = json_decode((string) $response->getBody(), true);
 
             return isset($json['contacts']);
         } catch (RequestException $e) {
@@ -66,10 +65,7 @@ class HubSpotV1 extends AbstractIntegrationType implements CrmTypeInterface
         }
     }
 
-    /**
-     * @return null|string
-     */
-    public function getApiKey()
+    public function getApiKey(): ?string
     {
         return $this->apiKey;
     }

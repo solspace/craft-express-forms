@@ -195,7 +195,11 @@ class Integrations extends BaseService
 
             $resourceHandles[] = $handle;
 
-            $resourceRecord = IntegrationResourceRecord::findOne(['handle' => $handle]);
+            $resourceRecord = IntegrationResourceRecord::findOne([
+                'typeClass' => \get_class($type),
+                'handle' => $handle,
+            ]);
+
             if (!$resourceRecord) {
                 $resourceRecord = new IntegrationResourceRecord();
                 $resourceRecord->typeClass = \get_class($type);

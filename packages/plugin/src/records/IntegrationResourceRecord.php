@@ -28,7 +28,7 @@ class IntegrationResourceRecord extends ActiveRecord
         return [
             [['typeClass'], 'required'],
             [['handle', 'name'], 'required'],
-            [['handle'], 'unique'],
+            [['handle'], 'unique', 'targetAttribute' => ['typeClass', 'handle']],
         ];
     }
 
