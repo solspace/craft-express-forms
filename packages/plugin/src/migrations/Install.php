@@ -55,7 +55,7 @@ class Install extends StreamlinedInstallMigration
                 ->addField('name', $this->string()->notNull())
                 ->addField('type', $this->string()->notNull())
                 ->addField('required', $this->boolean())
-                ->addField('settings', $this->text())
+                ->addField('settings', $this->mediumText())
                 ->addField('category', $this->string())
                 ->addField('sortOrder', $this->integer()->notNull()->defaultValue(0))
                 ->addIndex(['sortOrder'])

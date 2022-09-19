@@ -38,7 +38,7 @@ class HubSpotV1 extends AbstractIntegrationType implements CrmTypeInterface
 
     public function getHandle(): string
     {
-        return 'hubspot';
+        return 'hubspot_v1';
     }
 
     public function getDescription(): string
@@ -58,7 +58,7 @@ class HubSpotV1 extends AbstractIntegrationType implements CrmTypeInterface
 
         try {
             $response = $client->get($endpoint);
-            $json = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+            $json = json_decode((string) $response->getBody(), true);
 
             return isset($json['contacts']);
         } catch (RequestException $e) {
