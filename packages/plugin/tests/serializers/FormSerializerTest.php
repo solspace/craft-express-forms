@@ -11,6 +11,7 @@ use Solspace\ExpressForms\serializers\FormSerializer;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class FormSerializerTest extends TestCase

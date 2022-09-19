@@ -12,6 +12,7 @@ use Solspace\ExpressForms\providers\View\RequestProviderInterface;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class HoneypotDecoratorTest extends TestCase

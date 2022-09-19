@@ -12,6 +12,7 @@ use yii\web\Response;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class CsvExporterDecoratorTest extends TestCase

@@ -7,6 +7,7 @@ use Solspace\ExpressForms\objects\ParameterBag;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class ParameterBagTest extends TestCase

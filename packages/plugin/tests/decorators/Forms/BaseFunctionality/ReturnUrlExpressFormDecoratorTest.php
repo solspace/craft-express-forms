@@ -15,6 +15,7 @@ use yii\base\Event;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class ReturnUrlExpressFormDecoratorTest extends TestCase

@@ -8,6 +8,7 @@ use Solspace\ExpressForms\models\Form;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class DefaultActionDecoratorTest extends TestCase

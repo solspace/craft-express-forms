@@ -11,6 +11,7 @@ use Solspace\ExpressForms\models\Form;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class FormFactoryTest extends TestCase

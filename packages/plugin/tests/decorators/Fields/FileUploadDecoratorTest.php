@@ -13,6 +13,7 @@ use Solspace\ExpressForms\providers\Files\FileUploadInterface;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class FileUploadDecoratorTest extends TestCase

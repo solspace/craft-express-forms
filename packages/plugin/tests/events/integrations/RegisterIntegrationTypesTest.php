@@ -9,6 +9,7 @@ use Solspace\ExpressForms\integrations\IntegrationMappingInterface;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class RegisterIntegrationTypesTest extends TestCase

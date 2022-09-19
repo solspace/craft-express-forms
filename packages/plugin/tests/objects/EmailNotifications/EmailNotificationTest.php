@@ -7,6 +7,7 @@ use Solspace\ExpressForms\models\EmailNotification;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class EmailNotificationTest extends TestCase

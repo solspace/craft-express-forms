@@ -12,6 +12,7 @@ use yii\base\Event;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class FormTest extends TestCase

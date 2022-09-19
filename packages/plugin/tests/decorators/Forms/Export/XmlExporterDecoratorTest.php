@@ -13,6 +13,7 @@ use yii\web\Response;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class XmlExporterDecoratorTest extends TestCase

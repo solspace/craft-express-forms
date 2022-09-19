@@ -13,6 +13,7 @@ use Solspace\ExpressForms\providers\Session\SessionProviderInterface;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class PreventDuplicateSubmissionsDecoratorTest extends TestCase

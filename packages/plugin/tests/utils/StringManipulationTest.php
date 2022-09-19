@@ -7,6 +7,7 @@ use Solspace\ExpressForms\utilities\StringManipulation;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class StringManipulationTest extends TestCase

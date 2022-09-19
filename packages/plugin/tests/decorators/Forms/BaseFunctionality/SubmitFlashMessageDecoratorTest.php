@@ -13,6 +13,7 @@ use Solspace\ExpressForms\providers\Session\FlashBagProviderInterface;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class SubmitFlashMessageDecoratorTest extends TestCase

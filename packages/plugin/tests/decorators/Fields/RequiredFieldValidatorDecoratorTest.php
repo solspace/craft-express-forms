@@ -9,6 +9,7 @@ use Solspace\ExpressForms\models\Form;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class RequiredFieldValidatorDecoratorTest extends TestCase

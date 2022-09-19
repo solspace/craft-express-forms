@@ -14,6 +14,7 @@ use yii\base\Event;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class FormPayloadDecoratorTest extends TestCase

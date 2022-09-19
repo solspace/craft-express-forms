@@ -16,6 +16,7 @@ use yii\base\Event;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class DynamicNotificationsDecoratorTest extends TestCase

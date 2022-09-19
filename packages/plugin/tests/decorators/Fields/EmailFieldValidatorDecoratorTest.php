@@ -10,6 +10,7 @@ use Solspace\ExpressForms\models\Form;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class EmailFieldValidatorDecoratorTest extends TestCase

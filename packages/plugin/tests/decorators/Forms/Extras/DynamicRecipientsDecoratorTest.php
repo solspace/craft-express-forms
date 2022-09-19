@@ -18,6 +18,7 @@ use yii\base\Event;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class DynamicRecipientsDecoratorTest extends TestCase

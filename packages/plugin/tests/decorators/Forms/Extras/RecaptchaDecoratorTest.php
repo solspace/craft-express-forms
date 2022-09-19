@@ -17,6 +17,7 @@ use Twig\Markup;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class RecaptchaDecoratorTest extends TestCase

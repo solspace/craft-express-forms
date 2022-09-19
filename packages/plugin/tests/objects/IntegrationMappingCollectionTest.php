@@ -11,6 +11,7 @@ use Solspace\ExpressForms\objects\Collections\ResourceFieldCollection;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class IntegrationMappingCollectionTest extends TestCase

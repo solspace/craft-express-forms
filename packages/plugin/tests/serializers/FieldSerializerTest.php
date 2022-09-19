@@ -8,6 +8,7 @@ use Solspace\ExpressForms\serializers\FieldSerializer;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class FieldSerializerTest extends TestCase
