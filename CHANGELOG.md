@@ -23,6 +23,11 @@
 ### Added
 - Added compatibility with Craft 4.x.
 
+## 1.1.3 - 2022-09-29
+
+### Added
+- Added a new version of the HubSpot API integration to address new Private App token requirement. This is a required change for any existing HubSpot users.
+
 ## 1.1.2 - 2022-01-10
 
 ### Fixed
