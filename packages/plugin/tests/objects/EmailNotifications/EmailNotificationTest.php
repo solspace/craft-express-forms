@@ -159,9 +159,9 @@ class EmailNotificationTest extends TestCase
             ---
             name: 'Email Notification Template'
             description: 'A description of what this template does.'
-            fromName: '{{ craft.app.systemSettings.getSettings("email").fromName }}'
-            fromEmail: '{{ craft.app.systemSettings.getSettings("email").fromEmail }}'
-            replyTo: '{{ craft.app.systemSettings.getSettings("email").fromEmail }}'
+            fromName: '{{ craft.app.projectConfig.get("email.fromName") }}'
+            fromEmail: '{{ craft.app.projectConfig.get("email.fromEmail") }}'
+            replyTo: '{{ craft.app.projectConfig.get("email.fromEmail") }}'
             cc: null
             bcc: null
             subject: 'New submission from your {{ form.name }} form'

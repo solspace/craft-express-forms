@@ -98,9 +98,9 @@ class EmailNotification extends Model
         $notification
             ->setFileName($fileName)
             ->setName('Email Notification Template')
-            ->setFromName('{{ craft.app.systemSettings.getSettings("email").fromName }}')
-            ->setFromEmail('{{ craft.app.systemSettings.getSettings("email").fromEmail }}')
-            ->setReplyTo('{{ craft.app.systemSettings.getSettings("email").fromEmail }}')
+            ->setFromName('{{ craft.app.projectConfig.get("email.fromName") }}')
+            ->setFromEmail('{{ craft.app.projectConfig.get("email.fromEmail") }}')
+            ->setReplyTo('{{ craft.app.projectConfig.get("email.fromEmail") }}')
             ->setSubject('New submission from your {{ form.name }} form')
             ->setIncludeAttachments(true)
             ->setDescription('A description of what this template does.')
