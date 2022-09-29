@@ -1,5 +1,15 @@
 # Solspace Express Forms Changelog
 
+## 2.0.0 - 2022-09-29
+
+### Added
+- Added a new version of the HubSpot API integration to address new Private App token requirement. This is a required change for any existing HubSpot users.
+
+### Fixed
+- Fixed a bug where an error would occur in the Craft dashboard if using the Express Forms widget.
+- Fixed a bug where duplicating forms was not working.
+- Fixed a bug where uploading file attachments could result in an error being logged.
+
 ## 2.0.0-beta.2 - 2022-05-18
 
 ### Fixed

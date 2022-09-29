@@ -1,7 +1,7 @@
 {
   "name": "solspace/craft-express-forms",
   "description": "Intuitive and lightweight form builder that gets the job done but doesn't get in your way.",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0",
   "type": "craft-plugin",
   "keywords": [
     "forms",
