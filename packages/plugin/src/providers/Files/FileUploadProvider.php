@@ -3,11 +3,13 @@
 namespace Solspace\ExpressForms\providers\Files;
 
 use craft\elements\Asset;
+use craft\errors\UploadFailedException;
 use craft\helpers\Assets;
 use craft\web\UploadedFile;
 use Solspace\ExpressForms\events\fields\FileUploadEvent;
 use Solspace\ExpressForms\fields\File;
 use Solspace\ExpressForms\loggers\ExpressFormsLogger;
+use yii\base\ErrorException;
 use yii\base\Event;
 
 class FileUploadProvider implements FileUploadInterface
@@ -61,7 +63,14 @@ class FileUploadProvider implements FileUploadInterface
                 $filename = Assets::prepareAssetName($uploadedFile->name);
                 $asset = new Asset();
 
-                $asset->tempFilePath = $uploadedFile->tempName;
+                // Move the uploaded file to the temp folder
+                try {
+                    $tempPath = $uploadedFile->saveAsTempFile();
+                } catch (ErrorException $e) {
+                    throw new UploadFailedException(0, null, $e);
+                }
+
+                $asset->tempFilePath = $tempPath;
                 $asset->filename = $filename;
                 $asset->newFolderId = $folder->id;
                 $asset->volumeId = $folder->volumeId;
