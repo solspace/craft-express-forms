@@ -2,6 +2,7 @@
 
 namespace Solspace\ExpressForms\integrations\types;
 
+use craft\helpers\App;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Solspace\ExpressForms\events\integrations\FetchResourceFieldsEvent;
@@ -67,7 +68,7 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
 
     public function getApiKey(): ?string
     {
-        return $this->apiKey;
+        return App::parseEnv($this->apiKey);
     }
 
     public function setApiKey(string $apiKey = null): self
@@ -80,7 +81,7 @@ class HubSpot extends AbstractIntegrationType implements CrmTypeInterface
     public function serializeSettings(): array
     {
         return [
-            'apiKey' => $this->getApiKey(),
+            'apiKey' => $this->apiKey,
         ];
     }
 

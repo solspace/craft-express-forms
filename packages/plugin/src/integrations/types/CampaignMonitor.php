@@ -2,6 +2,7 @@
 
 namespace Solspace\ExpressForms\integrations\types;
 
+use craft\helpers\App;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Solspace\Commons\Helpers\StringHelper;
@@ -71,7 +72,7 @@ class CampaignMonitor extends AbstractIntegrationType implements MailingListType
 
     public function getApiKey(): ?string
     {
-        return $this->apiKey;
+        return App::parseEnv($this->apiKey);
     }
 
     public function setApiKey(string $apiKey = null): self
@@ -83,7 +84,7 @@ class CampaignMonitor extends AbstractIntegrationType implements MailingListType
 
     public function getClientId(): ?string
     {
-        return $this->clientId;
+        return App::parseEnv($this->clientId);
     }
 
     public function setClientId(string $clientId = null): self
@@ -96,8 +97,8 @@ class CampaignMonitor extends AbstractIntegrationType implements MailingListType
     public function serializeSettings(): array
     {
         return [
-            'apiKey' => $this->getApiKey(),
-            'clientId' => $this->getClientId(),
+            'apiKey' => $this->apiKey,
+            'clientId' => $this->clientId,
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace Solspace\ExpressForms\integrations\types;
 
+use craft\helpers\App;
 use craft\helpers\UrlHelper;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -20,7 +21,7 @@ use Solspace\ExpressForms\integrations\MailingListTypeInterface;
 use Solspace\ExpressForms\objects\Integrations\Setting;
 use yii\base\Event;
 
-class ConstantContact extends AbstractIntegrationType implements MailingListTypeInterface
+class ConstantContactV1 extends AbstractIntegrationType implements MailingListTypeInterface
 {
     public const FIELD_TARGET_EMAIL = 'constantContactTargetEmail';
     public const FIELD_OPT_IN = 'constantContactOptIn';
@@ -40,12 +41,12 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
 
     public function getName(): string
     {
-        return 'Constant Contact';
+        return 'Constant Contact (v1)';
     }
 
     public function getHandle(): string
     {
-        return 'constant-contact';
+        return 'constant-contact-v1';
     }
 
     public function getDescription(): string
@@ -160,7 +161,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
 
     public function getApiKey(): ?string
     {
-        return $this->apiKey;
+        return App::parseEnv($this->apiKey);
     }
 
     public function setApiKey(string $apiKey = null): self
@@ -172,7 +173,7 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
 
     public function getSecret(): ?string
     {
-        return $this->secret;
+        return App::parseEnv($this->secret);
     }
 
     public function setSecret(string $secret = null): self
@@ -209,8 +210,8 @@ class ConstantContact extends AbstractIntegrationType implements MailingListType
     public function serializeSettings(): array
     {
         return [
-            'apiKey' => $this->getApiKey(),
-            'secret' => $this->getSecret(),
+            'apiKey' => $this->apiKey,
+            'secret' => $this->secret,
             'accessToken' => $this->getAccessToken(),
             'refreshToken' => $this->getRefreshToken(),
         ];

@@ -2,6 +2,7 @@
 
 namespace Solspace\ExpressForms\integrations\types;
 
+use craft\helpers\App;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Solspace\Commons\Helpers\StringHelper;
@@ -84,7 +85,7 @@ class MailChimp extends AbstractIntegrationType implements MailingListTypeInterf
 
     public function getApiKey(): ?string
     {
-        return $this->apiKey;
+        return App::parseEnv($this->apiKey);
     }
 
     public function setApiKey(string $apiKey): self
@@ -121,7 +122,7 @@ class MailChimp extends AbstractIntegrationType implements MailingListTypeInterf
     public function serializeSettings(): array
     {
         return [
-            'apiKey' => $this->getApiKey(),
+            'apiKey' => $this->apiKey,
             'doubleOptIn' => $this->isDoubleOptIn(),
             'dataCenter' => $this->dataCenter,
         ];

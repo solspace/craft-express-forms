@@ -3,6 +3,7 @@
 namespace Solspace\ExpressForms\integrations\types;
 
 use Carbon\Carbon;
+use craft\helpers\App;
 use craft\helpers\UrlHelper;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -192,7 +193,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
 
     public function getConsumerKey(): ?string
     {
-        return $this->consumerKey;
+        return App::parseEnv($this->consumerKey);
     }
 
     public function setConsumerKey(string $consumerKey = null): self
@@ -204,7 +205,7 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
 
     public function getConsumerSecret(): ?string
     {
-        return $this->consumerSecret;
+        return App::parseEnv($this->consumerSecret);
     }
 
     public function setConsumerSecret(string $consumerSecret = null): self
@@ -313,8 +314,8 @@ class Salesforce extends AbstractIntegrationType implements CrmTypeInterface
     public function serializeSettings(): array
     {
         return [
-            'consumerKey' => $this->getConsumerKey(),
-            'consumerSecret' => $this->getConsumerSecret(),
+            'consumerKey' => $this->consumerKey,
+            'consumerSecret' => $this->consumerSecret,
             'accessToken' => $this->getAccessToken(),
             'refreshToken' => $this->getRefreshToken(),
             'assignOwner' => $this->isAssignOwner(),

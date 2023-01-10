@@ -15,6 +15,7 @@
             required: setting.required,
             value: attribute(integrationType, setting.handle),
             errors: settings.errors(setting.handle),
+            suggestEnvVars: true,
         } %}
 
         {% if setting.type == "boolean" %}
@@ -26,7 +27,7 @@
 
         {% else %}
 
-            {{ forms.textField(options) }}
+            {{ forms.autosuggestField(options) }}
 
         {% endif %}
     {% endfor %}
