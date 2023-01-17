@@ -1,5 +1,13 @@
 # Solspace Express Forms Changelog
 
+## 1.1.4 - 2023-01-17
+
+### Changed
+- Updated `symfony/property-access`, `symfony/finder` and `symfony/yaml` dependency version requirements to resolve some conflicts.
+
+### Fixed
+- Fixed a bug where file upload fields could not work in some cases.
+
 ## 1.1.3 - 2022-09-29
 
 ### Added
