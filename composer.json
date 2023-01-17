@@ -55,7 +55,7 @@
     "handle": "express-forms",
     "name": "Express Forms",
     "developer": "Solspace",
-    "developerUrl": "https://docs.solspace.com/craft/express-forms/v2/",
+    "developerUrl": "https://docs.solspace.com/",
     "documentationUrl": "https://docs.solspace.com/craft/express-forms/v2/",
     "changelogUrl": "https://raw.githubusercontent.com/solspace/craft-express-forms/master/CHANGELOG.md",
     "hooks": {

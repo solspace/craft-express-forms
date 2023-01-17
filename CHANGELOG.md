@@ -1,6 +1,6 @@
 # Solspace Express Forms Changelog
 
-## 2.0.1 - 2023-01-XX
+## 2.0.1 - 2023-01-17
 
 ### Added
 - Added new Constant Contact v3 API integration to support changes to API.
@@ -38,6 +38,14 @@
 
 ### Added
 - Added compatibility with Craft 4.x.
+
+## 1.1.4 - 2023-01-17
+
+### Changed
+- Updated `symfony/property-access`, `symfony/finder` and `symfony/yaml` dependency version requirements to resolve some conflicts.
+
+### Fixed
+- Fixed a bug where file upload fields could not work in some cases.
 
 ## 1.1.3 - 2022-09-29
 
