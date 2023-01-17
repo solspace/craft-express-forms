@@ -1,5 +1,21 @@
 # Solspace Express Forms Changelog
 
+## 2.0.1 - 2023-01-XX
+
+### Added
+- Added new Constant Contact v3 API integration to support changes to API.
+- Added ENV file support on all integrations.
+
+### Changed
+- Updated `symfony/property-access`, `symfony/finder` and `symfony/yaml` dependency version requirements to resolve some conflicts.
+
+### Fixed
+- Fixed a bug where the default email notification template was not using the 'projectConfig' approach for grabbing system email address info.
+- Fixed a bug where file upload fields could not work in some cases.
+
+### Removed
+- Removed the legacy Constant Contact and HubSpot integrations.
+
 ## 2.0.0 - 2022-09-29
 
 ### Added
