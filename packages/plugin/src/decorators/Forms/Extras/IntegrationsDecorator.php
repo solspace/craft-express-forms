@@ -18,9 +18,7 @@ use Solspace\ExpressForms\exceptions\Integrations\ConnectionFailedException;
 use Solspace\ExpressForms\ExpressForms;
 use Solspace\ExpressForms\integrations\IntegrationMappingInterface;
 use Solspace\ExpressForms\integrations\types\CampaignMonitor;
-use Solspace\ExpressForms\integrations\types\ConstantContactV1;
 use Solspace\ExpressForms\integrations\types\ConstantContactV3;
-use Solspace\ExpressForms\integrations\types\HubSpot;
 use Solspace\ExpressForms\integrations\types\HubSpotV1;
 use Solspace\ExpressForms\integrations\types\MailChimp;
 use Solspace\ExpressForms\integrations\types\Salesforce;
@@ -59,9 +57,7 @@ class IntegrationsDecorator extends AbstractDecorator implements ExtraBundle
     {
         $event
             ->addType(CampaignMonitor::class)
-            ->addType(ConstantContactV1::class)
             ->addType(ConstantContactV3::class)
-            ->addType(HubSpot::class)
             ->addType(HubSpotV1::class)
             ->addType(MailChimp::class)
             ->addType(Salesforce::class)
