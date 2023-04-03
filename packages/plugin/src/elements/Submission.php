@@ -7,8 +7,10 @@ use craft\db\Query;
 use craft\elements\actions\Restore;
 use craft\elements\Asset;
 use craft\elements\db\ElementQueryInterface;
+use craft\elements\User;
 use craft\helpers\UrlHelper;
 use craft\models\FieldLayout;
+use Solspace\Commons\Helpers\PermissionHelper;
 use Solspace\ExpressForms\elements\actions\DeleteSubmission;
 use Solspace\ExpressForms\elements\db\SubmissionQuery;
 use Solspace\ExpressForms\ExpressForms;
@@ -27,6 +29,8 @@ class Submission extends Element
     public ?int $formId = null;
     public ?string $formName = null;
     public ?int $incrementalId = null;
+
+    private static $permissionCache = [];
 
     public function __toString(): string
     {
@@ -98,6 +102,33 @@ class Submission extends Element
     public function getContentTable(): string
     {
         return self::getContentTableName($this->getForm());
+    }
+
+    public function canManageSubmissions(): bool
+    {
+        if (!isset(self::$permissionCache[$this->formId])) {
+            if (PermissionHelper::checkPermission(ExpressForms::PERMISSION_SUBMISSIONS)) {
+                self::$permissionCache[$this->formId] = true;
+            } else {
+                self::$permissionCache[$this->formId] = PermissionHelper::checkPermission(
+                    PermissionHelper::prepareNestedPermission(
+                        ExpressForms::PERMISSION_SUBMISSIONS,
+                        $this->formId
+                    )
+                );
+            }
+        }
+
+        return self::$permissionCache[$this->formId];
+    }
+
+    public function canView(User $user): bool
+    {
+        if (parent::canView($user)) {
+            return true;
+        }
+
+        return $this->canManageSubmissions();
     }
 
     public function getCpEditUrl(): ?string
@@ -238,7 +269,6 @@ class Submission extends Element
     protected static function defineTableAttributes(): array
     {
         $attributes = [
-            'title' => ['label' => ExpressForms::t('Title')],
             'id' => ['label' => ExpressForms::t('Element ID')],
             'incrementalId' => ['label' => ExpressForms::t('ID')],
             'formName' => ['label' => ExpressForms::t('Form')],
