@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { saveFormUrl, newFormUrl, formsIndexUrl, editFormUrl } from '../../config';
+import { saveFormUrl, duplicateFormUrl, newFormUrl, formsIndexUrl, editFormUrl } from '../../config';
 import { setStatusIsNotSaving, setStatusIsSaving } from './reducers';
 import { updateForm } from '../../reducers/form';
 import { translate } from '../../functions/translator';
@@ -72,26 +72,27 @@ class SaveContainer extends React.Component {
   };
 
   save = async () => {
-    const { handle } = await this.saveActiveState();
+    const { handle } = await this.saveActiveState(saveFormUrl);
 
     history.pushState(handle, '', editFormUrl(handle));
   };
 
   saveAndFinish = async () => {
-    await this.saveActiveState();
+    await this.saveActiveState(saveFormUrl);
     window.location = formsIndexUrl;
   };
 
   saveAndClear = async () => {
-    await this.saveActiveState();
+    await this.saveActiveState(saveFormUrl);
     window.location = newFormUrl;
   };
 
-  duplicate = () => {
-    const formId = this.saveActiveState();
+  duplicate = async () => {
+    const { handle } = await this.saveActiveState(duplicateFormUrl);
+    window.location = editFormUrl(handle);
   };
 
-  saveActiveState = async () => {
+  saveActiveState = async (url) => {
     const { setIsSaving, setNotSaving, setFormId } = this.props;
     const { form } = this.props;
 
@@ -101,7 +102,7 @@ class SaveContainer extends React.Component {
     saveButton.value = translate(progressTitle);
 
     try {
-      const response = await fetch(saveFormUrl, {
+      const response = await fetch(url, {
         method: 'post',
         cache: 'no-cache',
         credentials: 'same-origin',

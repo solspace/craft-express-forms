@@ -107,8 +107,15 @@ class FormsController extends Controller
     public function actionDuplicate(): Response
     {
         $this->requirePostRequest();
+
         if (\Craft::$app->request->isAjax) {
             $uuid = \Craft::$app->request->post('uuid');
+        } else {
+            $post = json_decode(\Craft::$app->request->getRawBody(), true);
+            $uuid = $post['uuid'];
+        }
+
+        if (!empty($uuid)) {
             $form = ExpressForms::getInstance()->forms->getFormByUuid($uuid);
             if ($form) {
                 $formFactory = ExpressForms::container()->formFactory();
@@ -116,7 +123,13 @@ class FormsController extends Controller
                 $fieldFactory = ExpressForms::container()->fieldFactory();
                 $fieldSerializer = ExpressForms::container()->fieldSerializer();
 
-                $serializedForm = $formSerializer->toArray($form);
+                if (!empty($post)) {
+                    // Request came from Form Edit -> Save as new form
+                    $serializedForm = $post;
+                } else {
+                    // Request came from Form Cards -> Duplicate
+                    $serializedForm = $formSerializer->toArray($form);
+                }
 
                 $newForm = $formFactory->populateFromArray(new Form(), $serializedForm);
                 $newForm->setId();
@@ -145,7 +158,13 @@ class FormsController extends Controller
                     return $this->asErrorJson(implode(',', $response->getErrors()));
                 }
 
-                return $this->asJson(['success' => true]);
+                $jsonData = [
+                    'errors' => null,
+                    'success' => true,
+                    'data' => $formSerializer->toArray($newForm),
+                ];
+
+                return $this->asJson($jsonData);
             }
 
             return $this->asErrorJson(ExpressForms::t('Could not find form'));
