@@ -1,5 +1,11 @@
 # Solspace Express Forms Changelog
 
+## 2.0.2 - 2023-04-04
+
+### Fixed
+- Fixed a bug where the CP Submissions index was not displaying links to view each submission's details.
+- Fixed a bug where saving a form as a new form (from inside the builder) was not working.
+
 ## 2.0.1 - 2023-01-17
 
 ### Added
