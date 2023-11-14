@@ -179,7 +179,7 @@
         {% if form.fields.acceptTerms.hasErrors %}
             <ul class="errors">
                 {# Loop through available Errors #}
-                {% for error in form.fields.attachment.errors %}
+                {% for error in form.fields.acceptTerms.errors %}
                     <li>{{ error|t }}</li>
                 {% endfor %}
             </ul>
