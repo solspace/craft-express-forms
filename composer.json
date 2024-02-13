@@ -1,6 +1,6 @@
 {
   "name": "solspace/craft-express-forms",
-  "description": "Intuitive and lightweight form builder that gets the job done but doesn't get in your way.",
+  "description": "Intuitive and lightweight form builder.",
   "version": "2.0.2",
   "type": "craft-plugin",
   "keywords": [
@@ -17,7 +17,7 @@
   ],
   "support": {
     "email": "support@solspace.com",
-    "issues": "https://github.com/solspace/craft-express-forms/issues?state=open",
+    "issues": "https://github.com/solspace/craft-express-forms/issues",
     "source": "https://github.com/solspace/craft-express-forms",
     "docs": "https://docs.solspace.com/craft/express-forms/v2/"
   },
@@ -57,7 +57,7 @@
     "developer": "Solspace",
     "developerUrl": "https://docs.solspace.com/",
     "documentationUrl": "https://docs.solspace.com/craft/express-forms/v2/",
-    "changelogUrl": "https://raw.githubusercontent.com/solspace/craft-express-forms/master/CHANGELOG.md",
+    "changelogUrl": "https://raw.githubusercontent.com/solspace/craft-express-forms/v2/CHANGELOG.md",
     "hooks": {
       "pre-commit": [
         "set -e",
