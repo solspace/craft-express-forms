@@ -192,6 +192,10 @@ class Submission extends Element
                 }
             }
 
+            if (\is_string($value)) {
+                $value = htmlentities($value, \ENT_QUOTES);
+            }
+
             return $value ?? '';
         }
 
