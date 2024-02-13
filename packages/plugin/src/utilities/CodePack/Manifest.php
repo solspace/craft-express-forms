@@ -3,7 +3,7 @@
  * Express Forms for Craft.
  *
  * @author        Solspace, Inc.
- * @copyright     Copyright (c) 2019-2022, Solspace, Inc.
+ * @copyright     Copyright (c) 2019-2024, Solspace, Inc.
  *
  * @see           https://docs.solspace.com/craft/express-forms/v2/
  *
