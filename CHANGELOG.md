@@ -1,5 +1,13 @@
 # Solspace Express Forms Changelog
 
+## 2.0.3 - 2024-02-13 [CRITICAL]
+
+### Security
+- Fixed a security vulnerability with the CP Submissions index.
+
+### Fixed
+- Fixed a typo on a field handle in the demo templates.
+
 ## 2.0.2 - 2023-04-04
 
 ### Fixed
